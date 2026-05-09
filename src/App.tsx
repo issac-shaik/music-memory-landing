@@ -241,7 +241,11 @@ export default function App() {
 
                   {/* Header */}
                   <div className="px-4 pt-2 pb-1">
-                    <h2 className="text-white font-bold text-[15px] leading-tight">Music Memory</h2>
+                    <div className="flex items-center gap-1.5">
+                      <h2 className="text-white font-bold text-[15px] leading-tight">Music Memory</h2>
+                      <span className="text-[10px]">🔥</span>
+                      <span className="text-[9px] text-white font-bold">1</span>
+                    </div>
                     <p className="text-gray-500 text-[9px] mt-0.5">24 memories preserved</p>
                   </div>
 
