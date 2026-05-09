@@ -144,6 +144,17 @@ export default function App() {
   useMousePosition()
   const { scrollYProgress } = useScroll()
 
+  // Screenshot slideshow
+  const [currentImage, setCurrentImage] = useState(0)
+  const screenshots = ['/screenshot-journal.png', '/screenshot-auth.png']
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % screenshots.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [])
+
   // Phone rotation based on scroll
   const phoneRotateY = useTransform(scrollYProgress, [0, 0.15, 0.3], [15, 0, -10])
   const phoneRotateX = useTransform(scrollYProgress, [0, 0.15, 0.3], [5, 0, 5])
@@ -221,170 +232,17 @@ export default function App() {
               }}
             >
               <PhoneMockup>
-                {/* Simulated app screen — matching actual journal layout */}
-                <div className="w-full h-full bg-[#0a0f1a] flex flex-col">
-                  {/* Status bar */}
-                  <div className="flex justify-between items-center px-5 pt-3 pb-1">
-                    <span className="text-[10px] text-white font-semibold">10:32</span>
-                    <div className="flex items-center gap-1">
-                      <div className="flex gap-[2px]">
-                        <div className="w-[3px] h-[6px] bg-white rounded-sm" />
-                        <div className="w-[3px] h-[8px] bg-white rounded-sm" />
-                        <div className="w-[3px] h-[10px] bg-white rounded-sm" />
-                        <div className="w-[3px] h-[12px] bg-white/40 rounded-sm" />
-                      </div>
-                      <div className="w-5 h-2.5 border border-white rounded-sm ml-1 relative">
-                        <div className="absolute inset-[1px] right-[3px] bg-white rounded-[1px]" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Header */}
-                  <div className="px-4 pt-2 pb-1">
-                    <div className="flex items-center gap-1.5">
-                      <h2 className="text-white font-bold text-[15px] leading-tight">Music Memory</h2>
-                      <span className="text-[10px]">🔥</span>
-                      <span className="text-[9px] text-white font-bold">1</span>
-                    </div>
-                    <p className="text-gray-500 text-[9px] mt-0.5">24 memories preserved</p>
-                  </div>
-
-                  {/* Month header */}
-                  <div className="px-4 pt-3 pb-1.5">
-                    <p className="text-white text-[13px] font-bold">December 2025</p>
-                  </div>
-
-                  {/* Entry grid — 4 columns like the real app */}
-                  <div className="px-2.5 flex-1 overflow-hidden">
-                    {/* Row 1 — dates */}
-                    <div className="grid grid-cols-4 gap-1 mb-0.5 px-0.5">
-                      <span className="text-[6px] text-gray-400 font-semibold uppercase">Tue 30 Dec</span>
-                      <span className="text-[6px] text-gray-400 font-semibold uppercase">Tue 30 Dec</span>
-                      <span className="text-[6px] text-gray-400 font-semibold uppercase">Mon 29 Dec</span>
-                      <span className="text-[6px] text-gray-400 font-semibold uppercase">Sun 28 Dec</span>
-                    </div>
-                    {/* Row 1 — album art */}
-                    <div className="grid grid-cols-4 gap-1 mb-1">
-                      <div className="flex flex-col">
-                        <div className="aspect-square rounded-[4px] bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center overflow-hidden">
-                          <div className="w-full h-full bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] flex items-center justify-center">
-                            <div className="w-4 h-4 rounded-full bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 opacity-80" />
-                          </div>
-                        </div>
-                        <p className="text-[6px] text-white font-semibold mt-0.5 truncate">Breathe (...</p>
-                        <p className="text-[5px] text-gray-400 truncate">Pink Floyd</p>
-                      </div>
-                      <div className="flex flex-col">
-                        <div className="aspect-square rounded-[4px] overflow-hidden">
-                          <div className="w-full h-full bg-gradient-to-b from-pink-400 to-pink-600 flex items-center justify-center">
-                            <div className="w-5 h-5 rounded-full bg-pink-300/50" />
-                          </div>
-                        </div>
-                        <p className="text-[6px] text-white font-semibold mt-0.5 truncate">How You...</p>
-                        <p className="text-[5px] text-gray-400 truncate">BLACKPINK</p>
-                      </div>
-                      <div className="flex flex-col">
-                        <div className="aspect-square rounded-[4px] overflow-hidden">
-                          <div className="w-full h-full bg-gradient-to-br from-red-700 to-red-900" />
-                        </div>
-                        <p className="text-[6px] text-white font-semibold mt-0.5 truncate">You Got t...</p>
-                        <p className="text-[5px] text-gray-400 truncate">Traffic Sound</p>
-                      </div>
-                      <div className="flex flex-col">
-                        <div className="aspect-square rounded-[4px] overflow-hidden">
-                          <div className="w-full h-full bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
-                            <div className="text-[8px] text-white/60 font-bold">W</div>
-                          </div>
-                        </div>
-                        <p className="text-[6px] text-white font-semibold mt-0.5 truncate">Undone -...</p>
-                        <p className="text-[5px] text-gray-400 truncate">Weezer</p>
-                      </div>
-                    </div>
-
-                    {/* Row 2 — dates */}
-                    <div className="grid grid-cols-4 gap-1 mb-0.5 px-0.5">
-                      <span className="text-[6px] text-gray-400 font-semibold uppercase">Sun 28 Dec</span>
-                      <span className="text-[6px] text-gray-400 font-semibold uppercase">Sat 27 Dec</span>
-                      <span className="text-[6px] text-gray-400 font-semibold uppercase">Sat 27 Dec</span>
-                      <span className="text-[6px] text-gray-400 font-semibold uppercase">Mon 22 Dec</span>
-                    </div>
-                    {/* Row 2 — album art */}
-                    <div className="grid grid-cols-4 gap-1 mb-1">
-                      <div className="flex flex-col">
-                        <div className="aspect-square rounded-[4px] overflow-hidden">
-                          <div className="w-full h-full bg-gradient-to-br from-teal-500 to-emerald-700" />
-                        </div>
-                        <p className="text-[6px] text-white font-semibold mt-0.5 truncate">Freaks</p>
-                        <p className="text-[5px] text-gray-400 truncate">Surf Curse</p>
-                      </div>
-                      <div className="flex flex-col">
-                        <div className="aspect-square rounded-[4px] overflow-hidden">
-                          <div className="w-full h-full bg-gradient-to-br from-amber-600 to-orange-800" />
-                        </div>
-                        <p className="text-[6px] text-white font-semibold mt-0.5 truncate">Mudh Ja...</p>
-                        <p className="text-[5px] text-gray-400 truncate">Vishal-She...</p>
-                      </div>
-                      <div className="flex flex-col">
-                        <div className="aspect-square rounded-[4px] overflow-hidden">
-                          <div className="w-full h-full bg-gradient-to-br from-yellow-500 to-amber-700 flex items-center justify-center">
-                            <div className="w-3 h-5 bg-yellow-300/40 rounded-full" />
-                          </div>
-                        </div>
-                        <p className="text-[6px] text-white font-semibold mt-0.5 truncate">Saturn</p>
-                        <p className="text-[5px] text-gray-400 truncate">Sleeping At...</p>
-                      </div>
-                      <div className="flex flex-col">
-                        <div className="aspect-square rounded-[4px] overflow-hidden">
-                          <div className="w-full h-full bg-gradient-to-br from-indigo-600 to-purple-800 flex items-center justify-center">
-                            <div className="w-4 h-4 rounded-full bg-orange-400/50" />
-                          </div>
-                        </div>
-                        <p className="text-[6px] text-white font-semibold mt-0.5 truncate">We Are T...</p>
-                        <p className="text-[5px] text-gray-400 truncate">Empire Of...</p>
-                      </div>
-                    </div>
-
-                    {/* Row 3 — partial, showing more content */}
-                    <div className="grid grid-cols-4 gap-1 mb-0.5 px-0.5">
-                      <span className="text-[6px] text-gray-400 font-semibold uppercase">Sun 21 Dec</span>
-                      <span className="text-[6px] text-gray-400 font-semibold uppercase">Fri 19 Dec</span>
-                      <span className="text-[6px] text-gray-400 font-semibold uppercase">Fri 19 Dec</span>
-                      <span className="text-[6px] text-gray-400 font-semibold uppercase">Thu 18 Dec</span>
-                    </div>
-                    <div className="grid grid-cols-4 gap-1">
-                      <div className="aspect-square rounded-[4px] bg-gradient-to-br from-rose-500 to-pink-700" />
-                      <div className="aspect-square rounded-[4px] bg-gradient-to-br from-cyan-500 to-blue-700" />
-                      <div className="aspect-square rounded-[4px] bg-gradient-to-br from-violet-500 to-purple-700" />
-                      <div className="aspect-square rounded-[4px] bg-gradient-to-br from-lime-500 to-green-700" />
-                    </div>
-                  </div>
-
-                  {/* Tab bar */}
-                  <div className="flex justify-around items-end px-2 py-2 border-t border-gray-800/80 bg-black/60 mt-auto">
-                    <div className="flex flex-col items-center gap-[2px]">
-                      <BookOpen className="w-[14px] h-[14px] text-[var(--color-accent)]" />
-                      <span className="text-[7px] text-[var(--color-accent)] font-semibold">Journal</span>
-                    </div>
-                    <div className="flex flex-col items-center gap-[2px]">
-                      <svg className="w-[14px] h-[14px] text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-                      </svg>
-                      <span className="text-[7px] text-gray-500">Collections</span>
-                    </div>
-                    <div className="flex flex-col items-center gap-[2px]">
-                      <div className="w-[18px] h-[18px] rounded-full bg-[var(--color-accent)] flex items-center justify-center">
-                        <span className="text-white text-[11px] font-bold leading-none">+</span>
-                      </div>
-                      <span className="text-[7px] text-gray-500">Add Entry</span>
-                    </div>
-                    <div className="flex flex-col items-center gap-[2px]">
-                      <svg className="w-[14px] h-[14px] text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      <span className="text-[7px] text-gray-500">Settings</span>
-                    </div>
-                  </div>
+                {/* Real app screenshots with crossfade */}
+                <div className="w-full h-full relative bg-black overflow-hidden rounded-[2.5rem]">
+                  {screenshots.map((src, idx) => (
+                    <img
+                      key={src}
+                      src={src}
+                      alt={`App screenshot ${idx + 1}`}
+                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+                      style={{ opacity: currentImage === idx ? 1 : 0 }}
+                    />
+                  ))}
                 </div>
               </PhoneMockup>
             </motion.div>
