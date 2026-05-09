@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { Music, BookOpen, Camera, Users, MapPin, Star, ChevronDown, Smartphone } from 'lucide-react'
 import './index.css'
 
@@ -24,7 +24,7 @@ function Counter({ target, suffix = '' }: { target: number; suffix?: string }) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          let start = 0
+
           const duration = 2000
           const startTime = performance.now()
           const animate = (now: number) => {
