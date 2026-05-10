@@ -8,10 +8,12 @@ import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
 import DeleteAccount from './pages/DeleteAccount'
 import CommunityGuidelines from './pages/CommunityGuidelines'
+import ScrollToTop from './components/ScrollToTop'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<App />} />

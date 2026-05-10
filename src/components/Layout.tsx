@@ -1,14 +1,23 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Outlet, Link } from 'react-router-dom'
 
 function useMousePosition() {
+  const rafId = useRef(0)
+
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`)
-      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`)
+      // Throttle to animation frames to avoid excessive repaints
+      cancelAnimationFrame(rafId.current)
+      rafId.current = requestAnimationFrame(() => {
+        document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`)
+        document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`)
+      })
     }
-    window.addEventListener('mousemove', handler)
-    return () => window.removeEventListener('mousemove', handler)
+    window.addEventListener('mousemove', handler, { passive: true })
+    return () => {
+      window.removeEventListener('mousemove', handler)
+      cancelAnimationFrame(rafId.current)
+    }
   }, [])
 }
 
@@ -18,10 +27,10 @@ export default function Layout() {
   return (
     <div className="min-h-screen bg-black spotlight grid-bg flex flex-col">
       {/* ─── Nav ─── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md border-b border-white/5">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <img src="/adaptive-icon.png" alt="Music Memory Logo" className="w-8 h-8 rounded-lg object-cover" />
+            <img src="/adaptive-icon.png" alt="Music Memory Logo" className="w-8 h-8 rounded-lg object-cover" width={32} height={32} />
             <span className="font-bold text-lg text-white">Music Memory</span>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-sm text-gray-400">
@@ -47,7 +56,7 @@ export default function Layout() {
       <footer className="border-t border-white/5 py-12 px-6 mt-auto">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-2">
-            <img src="/adaptive-icon.png" alt="Music Memory Logo" className="w-6 h-6 rounded-md object-cover" />
+            <img src="/adaptive-icon.png" alt="Music Memory Logo" className="w-6 h-6 rounded-md object-cover" width={24} height={24} />
             <span className="font-bold text-white">Music Memory</span>
           </Link>
           <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-500">
