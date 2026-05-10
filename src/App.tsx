@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, memo } from 'react'
 import { motion } from 'framer-motion'
-import { Music, BookOpen, Camera, Users, MapPin, Star, ChevronDown, Smartphone } from 'lucide-react'
+import { Music, BookOpen, Camera, Users, MapPin, Star, ChevronDown, Search, History } from 'lucide-react'
 
 // ─── CSS-based fade-in using IntersectionObserver (replaces framer-motion whileInView) ───
 function useFadeIn<T extends HTMLElement>() {
@@ -204,21 +204,17 @@ export default function App() {
             transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
             className="relative flex justify-center items-center h-[500px] md:h-[600px] w-full"
           >
-            {/* Background Phone (Auth - Tilted) */}
+            {/* Background Phone (Left) */}
             <img
               src="/screenshot-auth.png"
               alt="Music Memory Login"
-              width={250}
-              height={483}
-              className="absolute left-1/2 ml-[10px] md:ml-[40px] top-[15%] md:top-[10%] w-[180px] md:w-[250px] z-0 transform rotate-[30deg] opacity-90 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+              className="absolute left-1/2 -translate-x-[80%] md:-translate-x-[85%] top-[10%] md:top-[15%] w-[180px] md:w-[240px] z-0 drop-shadow-2xl"
             />
-            {/* Foreground Phone (Journal - Upright) */}
+            {/* Foreground Phone (Right) */}
             <img
               src="/screenshot-journal.png"
               alt="Music Memory Journal"
-              width={280}
-              height={520}
-              className="absolute right-1/2 mr-[-20px] md:mr-[20px] top-[5%] md:top-0 w-[200px] md:w-[280px] z-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
+              className="absolute left-1/2 -translate-x-[20%] md:-translate-x-[15%] top-[0%] md:top-[5%] w-[210px] md:w-[280px] z-10 drop-shadow-2xl"
             />
           </motion.div>
         </div>
@@ -265,59 +261,62 @@ export default function App() {
             <div className="flex flex-col gap-6 w-full lg:w-1/3 order-2 lg:order-1">
               <LightFeatureCard
                 icon={BookOpen}
-                title="Music Journal"
-                description="Write the story behind every song. When you first heard it, where you were, what you were feeling."
+                title="Write the Story"
+                description="Write down the memory while it's fresh—the person, the place, the feeling. Turn every song into a time capsule."
                 delay={0}
                 align="left"
               />
               <LightFeatureCard
-                icon={Camera}
-                title="Photos & Videos"
-                description="Attach photos and videos to your memories. The concert clip, the sunset, the road trip selfie."
+                icon={MapPin}
+                title="Pin the Details"
+                description="Capture the exact date and location when a song first hit you before those precious details slip away."
                 delay={0.1}
                 align="left"
               />
               <LightFeatureCard
-                icon={MapPin}
-                title="Location Tagging"
-                description="Pin where you were when a song first hit you. Build a map of your musical life."
+                icon={Camera}
+                title="Attach Media"
+                description="Upload photos and videos to your entries to bring the concert clip, the sunset, or the road trip back to life."
                 delay={0.2}
                 align="left"
               />
             </div>
 
             {/* Center Image */}
-            <div className="w-full lg:w-1/3 flex justify-center order-1 lg:order-2">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="w-full lg:w-1/3 flex justify-center order-1 lg:order-2"
+            >
               <img 
                 src="/screenshot-entry.png" 
                 alt="Entry Details" 
-                width={320}
-                height={572}
-                loading="lazy"
                 className="w-full max-w-[320px] drop-shadow-2xl"
               />
-            </div>
+            </motion.div>
 
             {/* Right Cards */}
             <div className="flex flex-col gap-6 w-full lg:w-1/3 order-3">
               <LightFeatureCard
                 icon={Users}
-                title="Community"
-                description="See how strangers around the world experienced the same song. Their stories, photos, and videos."
+                title="Community Stories"
+                description="See how strangers around the world experienced the exact same song. Discover their unique stories and moments."
                 delay={0.3}
                 align="right"
               />
               <LightFeatureCard
-                icon={Music}
-                title="Apple Music Integration"
-                description="Search millions of songs instantly. Album art, artist info, and metadata pulled automatically."
+                icon={Search}
+                title="Search & Save"
+                description="Search any song, jot down what you were doing, and it's saved forever. The whole process takes less than a minute."
                 delay={0.4}
                 align="right"
               />
               <LightFeatureCard
-                icon={Smartphone}
-                title="Collections"
-                description="Organise your memories into themed collections. Road trips, heartbreaks, summer anthems."
+                icon={History}
+                title="Musical Timeline"
+                description="Build a living timeline of your life through music. Every saved song gets a journal entry, preserving your autobiography."
                 delay={0.5}
                 align="right"
               />
