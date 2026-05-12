@@ -1,4 +1,12 @@
-export default function Terms() {
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Terms of Service',
+  description: 'Terms of Service for Music Memory — the rules governing your use of our service.',
+  alternates: { canonical: '/terms' },
+}
+
+export default function TermsPage() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-24 text-gray-300">
       <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-8">Terms of Service</h1>
@@ -11,7 +19,7 @@ export default function Terms() {
         <section>
           <h2 className="text-2xl font-bold text-white mb-4">1. Acceptance of Terms</h2>
           <p className="leading-relaxed">
-            These Terms of Service ("Terms") constitute a legally binding agreement between you ("User," "you," or "your") and Moonveil Labs ("we," "us," or "our"), governing your access to and use of the Music Memory mobile application and related services (collectively, the "Service"). By downloading, installing, accessing, or using the Service, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree to these Terms, you must immediately cease all use of the Service.
+            These Terms of Service (&ldquo;Terms&rdquo;) constitute a legally binding agreement between you (&ldquo;User,&rdquo; &ldquo;you,&rdquo; or &ldquo;your&rdquo;) and Moonveil Labs (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;), governing your access to and use of the Music Memory mobile application and related services (collectively, the &ldquo;Service&rdquo;). By downloading, installing, accessing, or using the Service, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree to these Terms, you must immediately cease all use of the Service.
           </p>
         </section>
 
@@ -26,7 +34,7 @@ export default function Terms() {
             <li>Associating location data with entries</li>
             <li>Organizing entries into collections</li>
             <li>Sharing entries publicly with the community</li>
-            <li>Interacting with other users' public entries through reactions and comments</li>
+            <li>Interacting with other users&apos; public entries through reactions and comments</li>
             <li>Submitting and voting on feature requests</li>
             <li>Maintaining journaling streaks</li>
           </ul>
@@ -65,14 +73,14 @@ export default function Terms() {
             <li><strong>Pro Tier:</strong> Subscribers receive unlimited journal entries and the ability to make entries publicly visible to the community.</li>
           </ul>
           <p className="leading-relaxed mt-4">
-            Subscriptions are managed through RevenueCat and processed via the Apple App Store or Google Play Store, as applicable. All billing, renewal, and cancellation are governed by the respective platform's terms. Upon expiration or cancellation of a Pro subscription, all public entries will be automatically reverted to private status.
+            Subscriptions are managed through RevenueCat and processed via the Apple App Store or Google Play Store, as applicable. All billing, renewal, and cancellation are governed by the respective platform&apos;s terms. Upon expiration or cancellation of a Pro subscription, all public entries will be automatically reverted to private status.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-bold text-white mb-4">6. User Content</h2>
           <p className="leading-relaxed mb-4">
-            "User Content" means any text, images, videos, location data, or other materials that you submit, upload, or otherwise make available through the Service. You retain all ownership rights in your User Content. By submitting User Content, you grant Moonveil Labs a non-exclusive, worldwide, royalty-free, sublicensable license to use, store, display, reproduce, and distribute your User Content solely for the purpose of operating and providing the Service.
+            &ldquo;User Content&rdquo; means any text, images, videos, location data, or other materials that you submit, upload, or otherwise make available through the Service. You retain all ownership rights in your User Content. By submitting User Content, you grant Moonveil Labs a non-exclusive, worldwide, royalty-free, sublicensable license to use, store, display, reproduce, and distribute your User Content solely for the purpose of operating and providing the Service.
           </p>
           <p className="leading-relaxed mb-4">
             You represent and warrant that:
@@ -131,7 +139,7 @@ export default function Terms() {
             The Service integrates with third-party services, including but not limited to:
           </p>
           <ul className="list-disc pl-5 space-y-2 text-gray-400">
-            <li><strong>Apple Music:</strong> For song search and catalog data. Subject to Apple's terms of use.</li>
+            <li><strong>Apple Music:</strong> For song search and catalog data. Subject to Apple&apos;s terms of use.</li>
             <li><strong>RevenueCat:</strong> For subscription management and payment processing.</li>
             <li><strong>Supabase:</strong> For authentication and data storage.</li>
             <li><strong>OpenStreetMap/Nominatim:</strong> For location search functionality.</li>
@@ -173,7 +181,7 @@ export default function Terms() {
         <section>
           <h2 className="text-2xl font-bold text-white mb-4">13. Disclaimer of Warranties</h2>
           <p className="leading-relaxed">
-            THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, AND COURSE OF DEALING. MOONVEIL LABS DOES NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE, THAT DEFECTS WILL BE CORRECTED, OR THAT THE SERVICE IS FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.
+            THE SERVICE IS PROVIDED ON AN &ldquo;AS IS&rdquo; AND &ldquo;AS AVAILABLE&rdquo; BASIS WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, AND COURSE OF DEALING. MOONVEIL LABS DOES NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE, THAT DEFECTS WILL BE CORRECTED, OR THAT THE SERVICE IS FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.
           </p>
         </section>
 
@@ -187,14 +195,14 @@ export default function Terms() {
         <section>
           <h2 className="text-2xl font-bold text-white mb-4">15. Indemnification</h2>
           <p className="leading-relaxed">
-            You agree to defend, indemnify, and hold harmless Moonveil Labs and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses, including reasonable attorneys' fees, arising out of or in any way connected with your access to or use of the Service, your User Content, or your violation of these Terms.
+            You agree to defend, indemnify, and hold harmless Moonveil Labs and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses, including reasonable attorneys&apos; fees, arising out of or in any way connected with your access to or use of the Service, your User Content, or your violation of these Terms.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-bold text-white mb-4">16. Modifications to Terms</h2>
           <p className="leading-relaxed">
-            We reserve the right to modify these Terms at any time. We will provide notice of material changes by updating the "Effective Date" at the top of these Terms and, where practicable, by providing in-app notification. Your continued use of the Service following the posting of revised Terms constitutes your acceptance of such changes. If you do not agree to the modified Terms, you must discontinue use of the Service.
+            We reserve the right to modify these Terms at any time. We will provide notice of material changes by updating the &ldquo;Effective Date&rdquo; at the top of these Terms and, where practicable, by providing in-app notification. Your continued use of the Service following the posting of revised Terms constitutes your acceptance of such changes. If you do not agree to the modified Terms, you must discontinue use of the Service.
           </p>
         </section>
 

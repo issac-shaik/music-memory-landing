@@ -43,7 +43,6 @@ body {
   background: radial-gradient(circle at center, #7fb5ff 0%, #3b82f6 100%);
 }
 
-
 /* Gradient text */
 .gradient-text {
   background: linear-gradient(135deg, #FF6500, #ff8533, #FF6500);
@@ -77,4 +76,35 @@ body {
 .fade-slide-in.animate-in {
   opacity: 1;
   transform: translate(0, 0);
+}
+
+/* ─── Hero entrance animations (replaces framer-motion) ─── */
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes heroFadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hero-fade-in {
+  animation: heroFadeIn 0.6s ease-out both;
+}
+
+.hero-fade-in-delayed {
+  animation: heroFadeInRight 0.6s ease-out 0.15s both;
 }

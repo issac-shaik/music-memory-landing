@@ -1,4 +1,12 @@
-export default function Privacy() {
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description: 'Privacy Policy for Music Memory — learn how we collect, use, and protect your data.',
+  alternates: { canonical: '/privacy' },
+}
+
+export default function PrivacyPage() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-24 text-gray-300">
       <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-8">Privacy Policy</h1>
@@ -11,7 +19,7 @@ export default function Privacy() {
         <section>
           <h2 className="text-2xl font-bold text-white mb-4">1. Introduction</h2>
           <p className="leading-relaxed">
-            Moonveil Labs ("we," "us," or "our") operates the Music Memory mobile application (the "Service"). This Privacy Policy explains how we collect, use, disclose, and safeguard your personal information when you use our Service. By accessing or using the Service, you consent to the data practices described in this Privacy Policy. If you do not agree with the terms of this Privacy Policy, please do not access or use the Service.
+            Moonveil Labs (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) operates the Music Memory mobile application (the &ldquo;Service&rdquo;). This Privacy Policy explains how we collect, use, disclose, and safeguard your personal information when you use our Service. By accessing or using the Service, you consent to the data practices described in this Privacy Policy. If you do not agree with the terms of this Privacy Policy, please do not access or use the Service.
           </p>
         </section>
 
@@ -39,7 +47,7 @@ export default function Privacy() {
 
           <h3 className="text-lg font-semibold text-white mt-6 mb-3">2.3 Information We Do Not Collect</h3>
           <ul className="list-disc pl-5 space-y-2 text-gray-400">
-            <li><strong>Precise GPS Location:</strong> We do not access your device's GPS or collect location data automatically. Location information is only stored when you manually search for and select a place using the in-app location picker.</li>
+            <li><strong>Precise GPS Location:</strong> We do not access your device&apos;s GPS or collect location data automatically. Location information is only stored when you manually search for and select a place using the in-app location picker.</li>
             <li><strong>Contacts or Address Book:</strong> We do not access your device contacts.</li>
             <li><strong>Microphone or Camera (passively):</strong> Camera and photo library access is only used when you actively choose to upload media.</li>
           </ul>
@@ -142,7 +150,7 @@ export default function Privacy() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold text-white mb-4">9. Children's Privacy</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">9. Children&apos;s Privacy</h2>
           <p className="leading-relaxed">
             The Service is not directed to children under the age of thirteen (13). We do not knowingly collect personal information from children under 13. If we become aware that we have collected personal data from a child under 13 without parental consent, we will take steps to delete that information promptly. If you believe we have inadvertently collected information from a child under 13, please contact us immediately.
           </p>
@@ -158,7 +166,7 @@ export default function Privacy() {
         <section>
           <h2 className="text-2xl font-bold text-white mb-4">11. Changes to This Privacy Policy</h2>
           <p className="leading-relaxed">
-            We may update this Privacy Policy from time to time. We will notify you of material changes by updating the "Effective Date" at the top of this policy and, where practicable, by providing in-app notification. Your continued use of the Service after any changes constitutes your acceptance of the revised Privacy Policy. We encourage you to review this Privacy Policy periodically.
+            We may update this Privacy Policy from time to time. We will notify you of material changes by updating the &ldquo;Effective Date&rdquo; at the top of this policy and, where practicable, by providing in-app notification. Your continued use of the Service after any changes constitutes your acceptance of the revised Privacy Policy. We encourage you to review this Privacy Policy periodically.
           </p>
         </section>
 

@@ -1,4 +1,12 @@
-export default function CommunityGuidelines() {
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Community Guidelines',
+  description: 'Community Guidelines for Music Memory — rules for participating in our community features.',
+  alternates: { canonical: '/community-guidelines' },
+}
+
+export default function CommunityGuidelinesPage() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-24 text-gray-300">
       <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-8">Community Guidelines</h1>
@@ -11,7 +19,7 @@ export default function CommunityGuidelines() {
         <section>
           <h2 className="text-2xl font-bold text-white mb-4">1. Purpose and Scope</h2>
           <p className="leading-relaxed">
-            These Community Guidelines ("Guidelines") govern your participation in the community features of the Music Memory application operated by Moonveil Labs. Community features include, but are not limited to: public journal entries, reactions (likes and dislikes), comments, replies, and feature requests. By using any community feature, you agree to abide by these Guidelines. These Guidelines supplement our Terms of Service and should be read in conjunction therewith.
+            These Community Guidelines (&ldquo;Guidelines&rdquo;) govern your participation in the community features of the Music Memory application operated by Moonveil Labs. Community features include, but are not limited to: public journal entries, reactions (likes and dislikes), comments, replies, and feature requests. By using any community feature, you agree to abide by these Guidelines. These Guidelines supplement our Terms of Service and should be read in conjunction therewith.
           </p>
         </section>
 
@@ -24,7 +32,7 @@ export default function CommunityGuidelines() {
             <li><strong>Authenticity:</strong> Share genuine memories and experiences connected to music.</li>
             <li><strong>Respect:</strong> Treat all community members with dignity and courtesy, regardless of their background, identity, or musical taste.</li>
             <li><strong>Safety:</strong> Maintain an environment where users feel comfortable sharing personal stories.</li>
-            <li><strong>Privacy:</strong> Respect the personal nature of others' memories and do not share or screenshot others' content without consent.</li>
+            <li><strong>Privacy:</strong> Respect the personal nature of others&apos; memories and do not share or screenshot others&apos; content without consent.</li>
           </ul>
         </section>
 
@@ -38,7 +46,7 @@ export default function CommunityGuidelines() {
           <ul className="list-disc pl-5 space-y-2 text-gray-400">
             <li>Personal memories, stories, and reflections associated with songs</li>
             <li>Photographs and videos that relate to your musical memories</li>
-            <li>Constructive comments and reactions to others' shared memories</li>
+            <li>Constructive comments and reactions to others&apos; shared memories</li>
             <li>Location information relevant to where a musical memory took place</li>
           </ul>
 
@@ -54,7 +62,7 @@ export default function CommunityGuidelines() {
             <li><strong>Spam and Misleading Content:</strong> Repetitive, irrelevant, or deceptive content, including promotional material, phishing attempts, or content designed to manipulate engagement.</li>
             <li><strong>Illegal Activity:</strong> Content that promotes, facilitates, or depicts illegal activities, including drug use, theft, or fraud.</li>
             <li><strong>Intellectual Property Infringement:</strong> Content that infringes upon the copyrights, trademarks, or other intellectual property rights of third parties.</li>
-            <li><strong>Personal Information:</strong> Sharing another person's private information (address, phone number, financial information) without their explicit consent.</li>
+            <li><strong>Personal Information:</strong> Sharing another person&apos;s private information (address, phone number, financial information) without their explicit consent.</li>
             <li><strong>Impersonation:</strong> Pretending to be another person, brand, or entity in a manner intended to deceive.</li>
             <li><strong>Misinformation:</strong> Deliberately false or misleading content that could cause harm.</li>
           </ul>
@@ -75,7 +83,7 @@ export default function CommunityGuidelines() {
           <h3 className="text-lg font-semibold text-white mt-6 mb-3">4.2 Reactions</h3>
           <ul className="list-disc pl-5 space-y-2 text-gray-400">
             <li>Reactions (likes and dislikes) should reflect genuine sentiment</li>
-            <li>Coordinated campaigns to mass-dislike a user's content are prohibited</li>
+            <li>Coordinated campaigns to mass-dislike a user&apos;s content are prohibited</li>
             <li>Using multiple accounts to manipulate reaction counts is prohibited</li>
           </ul>
 
@@ -113,7 +121,7 @@ export default function CommunityGuidelines() {
           <ul className="list-disc pl-5 space-y-2 text-gray-400">
             <li><strong>Flagging:</strong> Content that receives one or more reports is flagged for review.</li>
             <li><strong>Forced Private:</strong> Content that accumulates a significant number of reports will be permanently removed from public visibility. This action is irreversible — the entry cannot be made public again.</li>
-            <li><strong>Strikes:</strong> When content is forced private due to reports, the author's account receives one (1) strike.</li>
+            <li><strong>Strikes:</strong> When content is forced private due to reports, the author&apos;s account receives one (1) strike.</li>
             <li><strong>Suspension:</strong> Accounts that accumulate three (3) strikes will be suspended. Suspended accounts cannot make any entries public.</li>
           </ul>
 
@@ -129,7 +137,7 @@ export default function CommunityGuidelines() {
             <li>Only users with an active Pro subscription may make entries public.</li>
             <li>Community entries for a given song are only visible to users who also have their own entry for that same song.</li>
             <li>You may revert any of your public entries to private at any time.</li>
-            <li>Entries with a moderation status of "forced_private" cannot be made public again under any circumstances.</li>
+            <li>Entries with a moderation status of &ldquo;forced_private&rdquo; cannot be made public again under any circumstances.</li>
             <li>Suspended users are prohibited from making any entries public until the suspension is resolved.</li>
           </ul>
         </section>
@@ -144,7 +152,7 @@ export default function CommunityGuidelines() {
         <section>
           <h2 className="text-2xl font-bold text-white mb-4">8. Feature Requests</h2>
           <p className="leading-relaxed mb-4">
-            The feature request system allows users to suggest improvements and vote on others' suggestions. When participating:
+            The feature request system allows users to suggest improvements and vote on others&apos; suggestions. When participating:
           </p>
           <ul className="list-disc pl-5 space-y-2 text-gray-400">
             <li>Feature requests must be constructive and relevant to the Service</li>
@@ -181,7 +189,7 @@ export default function CommunityGuidelines() {
         <section>
           <h2 className="text-2xl font-bold text-white mb-4">11. Changes to These Guidelines</h2>
           <p className="leading-relaxed">
-            We may update these Community Guidelines from time to time to reflect changes in our community standards or Service features. We will notify users of material changes by updating the "Effective Date" and, where practicable, by providing in-app notification. Your continued use of community features after changes are posted constitutes acceptance of the revised Guidelines.
+            We may update these Community Guidelines from time to time to reflect changes in our community standards or Service features. We will notify users of material changes by updating the &ldquo;Effective Date&rdquo; and, where practicable, by providing in-app notification. Your continued use of community features after changes are posted constitutes acceptance of the revised Guidelines.
           </p>
         </section>
 

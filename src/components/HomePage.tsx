@@ -1,8 +1,10 @@
+'use client'
+
 import { useEffect, useRef, useState, memo } from 'react'
-import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { Music, BookOpen, Camera, Users, MapPin, Star, ChevronDown, Search, History } from 'lucide-react'
 
-// ─── CSS-based fade-in using IntersectionObserver (replaces framer-motion whileInView) ───
+// ─── CSS-based fade-in using IntersectionObserver ───
 function useFadeIn<T extends HTMLElement>() {
   const ref = useRef<T>(null)
 
@@ -25,7 +27,7 @@ function useFadeIn<T extends HTMLElement>() {
   return ref
 }
 
-// ─── Animated counter (single shared observer pattern) ───
+// ─── Animated counter ───
 function Counter({ target, suffix = '' }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0)
   const ref = useRef<HTMLSpanElement>(null)
@@ -92,9 +94,9 @@ const StoreButtons = memo(function StoreButtons({ className = '' }: { className?
   )
 })
 
-// ─── Light Feature Card (CSS animation instead of framer-motion) ───
+// ─── Light Feature Card ───
 function LightFeatureCard({ icon: Icon, title, description, delay = 0, align = 'left' }: {
-  icon: any; title: string; description: string; delay?: number; align?: 'left' | 'right'
+  icon: React.ComponentType<{ className?: string }>; title: string; description: string; delay?: number; align?: 'left' | 'right'
 }) {
   const ref = useFadeIn<HTMLDivElement>()
 
@@ -131,7 +133,7 @@ function StepCard({ step, title, desc, delay }: { step: string; title: string; d
   )
 }
 
-// ─── Testimonial Card (CSS animation) ───
+// ─── Testimonial Card ───
 function TestimonialCard({ name, persona, text, delay = 0 }: {
   name: string; persona: string; text: string; delay?: number
 }) {
@@ -148,7 +150,7 @@ function TestimonialCard({ name, persona, text, delay = 0 }: {
           <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
         ))}
       </div>
-      <p className="text-gray-300 text-sm leading-relaxed mb-4 flex-1 italic">"{text}"</p>
+      <p className="text-gray-300 text-sm leading-relaxed mb-4 flex-1 italic">&ldquo;{text}&rdquo;</p>
       <div>
         <p className="text-white font-semibold text-sm">{name}</p>
         <p className="text-[var(--color-accent)] text-xs">{persona}</p>
@@ -157,7 +159,7 @@ function TestimonialCard({ name, persona, text, delay = 0 }: {
   )
 }
 
-export default function App() {
+export function HomePage() {
   const featuresRef = useFadeIn<HTMLDivElement>()
   const howItWorksRef = useFadeIn<HTMLDivElement>()
   const testimonialsRef = useFadeIn<HTMLDivElement>()
@@ -169,11 +171,7 @@ export default function App() {
       <section className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-6 overflow-hidden">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left — Copy */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-          >
+          <div className="hero-fade-in">
             <div className="inline-flex items-center gap-2 bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 rounded-full px-4 py-1.5 mb-6">
               <Music className="w-4 h-4 text-[var(--color-accent)]" />
               <span className="text-sm text-[var(--color-accent)] font-medium">Your music journal</span>
@@ -183,8 +181,8 @@ export default function App() {
               <span className="gradient-text">a song</span>
             </h1>
             <p className="text-lg text-gray-400 leading-relaxed mb-8 max-w-lg">
-              Capture the moments, emotions, and memories behind every song you love. 
-              Your music is more than a playlist — it's your autobiography.
+              Capture the moments, emotions, and memories behind every song you love.
+              Your music is more than a playlist — it&apos;s your autobiography.
             </p>
             <StoreButtons className="mb-8" />
             <div className="flex items-center gap-6 text-sm text-gray-500">
@@ -195,31 +193,32 @@ export default function App() {
               <div className="text-gray-600">|</div>
               <div><Counter target={8400} suffix="+" /> memories preserved</div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right — Static Phones */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
-            className="relative flex justify-center items-center h-[500px] md:h-[600px] w-full"
-          >
+          <div className="hero-fade-in-delayed relative flex justify-center items-center h-[500px] md:h-[600px] w-full">
             {/* Background Phone (Left) */}
-            <img
+            <Image
               src="/screenshot-auth.png"
               alt="Music Memory Login"
+              width={240}
+              height={520}
               className="absolute left-1/2 -translate-x-[80%] md:-translate-x-[85%] top-[10%] md:top-[15%] w-[180px] md:w-[240px] z-0 drop-shadow-2xl"
+              priority
             />
             {/* Foreground Phone (Right) */}
-            <img
+            <Image
               src="/screenshot-journal.png"
               alt="Music Memory Journal"
+              width={280}
+              height={607}
               className="absolute left-1/2 -translate-x-[20%] md:-translate-x-[15%] top-[0%] md:top-[5%] w-[210px] md:w-[280px] z-10 drop-shadow-2xl"
+              priority
             />
-          </motion.div>
+          </div>
         </div>
 
-        {/* Scroll indicator — pure CSS animation */}
+        {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
           <ChevronDown className="w-6 h-6 text-gray-600" />
         </div>
@@ -283,19 +282,16 @@ export default function App() {
             </div>
 
             {/* Center Image */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="w-full lg:w-1/3 flex justify-center order-1 lg:order-2"
-            >
-              <img 
-                src="/screenshot-entry.png" 
-                alt="Entry Details" 
+            <div className="w-full lg:w-1/3 flex justify-center order-1 lg:order-2">
+              <Image
+                src="/screenshot-entry.png"
+                alt="Entry Details"
+                width={320}
+                height={693}
                 className="w-full max-w-[320px] drop-shadow-2xl"
+                loading="lazy"
               />
-            </motion.div>
+            </div>
 
             {/* Right Cards */}
             <div className="flex flex-col gap-6 w-full lg:w-1/3 order-3">
@@ -378,7 +374,6 @@ export default function App() {
 
       {/* ─── CTA / Download ─── */}
       <section id="download" className="py-32 px-6 border-t border-white/5 relative overflow-hidden">
-        {/* Glow — use will-change to promote to own layer */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="w-[600px] h-[600px] bg-[var(--color-accent)]/5 rounded-full blur-[120px] will-change-transform" />
         </div>

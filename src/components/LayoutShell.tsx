@@ -1,12 +1,14 @@
+'use client'
+
 import { useEffect, useRef } from 'react'
-import { Outlet, Link } from 'react-router-dom'
+import Link from 'next/link'
+import Image from 'next/image'
 
 function useMousePosition() {
   const rafId = useRef(0)
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      // Throttle to animation frames to avoid excessive repaints
       cancelAnimationFrame(rafId.current)
       rafId.current = requestAnimationFrame(() => {
         document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`)
@@ -21,7 +23,7 @@ function useMousePosition() {
   }, [])
 }
 
-export default function Layout() {
+export function LayoutShell({ children }: { children: React.ReactNode }) {
   useMousePosition()
 
   return (
@@ -29,8 +31,8 @@ export default function Layout() {
       {/* ─── Nav ─── */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md border-b border-white/5">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <img src="/adaptive-icon.png" alt="Music Memory Logo" className="w-8 h-8 rounded-lg object-cover" width={32} height={32} />
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/adaptive-icon.png" alt="Music Memory Logo" className="w-8 h-8 rounded-lg object-cover" width={32} height={32} />
             <span className="font-bold text-lg text-white">Music Memory</span>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-sm text-gray-400">
@@ -49,21 +51,21 @@ export default function Layout() {
 
       {/* ─── Main Content ─── */}
       <main className="flex-1 pt-16">
-        <Outlet />
+        {children}
       </main>
 
       {/* ─── Footer ─── */}
       <footer className="border-t border-white/5 py-12 px-6 mt-auto">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <Link to="/" className="flex items-center gap-2">
-            <img src="/adaptive-icon.png" alt="Music Memory Logo" className="w-6 h-6 rounded-md object-cover" width={24} height={24} />
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/adaptive-icon.png" alt="Music Memory Logo" className="w-6 h-6 rounded-md object-cover" width={24} height={24} />
             <span className="font-bold text-white">Music Memory</span>
           </Link>
           <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-500">
-            <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
-            <Link to="/community-guidelines" className="hover:text-white transition-colors">Community Guidelines</Link>
-            <Link to="/delete-account" className="hover:text-white transition-colors text-red-500/80 hover:text-red-400">Delete Account</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/community-guidelines" className="hover:text-white transition-colors">Community Guidelines</Link>
+            <Link href="/delete-account" className="hover:text-white transition-colors text-red-500/80 hover:text-red-400">Delete Account</Link>
             <a href="#" className="hover:text-white transition-colors">Contact</a>
           </div>
           <p className="text-sm text-gray-600">© 2026 Music Memory. All rights reserved.</p>
