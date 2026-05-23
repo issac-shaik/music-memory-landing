@@ -12,6 +12,9 @@ node_modules
 /.next/
 /out/
 
+# legacy Vite build output
+/dist/
+
 # production
 /build
 

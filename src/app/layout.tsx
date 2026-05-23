@@ -42,10 +42,6 @@ export const metadata: Metadata = {
       'Capture the moments, emotions, and memories behind every song you love.',
     images: ['/image.png'],
   },
-  icons: {
-    icon: '/favicon.svg',
-    apple: '/adaptive-icon.png',
-  },
   robots: {
     index: true,
     follow: true,
@@ -88,12 +84,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap"
+          rel="stylesheet"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>
+      <body className="v2 prod">
         <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
