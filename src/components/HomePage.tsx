@@ -866,10 +866,10 @@ export function HomePage() {
                 <li className="yes"><span className="ic"><CheckIcon /></span>Write what the song means to you &amp; when you first heard it</li>
                 <li className="yes"><span className="ic"><CheckIcon /></span>Add custom songs not on Apple Music</li>
                 <li className="yes"><span className="ic"><CheckIcon /></span>Organise memories into collections</li>
-                <li className="no"><span className="ic"><CrossIcon /></span>Read other people's memories for the same song</li>
                 <li className="yes"><span className="ic"><CheckIcon /></span>Daily streak tracking</li>
                 <li className="yes"><span className="ic"><CheckIcon /></span>Export your journal (CSV / JSON)</li>
                 <li className="no"><span className="ic"><CrossIcon /></span>Attach photos &amp; videos</li>
+                <li className="no"><span className="ic"><CrossIcon /></span>Read other people's memories for the same song</li>
                 <li className="no"><span className="ic"><CrossIcon /></span>Tag where you were when you heard it</li>
                 <li className="no"><span className="ic"><CrossIcon /></span>Share your memory to the song's public feed</li>
               </ul>

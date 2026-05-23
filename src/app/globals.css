@@ -2608,7 +2608,7 @@ body.prod .phone-frame .screen .tab-bar .tab {
   /* Tighter page gutters */
   :root { --page-x: 14px; }
 
-  /* Navbar — smaller CTA, tighter inner padding */
+  /* Navbar — smaller CTA, tighter inner padding, CTA right-aligned */
   .nav-wf .nav-inner {
     padding: 0 14px;
     gap: 12px;
@@ -2620,6 +2620,7 @@ body.prod .phone-frame .screen .tab-bar .tab {
     padding: 7px 13px;
     font-size: 12px;
   }
+  .nav-wf .nav-cta { margin-left: auto; }
 
   /* Hero — kill the 56px inner padding and let the image breathe */
   .hero-wf {
