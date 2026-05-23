@@ -2596,3 +2596,102 @@ body.prod .phone-frame .screen .tab-bar .tab {
   .foot-wf.foot-slim .top { justify-content: flex-start; }
   .foot-wf.foot-slim .legal-links { gap: 18px 22px; }
 }
+
+/* ============================================================
+   MOBILE POLISH (≤ 700px)
+   - Tighten side gutters in hero + showcase
+   - Smaller navbar CTA
+   - Showcase-vis: hugs the image instead of fixed 4:5
+   - Story frame mockups: scale down so contents stop overflowing
+   ============================================================ */
+@media (max-width: 700px) {
+  /* Tighter page gutters */
+  :root { --page-x: 14px; }
+
+  /* Navbar — smaller CTA, tighter inner padding */
+  .nav-wf .nav-inner {
+    padding: 0 14px;
+    gap: 12px;
+    height: 52px;
+  }
+  .nav-wf .logo-block { font-size: 18px; }
+  .nav-wf .logo-mark { width: 24px; height: 24px; }
+  .nav-wf .cta {
+    padding: 7px 13px;
+    font-size: 12px;
+  }
+
+  /* Hero — kill the 56px inner padding and let the image breathe */
+  .hero-wf {
+    height: auto;
+    min-height: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+  .hero-wf .hero-grid {
+    padding: 28px 16px 32px;
+    gap: 28px;
+  }
+  .hero-wf .hero-copy { padding-top: 8px; }
+  .hero-wf .hero-headline { font-size: clamp(44px, 13vw, 72px); }
+  .hero-wf .hero-sub { font-size: 15px; margin-top: 18px; }
+
+  /* Hero phone shot — show full image, no clipping */
+  .hero-stage { display: flex; justify-content: center; }
+  .hero-stage .phone-shot {
+    width: min(78%, 320px);
+  }
+
+  /* Showcase — stack tightly, image background hugs the image */
+  .showcase-wf { gap: 72px; padding: 0; }
+  .showcase-row, .showcase-row.flip {
+    gap: 20px;
+    min-height: 0;
+  }
+  .showcase-copy h3 { font-size: clamp(32px, 8.5vw, 44px); }
+  .showcase-copy p { font-size: 15px; }
+  .showcase-copy .feat-meta {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  /* Image container — no fixed aspect, padding hugs the screenshot */
+  .showcase-vis {
+    aspect-ratio: auto;
+    padding: 16px;
+    border-radius: 6px;
+  }
+  .showcase-vis .phone-shot {
+    width: min(86%, 300px);
+  }
+  .media-shot { max-width: 100%; }
+
+  /* Story (Section 2) — keep mockup contents inside the box */
+  .story-wf .story-frames { gap: 64px; }
+  .story-wf .story-frame { gap: 16px; }
+  .story-wf .story-frame .copy h4 { font-size: 32px; }
+  .story-wf .story-frame .copy p { font-size: 13.5px; }
+  .story-wf .story-frame .vis {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+  .story-wf .story-frame .vis .ghost-ui {
+    inset: 14px;
+    padding: 10px;
+    gap: 6px;
+    overflow: hidden;
+  }
+  /* Inline-styled big text (e.g. "June 2019") — scale to fit container */
+  .story-wf .story-frame .vis .ghost-ui > div[style*="font-size: 48"] {
+    font-size: 28px !important;
+  }
+
+  /* Phone-frame mockups (.phone-frame) — shrink so they don't dominate */
+  .phone-frame { width: clamp(180px, 60vw, 240px); }
+
+  /* Pricing — already tight via existing 900px rule, no extra needed */
+
+  /* Final CTA — tighten side padding via the page wrapper above */
+  .cta-wf { padding-left: 0; padding-right: 0; }
+}

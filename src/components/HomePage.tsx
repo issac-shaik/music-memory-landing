@@ -475,7 +475,6 @@ export function HomePage() {
                 collapse to a tighter 4-up grid as you scroll back.</p>
               <div className="feat-meta">
                 <div><strong>Layout</strong>Month-grouped · day labels above each card · cover → song → artist → date → snippet</div>
-                <div><strong>Density</strong>Current month 2-up · older months 4-up · pinch to scale</div>
               </div>
             </div>
             <div className="showcase-vis">
@@ -514,8 +513,8 @@ export function HomePage() {
                 to the track. Don't see it? Create a custom entry —
                 even mixtapes belong here.</p>
               <div className="feat-meta">
-                <div><strong>Integrations</strong>Apple Music API · Spotify deep links</div>
-                <div><strong>Fallback</strong>Custom entry · upload cover · text-only</div>
+                <div><strong>Integrations</strong>Apple Music API</div>
+                <div><strong>Fallback</strong>Custom entry · upload cover · text</div>
               </div>
             </div>
             <div className="showcase-vis">
@@ -732,9 +731,6 @@ export function HomePage() {
           </div>
         </div>
       </section>
-
-      <div className="divider"></div>
-
 
       <div className="divider"></div>
 
