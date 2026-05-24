@@ -38,10 +38,10 @@
   --stroke-dash: 1px dashed var(--stroke);
   --stroke-dash-strong: 1px dashed var(--stroke-strong);
 
-  /* type */
-  --f-display: "Instrument Serif", "Times New Roman", serif;
-  --f-sans: "Space Grotesk", -apple-system, sans-serif;
-  --f-mono: "JetBrains Mono", ui-monospace, monospace;
+  /* type — font families injected via next/font CSS variables */
+  --f-display: var(--font-display), "Times New Roman", serif;
+  --f-sans: var(--font-sans), -apple-system, sans-serif;
+  --f-mono: var(--font-mono), ui-monospace, monospace;
 
   /* grid */
   --gutter: 24px;
@@ -221,14 +221,18 @@ a { color: inherit; text-decoration: none; }
 .hero-wf {
   position: relative;
   height: min(96vh, 980px);
-  border: var(--stroke-dash);
-  overflow: hidden;
+  border: 0;
+  overflow: visible;
   isolation: isolate;
 }
 .hero-wf::before {
   content: "";
   position: absolute;
-  inset: -10%;
+  top: -10%;
+  bottom: -10%;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
   background:
     radial-gradient(50% 40% at 70% 30%, rgba(255, 101, 0, 0.10), transparent 70%),
     radial-gradient(40% 35% at 20% 80%, rgba(59, 130, 246, 0.10), transparent 70%);
@@ -637,11 +641,23 @@ a { color: inherit; text-decoration: none; }
    ============================================================ */
 .story-wf {
   position: relative;
-  border: var(--stroke-dash);
+  border: 0;
   min-height: 1200px;
   padding: 64px;
+  isolation: isolate;
+}
+.story-wf::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
   background:
     radial-gradient(60% 40% at 30% 20%, rgba(59, 130, 246, 0.05), transparent 70%);
+  z-index: -1;
+  pointer-events: none;
 }
 .story-wf .story-grid {
   display: grid;
@@ -826,6 +842,13 @@ a { color: inherit; text-decoration: none; }
   place-items: center;
   padding: 32px;
   overflow: hidden;
+}
+
+/* Bare variant — let the screenshot sit directly on the page bg */
+.showcase-row.bare .showcase-vis {
+  border: 0;
+  background: transparent;
+  border-radius: 0;
 }
 
 .showcase-vis .phone-frame { width: 70%; }
@@ -1794,6 +1817,10 @@ main.page > .divider {
 main.page > section:first-of-type {
   content-visibility: visible;
 }
+/* Sections with full-bleed background pseudos can't be paint-contained */
+main.page > section:has(.story-wf) {
+  content-visibility: visible;
+}
 
 /* Promote heavy fixed/sticky chrome to its own compositor layer */
 .nav-shell { will-change: transform; }
@@ -1809,14 +1836,27 @@ main.page > section:first-of-type {
     gap: 36px;
   }
   .showcase-row.flip .showcase-vis { order: 0; }
+  /* Image container hugs the screenshot once stacked — no fixed 4/5 crop */
+  .showcase-vis {
+    aspect-ratio: auto;
+    padding: 24px;
+  }
+  .showcase-vis .phone-shot {
+    width: min(70%, 340px);
+  }
   .bento-wf { grid-template-columns: repeat(4, 1fr); }
   .b-grid, .b-journal, .b-photo, .b-coll { grid-column: span 4; }
   .b-streak, .b-export { grid-column: span 4; }
   .b-pin, .b-react { grid-column: span 2; }
   .proof-wf .masonry { column-count: 1; }
   .nav-wf .nav-links { display: none; }
+  .nav-wf .nav-cta { grid-column: 3; }
   .cta-wf .recap { grid-template-columns: 1fr 1fr; }
   .hero-wf .hero-grid { grid-template-columns: 1fr; }
+  /* Once stacked, hero-copy no longer space-betweens against full height —
+     give the badges explicit breathing room above. */
+  .hero-wf .hero-copy { justify-content: flex-start; }
+  .hero-wf .hero-bottom { margin-top: 32px; }
   .float-card { display: none; }
   .foot-wf .top { grid-template-columns: 1fr 1fr; }
   .foot-wf .bottom { grid-template-columns: 1fr; gap: 12px; text-align: center; }
@@ -1869,7 +1909,11 @@ body.v2 .nav-wf {
 }
 
 body.v2 .hero-wf::before {
-  inset: -20%;
+  top: -20%;
+  bottom: -20%;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
   background:
     radial-gradient(55% 50% at 72% 28%, rgba(255, 101, 0, 0.22), transparent 70%),
     radial-gradient(45% 50% at 16% 82%, rgba(59, 130, 246, 0.16), transparent 70%);
@@ -2026,6 +2070,9 @@ body.v2 .float-card {
 
 body.v2 .story-wf {
   padding-top: 80px;
+  background: none;
+}
+body.v2 .story-wf::before {
   background:
     radial-gradient(45% 30% at 30% 15%, rgba(59, 130, 246, 0.10), transparent 70%);
 }
@@ -2313,9 +2360,14 @@ body.prod .phone-frame .screen .tab-bar .tab {
   margin-right: auto;
 }
 
+.billing-toggle-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
 .billing-toggle {
   display: inline-flex;
-  margin-top: 32px;
   padding: 4px;
   border: 1px solid rgba(244, 241, 236, 0.12);
   border-radius: 999px;
@@ -2521,6 +2573,19 @@ body.prod .phone-frame .screen .tab-bar .tab {
   .pricing-grid { grid-template-columns: 1fr; }
   .plan { padding: 32px 24px 28px; }
   .plan-price .amount { font-size: 44px; }
+  /* On mobile, push the billing toggle below the pricing cards so users
+     can compare plans without the Free card pushing Pro out of view. */
+  .pricing-wf {
+    display: flex;
+    flex-direction: column;
+  }
+  .pricing-wf .pricing-head { order: 0; }
+  .pricing-wf .pricing-grid { order: 1; }
+  .pricing-wf .billing-toggle-wrap {
+    order: 2;
+    margin-top: 24px;
+    margin-bottom: 0;
+  }
 }
 
 /* ============================================================
@@ -2641,6 +2706,12 @@ body.prod .phone-frame .screen .tab-bar .tab {
   .hero-wf .hero-copy { padding-top: 8px; }
   .hero-wf .hero-headline { font-size: clamp(44px, 13vw, 72px); }
   .hero-wf .hero-sub { font-size: 15px; margin-top: 18px; }
+  .hero-badges { margin-top: 24px; justify-content: center; width: 100%; }
+  .hero-wf .hero-bottom {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
 
   /* Hero phone shot — show full image, no clipping */
   .hero-stage { display: flex; justify-content: center; }

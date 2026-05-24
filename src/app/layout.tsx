@@ -1,6 +1,29 @@
 import type { Metadata, Viewport } from 'next'
+import { Instrument_Serif, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { LayoutShell } from '@/components/LayoutShell'
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-display',
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-sans',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  display: 'swap',
+  variable: '--font-mono',
+})
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -82,13 +105,13 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${instrumentSerif.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap"
-          rel="stylesheet"
+          rel="preload"
+          href="/screenshot-journal.webp"
+          as="image"
+          type="image/webp"
         />
         <script
           type="application/ld+json"

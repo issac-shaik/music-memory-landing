@@ -74,7 +74,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
           >
             <div className="nav-inner">
               <Link href="/" className="logo-block" style={{ textDecoration: 'none' }}>
-                <img src="/adaptive-icon.png" alt="" className="logo-mark" />
+                <img src="/adaptive-icon.png" alt="" className="logo-mark" width="28" height="28" />
                 Music Memory
               </Link>
               <div className="nav-links">
