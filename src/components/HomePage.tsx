@@ -43,16 +43,17 @@ export function HomePage() {
           <div className="hero-grid">
             <div className="hero-copy">
               <div>
-                <div className="eyebrow hero-eyebrow">◉ Music Memory · An emotional archive</div>
-                <h2 className="hero-headline">
+                <div className="eyebrow hero-eyebrow">◉ Music Memory · The music journal &amp; song diary app</div>
+                <h1 className="hero-headline">
                   Every song<br />
                   remembers<br />
                   <em>something.</em>
-                </h2>
+                </h1>
                 <p className="hero-sub">
-                  Attach the songs that scored your life to the moments
-                  they belong to. A quiet, cinematic place to keep the
-                  tracks that already remember you.
+                  <strong>Music Memory</strong> is a music journal and song diary app
+                  for tracking the songs of your life — when you first heard each one,
+                  where you were, and what you felt. A quiet, cinematic place to keep
+                  the tracks that already remember you. Free on iOS and Android.
                 </p>
               </div>
               <div className="hero-bottom">
@@ -65,7 +66,7 @@ export function HomePage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/screenshot-journal.webp"
-                  alt="Music Memory journal screen"
+                  alt="Music Memory music journal — songs as chapters of your life"
                   width="860"
                   height="1582"
                   fetchPriority="high"
@@ -254,7 +255,7 @@ export function HomePage() {
             <div className="showcase-vis">
               <div className="phone-shot">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/screenshot-journal.webp" alt="Music Memory journal grid" width="860" height="1582" loading="lazy" />
+                <img src="/screenshot-journal.webp" alt="Music Memory journal grid — track songs you've listened to, month by month" width="860" height="1582" loading="lazy" />
               </div>
             </div>
           </div>
@@ -275,7 +276,7 @@ export function HomePage() {
             <div className="showcase-vis">
               <div className="phone-shot">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/screenshot-entry.webp" alt="Music Memory entry detail screen" width="938" height="1677" loading="lazy" />
+                <img src="/screenshot-entry.webp" alt="Music Memory entry — a song diary with date, place, and a personal memory" width="938" height="1677" loading="lazy" />
               </div>
             </div>
           </div>
@@ -294,7 +295,7 @@ export function HomePage() {
             <div className="showcase-vis">
               <div className="phone-shot">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/Search_Songs.webp" alt="Search Apple Music for a song" width="860" height="1582" loading="lazy" />
+                <img src="/Search_Songs.webp" alt="Search the Apple Music catalogue to add a song to your music journal" width="860" height="1582" loading="lazy" />
               </div>
             </div>
           </div>
@@ -335,7 +336,7 @@ export function HomePage() {
             <div className="showcase-vis">
               <div className="media-shot">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/Media_selector.webp" alt="Photo and video selector" width="860" height="1582" loading="lazy" />
+                <img src="/Media_selector.webp" alt="Attach up to five photos or videos to a song memory in Music Memory" width="860" height="1582" loading="lazy" />
               </div>
             </div>
           </div>
@@ -354,7 +355,7 @@ export function HomePage() {
             <div className="showcase-vis">
               <div className="phone-shot rounded">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/Collections.webp" alt="Collections list view" width="860" height="1582" loading="lazy" />
+                <img src="/Collections.webp" alt="Music Memory collections — group songs into chapters and curated playlists of moments" width="860" height="1582" loading="lazy" />
               </div>
             </div>
           </div>
@@ -373,7 +374,7 @@ export function HomePage() {
             <div className="showcase-vis">
               <div className="phone-shot">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/Export_Apple_Music.webp" alt="Export collection to Apple Music" width="878" height="1608" loading="lazy" />
+                <img src="/Export_Apple_Music.webp" alt="Export a Music Memory collection back to Apple Music as a real playlist" width="878" height="1608" loading="lazy" />
               </div>
             </div>
           </div>
@@ -558,6 +559,149 @@ export function HomePage() {
           </div>
 
           <BillingToggle />
+        </div>
+      </section>
+
+      <div className="divider"></div>
+
+      {/* 07b FAQ — SEO content */}
+      <section className="reveal" data-screen-label="08b FAQ" id="faq">
+        <div className="faq-wf">
+          <div className="faq-head">
+            <div className="eyebrow">◉ FAQ</div>
+            <h2 className="h-section" style={{ marginTop: 18 }}>
+              The music journal,<br />
+              <em>questioned.</em>
+            </h2>
+            <p className="subcopy" style={{ marginTop: 24 }}>
+              Everything people ask before they start journaling their songs.
+            </p>
+          </div>
+
+          <div className="faq-list">
+            <details className="faq-item">
+              <summary>
+                <span className="q">What is Music Memory?</span>
+                <span className="ic" aria-hidden="true">+</span>
+              </summary>
+              <div className="a">
+                <p>
+                  Music Memory is a <strong>music journal and song diary app</strong> for
+                  tracking the songs of your life. You log songs, tag the date and
+                  place you first heard each one, write down what you felt, and
+                  attach photos — building a private archive of your music memories
+                  over time. Think of it as a diary, but the entries are songs.
+                </p>
+              </div>
+            </details>
+
+            <details className="faq-item">
+              <summary>
+                <span className="q">Is Music Memory a music journal app?</span>
+                <span className="ic" aria-hidden="true">+</span>
+              </summary>
+              <div className="a">
+                <p>
+                  Yes. Music Memory is a music journal app — also called a
+                  <em> song diary</em>, <em>music diary</em>, or
+                  <em> music memory tracker</em>. It is designed for people who
+                  want to remember the songs that scored their life: every entry
+                  links one song to a moment, a place, and a feeling.
+                </p>
+              </div>
+            </details>
+
+            <details className="faq-item">
+              <summary>
+                <span className="q">How is Music Memory different from a playlist?</span>
+                <span className="ic" aria-hidden="true">+</span>
+              </summary>
+              <div className="a">
+                <p>
+                  A playlist is a list of songs. Music Memory is a
+                  <strong> journal of memories attached to songs</strong>. Each entry
+                  includes when and where you first heard the track, what you were
+                  doing, and how it made you feel — so your listening history reads
+                  like a story instead of a queue.
+                </p>
+              </div>
+            </details>
+
+            <details className="faq-item">
+              <summary>
+                <span className="q">Can I track songs I have listened to over the years?</span>
+                <span className="ic" aria-hidden="true">+</span>
+              </summary>
+              <div className="a">
+                <p>
+                  Yes. You can <strong>backfill memories</strong> for songs you heard
+                  years ago — pin a date (even just a year or a season), add a
+                  place, and write a short memory. The app organises your songs
+                  into a chronological timeline of months and chapters.
+                </p>
+              </div>
+            </details>
+
+            <details className="faq-item">
+              <summary>
+                <span className="q">Does Music Memory work with Apple Music and Spotify?</span>
+                <span className="ic" aria-hidden="true">+</span>
+              </summary>
+              <div className="a">
+                <p>
+                  Music Memory pulls songs directly from the
+                  <strong> Apple Music catalogue</strong> so the real cover art and
+                  metadata attach to your entries, and you can play tracks from the
+                  app. You can also <strong>export a Music Memory collection back to
+                  Apple Music</strong> as a real playlist. Spotify deep-links are
+                  supported on song entries.
+                </p>
+              </div>
+            </details>
+
+            <details className="faq-item">
+              <summary>
+                <span className="q">Is Music Memory free?</span>
+                <span className="ic" aria-hidden="true">+</span>
+              </summary>
+              <div className="a">
+                <p>
+                  Yes. The free tier lets you log <strong>one music memory per day,
+                  forever</strong>. Music Memory Pro unlocks unlimited entries, photos
+                  and videos, location tagging, and access to the public song
+                  memory feed. Pro is $29.99/year or $4.99/month with a 3-day free
+                  trial.
+                </p>
+              </div>
+            </details>
+
+            <details className="faq-item">
+              <summary>
+                <span className="q">Is Music Memory available on iPhone and Android?</span>
+                <span className="ic" aria-hidden="true">+</span>
+              </summary>
+              <div className="a">
+                <p>
+                  Yes — Music Memory is available on the <strong>iOS App Store</strong>
+                  and the <strong>Google Play Store</strong>.
+                </p>
+              </div>
+            </details>
+
+            <details className="faq-item">
+              <summary>
+                <span className="q">Is my music journal private?</span>
+                <span className="ic" aria-hidden="true">+</span>
+              </summary>
+              <div className="a">
+                <p>
+                  Every memory is <strong>private by default</strong>. You can choose
+                  to share an individual memory to a song&apos;s public feed, but
+                  nothing is public unless you opt in per memory.
+                </p>
+              </div>
+            </details>
+          </div>
         </div>
       </section>
 

@@ -8,6 +8,7 @@ const NAV_MAP: Record<string, string> = {
   Memories: '#memories',
   Features: '#features',
   Community: '#community',
+  FAQ: '#faq',
 }
 
 export function LayoutShell({ children }: { children: React.ReactNode }) {

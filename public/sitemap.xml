@@ -1,32 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://musicmemory.app</loc>
-    <lastmod>2026-05-12</lastmod>
+    <loc>https://musicmemory.app/</loc>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://musicmemory.app/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://musicmemory.app/" />
+    <image:image>
+      <image:loc>https://musicmemory.app/image.png</image:loc>
+      <image:title>Music Memory — the music journal and song diary app</image:title>
+      <image:caption>Music Memory homepage hero image</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://musicmemory.app/screenshot-journal.png</image:loc>
+      <image:title>Music Memory journal — songs as chapters of your life</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://musicmemory.app/screenshot-entry.png</image:loc>
+      <image:title>Music Memory entry — a song, a date, a place, a memory</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://musicmemory.app/Search_Songs.png</image:loc>
+      <image:title>Search Apple Music to attach a real song to your memory</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://musicmemory.app/Collections.png</image:loc>
+      <image:title>Music Memory collections — group songs into chapters</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://musicmemory.app/Export_Apple_Music.png</image:loc>
+      <image:title>Export a Music Memory collection back to Apple Music</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://musicmemory.app/Media_selector.png</image:loc>
+      <image:title>Attach photos and videos to your song memory</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://musicmemory.app/privacy</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://musicmemory.app/terms</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://musicmemory.app/community-guidelines</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://musicmemory.app/delete-account</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
