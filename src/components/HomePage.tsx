@@ -653,8 +653,7 @@ export function HomePage() {
                   <strong> Apple Music catalogue</strong> so the real cover art and
                   metadata attach to your entries, and you can play tracks from the
                   app. You can also <strong>export a Music Memory collection back to
-                  Apple Music</strong> as a real playlist. Spotify deep-links are
-                  supported on song entries.
+                  Apple Music</strong> as a real playlist. Spotify support will be coming in the future.
                 </p>
               </div>
             </details>
@@ -666,10 +665,10 @@ export function HomePage() {
               </summary>
               <div className="a">
                 <p>
-                  Yes. The free tier lets you log <strong>one music memory per day,
+                  Yes. The free tier lets you log <strong>one memory per day,
                   forever</strong>. Music Memory Pro unlocks unlimited entries, photos
                   and videos, location tagging, and access to the public song
-                  memory feed. Pro is $29.99/year or $4.99/month with a 3-day free
+                  memory feed. Pro is $4.99/month or $29.99/year with a 3-day free
                   trial.
                 </p>
               </div>
@@ -682,8 +681,7 @@ export function HomePage() {
               </summary>
               <div className="a">
                 <p>
-                  Yes — Music Memory is available on the <strong>iOS App Store</strong>
-                  and the <strong>Google Play Store</strong>.
+                  Yes — Music Memory is available on the <strong>iOS App Store</strong> and the <strong>Google Play Store</strong>.
                 </p>
               </div>
             </details>
