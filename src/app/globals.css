@@ -2569,8 +2569,81 @@ body.prod .phone-frame .screen .tab-bar .tab {
   text-align: center;
 }
 
+/* ── Single subscription card (hard paywall: no Free column) ──────────── */
+.pricing-solo {
+  display: flex;
+  justify-content: center;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.plan-solo {
+  width: 100%;
+  max-width: 480px;
+}
+
+/* Prominent regional-pricing badge (India) */
+.region-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 22px;
+  padding: 11px 16px;
+  border-radius: 999px;
+  background: rgba(255, 101, 0, 0.14);
+  border: 1px solid rgba(255, 101, 0, 0.45);
+  color: var(--accent);
+  font-family: var(--f-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.region-banner .region-dot { font-size: 11px; }
+
+/* Struck-through anchor (pre-discount) price */
+.plan-price .anchor {
+  font-family: var(--f-display);
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink-50);
+  text-decoration: line-through;
+  text-decoration-color: rgba(255, 101, 0, 0.7);
+  opacity: 0.75;
+}
+
+/* Region detection row (location prompt + status) */
+.plan-region {
+  margin-top: 16px;
+  text-align: center;
+  min-height: 18px;
+}
+.region-link {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.region-link:hover { opacity: 0.8; }
+.region-note {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-50);
+}
+
 @media (max-width: 900px) {
   .pricing-grid { grid-template-columns: 1fr; }
+  .plan-price .anchor { font-size: 22px; }
   .plan { padding: 32px 24px 28px; }
   .plan-price .amount { font-size: 44px; }
   /* On mobile, push the billing toggle below the pricing cards so users

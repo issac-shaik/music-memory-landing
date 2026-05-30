@@ -3,7 +3,10 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
+    "gen:pricing": "node scripts/gen-pricing.mjs",
+    "predev": "node scripts/gen-pricing.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/gen-pricing.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

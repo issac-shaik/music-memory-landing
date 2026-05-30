@@ -329,7 +329,7 @@ export function HomePage() {
                 Songs aren&apos;t sound alone — they&apos;re everything you saw
                 while they were playing.</p>
               <div className="feat-meta">
-                <div><strong>Limits</strong>5 photos or 5 videos · Pro only</div>
+                <div><strong>Limits</strong>Up to 5 photos or 5 videos per memory</div>
               </div>
             </div>
             <div className="showcase-vis">
@@ -416,13 +416,13 @@ export function HomePage() {
 
           <div className="showcase-row reveal">
             <div className="showcase-copy">
-              <h3>One song a day.<br /><em>That&apos;s all.</em></h3>
+              <h3>One song a day.<br /><em>Or ten.</em></h3>
               <p>A quiet daily streak. A nudge in the morning, a
                 week of small entries — and a year later, a record
                 of who you were, song by song.</p>
               <div className="feat-meta">
                 <div><strong>Reminder</strong>Push at user-chosen time</div>
-                <div><strong>Free tier</strong>1 memory / day · Pro unlimited</div>
+                <div><strong>Memories</strong>Unlimited — log as many as you like</div>
               </div>
             </div>
             <div className="showcase-vis">
@@ -442,13 +442,14 @@ export function HomePage() {
 
           <div className="showcase-row flip reveal">
             <div className="showcase-copy">
-              <h3>Public or<br /><em>just for you.</em></h3>
-              <p>Every memory has a switch. Most people keep theirs
-                private — but the ones you share help build the
-                community archive of how songs live in people&apos;s lives.</p>
+              <h3>Public, followers,<br /><em>or just for you.</em></h3>
+              <p>Every memory has three settings. Keep it private,
+                share it with your followers, or make it public — where
+                it joins the community archive of how songs live in
+                people&apos;s lives.</p>
               <div className="feat-meta">
-                <div><strong>Default</strong>Private · opt-in to public</div>
-                <div><strong>Per-memory</strong>Toggle at create or anytime after</div>
+                <div><strong>Default</strong>Private · opt-in to share</div>
+                <div><strong>Per-memory</strong>Choose at create or anytime after</div>
               </div>
             </div>
             <div className="showcase-vis">
@@ -459,6 +460,13 @@ export function HomePage() {
                     <div className="sub">Visible only to you · default</div>
                   </div>
                   <div className="pill">SELECTED</div>
+                </div>
+                <div className="tile">
+                  <div>
+                    <div className="name">Followers only</div>
+                    <div className="sub">Visible to people who follow you</div>
+                  </div>
+                  <div className="pill">TAP</div>
                 </div>
                 <div className="tile">
                   <div>
@@ -549,11 +557,11 @@ export function HomePage() {
           <div className="pricing-head">
             <div className="eyebrow">◉ PRICING</div>
             <h2 className="h-section" style={{ marginTop: 18 }}>
-              Free to keep.<br /><em>Pro</em> to go further.
+              One subscription.<br /><em>Everything</em> included.
             </h2>
             <p className="subcopy" style={{ marginTop: 24 }}>
-              Start free — one memory a day, forever. Upgrade when you want
-              location, photos, video, and a public voice on the song&apos;s feed.
+              Start with a 3-day free trial. Unlimited memories, photos, video,
+              location, and a public voice on every song&apos;s feed — all in.
             </p>
           </div>
 
@@ -587,19 +595,15 @@ export function HomePage() {
 
           <div className="recap">
             <div className="item">
-              <div className="k">PRO</div>
               <div className="v">Unlimited<br />memories</div>
             </div>
             <div className="item">
-              <div className="k">PRO</div>
               <div className="v">Photos<br />&amp; videos</div>
             </div>
             <div className="item">
-              <div className="k">PRO</div>
               <div className="v">Location<br />tagging</div>
             </div>
             <div className="item">
-              <div className="k">PRO</div>
               <div className="v">Public<br />community</div>
             </div>
           </div>
