@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { usePricing } from './usePricing'
 
 export function useReveal() {
   useEffect(() => {
@@ -111,6 +112,11 @@ function scrollToSelector(sel: string) {
 
 export function BillingToggle() {
   const [billing, setBilling] = useState<'annual' | 'monthly'>('annual')
+  const pricing = usePricing()
+
+  const amount = billing === 'annual' ? pricing.yearly : pricing.monthly
+  const anchor = billing === 'annual' ? pricing.anchorYearly : pricing.anchorMonthly
+  const per = billing === 'annual' ? '/year' : '/month'
 
   return (
     <>
@@ -123,7 +129,7 @@ export function BillingToggle() {
             onClick={() => setBilling('annual')}
           >
             Annual
-            <span className="save">Save 50%</span>
+            <span className="save">3-day free trial</span>
           </button>
           <button
             role="tab"
@@ -136,75 +142,43 @@ export function BillingToggle() {
         </div>
       </div>
 
-      <div className="pricing-grid">
-        <div className="plan plan-free">
-          <div className="plan-head">
-            <div className="plan-name">Free</div>
-            <div className="plan-price">
-              <span className="amount">$0</span>
-              <span className="per">forever</span>
+      <div className="pricing-solo">
+        <div className="plan plan-pro plan-solo">
+          <div className="plan-ribbon">Full access</div>
+
+          {pricing.isIndia && (
+            <div className="region-banner" role="status">
+              <span className="region-dot">◉</span>
+              Regional pricing applied
             </div>
-            <div className="plan-tag">Get the daily habit</div>
-          </div>
+          )}
 
-          <ul className="plan-list">
-            <li className="yes"><span className="ic"><CheckIcon /></span>1 memory per day</li>
-            <li className="yes"><span className="ic"><CheckIcon /></span>Write what the song means to you &amp; when you first heard it</li>
-            <li className="yes"><span className="ic"><CheckIcon /></span>Add custom songs not on Apple Music</li>
-            <li className="yes"><span className="ic"><CheckIcon /></span>Organise memories into collections</li>
-            <li className="yes"><span className="ic"><CheckIcon /></span>Daily streak tracking</li>
-            <li className="yes"><span className="ic"><CheckIcon /></span>Export your journal (CSV / JSON)</li>
-            <li className="no"><span className="ic"><CrossIcon /></span>Attach photos &amp; videos</li>
-            <li className="no"><span className="ic"><CrossIcon /></span>Read other people&apos;s memories for the same song</li>
-            <li className="no"><span className="ic"><CrossIcon /></span>Tag where you were when you heard it</li>
-            <li className="no"><span className="ic"><CrossIcon /></span>Share your memory to the song&apos;s public feed</li>
-          </ul>
-
-          <a
-            className="plan-cta secondary"
-            href="#download"
-            onClick={(e) => {
-              e.preventDefault()
-              scrollToSelector('#download')
-            }}
-          >
-            Get the app
-          </a>
-        </div>
-
-        <div className="plan plan-pro">
-          <div className="plan-ribbon">Most chosen</div>
           <div className="plan-head">
             <div className="plan-name">
-              Pro <span className="mark">◉</span>
+              Music Memory <span className="mark">◉</span>
             </div>
             <div className="plan-price">
-              {billing === 'annual' ? (
-                <>
-                  <span className="amount">$29.99</span>
-                  <span className="per">/year · ~$2.50/mo</span>
-                </>
-              ) : (
-                <>
-                  <span className="amount">$4.99</span>
-                  <span className="per">/month</span>
-                </>
-              )}
+              {anchor && <span className="anchor">{anchor}</span>}
+              <span className="amount">{amount}</span>
+              <span className="per">{per}</span>
             </div>
             <div className="plan-tag">
               {billing === 'annual'
-                ? '3-day free trial · cancel anytime'
-                : 'No trial · cancel anytime'}
+                ? '3-day free trial, then billed yearly · cancel anytime'
+                : 'Billed monthly · cancel anytime'}
             </div>
           </div>
 
           <ul className="plan-list">
-            <li className="yes"><span className="ic"><CheckIcon /></span>Everything in Free</li>
-            <li className="yes hl"><span className="ic"><CheckIcon /></span>Unlimited memories per day</li>
+            <li className="yes hl"><span className="ic"><CheckIcon /></span>Unlimited song memories</li>
+            <li className="yes"><span className="ic"><CheckIcon /></span>Write what the song means to you &amp; when you first heard it</li>
             <li className="yes hl"><span className="ic"><CheckIcon /></span>Attach photos &amp; videos to any memory</li>
             <li className="yes hl"><span className="ic"><CheckIcon /></span>Tag the place where you first heard it</li>
-            <li className="yes hl"><span className="ic"><CheckIcon /></span>Share your memory to the song&apos;s public feed</li>
+            <li className="yes hl"><span className="ic"><CheckIcon /></span>Share your memories to the song&apos;s public feed</li>
             <li className="yes hl"><span className="ic"><CheckIcon /></span>Read how others remember the same song</li>
+            <li className="yes"><span className="ic"><CheckIcon /></span>Add custom songs not on Apple Music</li>
+            <li className="yes"><span className="ic"><CheckIcon /></span>Organise memories into collections</li>
+            <li className="yes"><span className="ic"><CheckIcon /></span>Daily streak tracking</li>
           </ul>
 
           <a
@@ -215,11 +189,31 @@ export function BillingToggle() {
               scrollToSelector('#download')
             }}
           >
-            {billing === 'annual' ? 'Start 3-day free trial' : 'Go Pro · $4.99/mo'}
+            {billing === 'annual' ? 'Start 3-day free trial' : `Subscribe · ${amount}/mo`}
           </a>
 
+          <div className="plan-region">
+            {pricing.status === 'idle' && (
+              <button type="button" className="region-link" onClick={pricing.requestLocation}>
+                See pricing for your country
+              </button>
+            )}
+            {pricing.status === 'locating' && <span className="region-note">Detecting your region…</span>}
+            {pricing.status === 'resolved' && pricing.isRegional && (
+              <span className="region-note">Showing {pricing.countryName} pricing</span>
+            )}
+            {pricing.status === 'resolved' && !pricing.isRegional && (
+              <span className="region-note">Showing standard pricing</span>
+            )}
+            {(pricing.status === 'denied' || pricing.status === 'error') && (
+              <button type="button" className="region-link" onClick={pricing.requestLocation}>
+                Couldn&apos;t detect region — show prices in USD. Try again
+              </button>
+            )}
+          </div>
+
           <div className="plan-fine">
-            Billed through the App Store / Google Play
+            Billed through the App Store / Google Play. Prices shown in your local currency where available.
           </div>
         </div>
       </div>
@@ -270,10 +264,3 @@ function CheckIcon() {
   )
 }
 
-function CrossIcon() {
-  return (
-    <svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M4 4l8 8M12 4l-8 8" />
-    </svg>
-  )
-}

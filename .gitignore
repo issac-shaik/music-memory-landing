@@ -35,6 +35,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# generated pricing data (rebuilt from the CSVs via prebuild/predev)
+src/data/pricing.generated.ts
+
 # cloudflare
 .vercel
 .wrangler

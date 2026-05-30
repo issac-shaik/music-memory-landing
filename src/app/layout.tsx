@@ -158,8 +158,9 @@ export default function RootLayout({
     ],
     offers: {
       '@type': 'Offer',
-      price: '0',
+      price: '49.99',
       priceCurrency: 'USD',
+      description: 'Annual subscription with a 3-day free trial. Monthly available at 9.99 USD.',
     },
     aggregateRating: {
       '@type': 'AggregateRating',
