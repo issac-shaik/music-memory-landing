@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { usePricing } from './usePricing'
 
 export function useReveal() {
@@ -183,13 +183,13 @@ export function BillingToggle() {
 
           <a
             className="plan-cta primary"
-            href="#download"
+            href="#waitlist"
             onClick={(e) => {
               e.preventDefault()
-              scrollToSelector('#download')
+              scrollToSelector('.coming-soon')
             }}
           >
-            {billing === 'annual' ? 'Start 3-day free trial' : `Subscribe · ${amount}/mo`}
+            Join the waitlist
           </a>
 
           <div className="plan-region">
@@ -222,16 +222,27 @@ export function BillingToggle() {
 }
 
 export function HeroBadges() {
+  // Pre-launch: the app isn't downloadable yet, so the store badges are shown
+  // as disabled "coming soon" chips and the CTA points to the waitlist instead.
   return (
     <div className="hero-badges">
-      <a className="store-badge sb-ios" href="#download" onClick={(e) => { e.preventDefault(); scrollToSelector('.cta-wf') }} aria-label="Download on the App Store">
+      <span className="store-badge sb-ios is-soon" aria-label="Coming soon to the App Store">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg" alt="Download on the App Store" width="135" height="44" />
-      </a>
-      <a className="store-badge sb-android" href="#download" onClick={(e) => { e.preventDefault(); scrollToSelector('.cta-wf') }} aria-label="Get it on Google Play">
+        <img src="/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg" alt="" width="135" height="44" />
+        <span className="badge-soon-tag">Soon</span>
+      </span>
+      <span className="store-badge sb-android is-soon" aria-label="Coming soon to Google Play">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/GetItOnGooglePlay_Badge_Web_color_English.svg" alt="Get it on Google Play" width="152" height="44" />
-      </a>
+        <img src="/GetItOnGooglePlay_Badge_Web_color_English.svg" alt="" width="152" height="44" />
+        <span className="badge-soon-tag">Soon</span>
+      </span>
+      <button
+        type="button"
+        className="hero-waitlist-link"
+        onClick={() => scrollToSelector('.coming-soon')}
+      >
+        Join the waitlist →
+      </button>
     </div>
   )
 }
@@ -283,6 +294,84 @@ export function FaqPricingAnswer() {
           Couldn&apos;t detect region — show prices in USD. Try again
         </button>
       )}
+    </div>
+  )
+}
+
+// Backend base URL (Cloudflare Worker). Inlined at build time for the static
+// export. Falls back to the production worker host if unset.
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL ?? 'https://musicmemory-backend.workers.dev'
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+type WaitlistState = 'idle' | 'submitting' | 'success' | 'error'
+
+export function ComingSoonWaitlist() {
+  const [email, setEmail] = useState('')
+  const [state, setState] = useState<WaitlistState>('idle')
+  const [message, setMessage] = useState('')
+
+  async function onSubmit(e: FormEvent) {
+    e.preventDefault()
+    if (state === 'submitting') return
+
+    const value = email.trim().toLowerCase()
+    if (!EMAIL_RE.test(value)) {
+      setState('error')
+      setMessage('Please enter a valid email address.')
+      return
+    }
+
+    setState('submitting')
+    setMessage('')
+    try {
+      const res = await fetch(`${API_BASE_URL}/waitlist`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: value }),
+      })
+      if (res.ok) {
+        setState('success')
+        setMessage("You're on the list — check your inbox.")
+        setEmail('')
+      } else {
+        const data = await res.json().catch(() => null)
+        setState('error')
+        setMessage(data?.error || 'Something went wrong. Please try again.')
+      }
+    } catch {
+      setState('error')
+      setMessage('Network error. Please try again.')
+    }
+  }
+
+  return (
+    <div className="waitlist">
+      {state === 'success' ? (
+        <p className="waitlist-success" role="status">{message}</p>
+      ) : (
+        <form className="waitlist-form" onSubmit={onSubmit} noValidate>
+          <input
+            type="email"
+            className="waitlist-input"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value)
+              if (state === 'error') setState('idle')
+            }}
+            aria-label="Email address"
+            autoComplete="email"
+            inputMode="email"
+            required
+          />
+          <button type="submit" className="waitlist-btn" disabled={state === 'submitting'}>
+            {state === 'submitting' ? 'Joining…' : 'Join the waitlist'}
+          </button>
+        </form>
+      )}
+      {state === 'error' && <p className="waitlist-error" role="alert">{message}</p>}
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { ClientEffects, HeroBadges, StoryProgress, BillingToggle, FaqPricingAnswer } from './HomeClient'
+import { ClientEffects, HeroBadges, StoryProgress, BillingToggle, FaqPricingAnswer, ComingSoonWaitlist } from './HomeClient'
 
 const SONGS = [
   "Stay close, stay quiet", "Window seat", "Five o'clock light",
@@ -37,6 +37,21 @@ export function HomePage() {
     <main className="page">
       <ClientEffects />
 
+      {/* 00 COMING SOON — pre-launch waitlist banner */}
+      <section className="coming-soon" id="waitlist" data-screen-label="00 Coming soon">
+        <div className="coming-soon-wf">
+          <span className="coming-soon-pill">◉ Coming soon</span>
+          <h2 className="coming-soon-title">
+            Music Memory is almost here.
+          </h2>
+          <p className="coming-soon-sub">
+            The music journal &amp; song diary app for the songs of your life.
+            Join the waitlist and we&apos;ll email you the moment it launches.
+          </p>
+          <ComingSoonWaitlist />
+        </div>
+      </section>
+
       {/* 02 HERO */}
       <section className="reveal in" data-screen-label="02 Hero">
         <div className="hero-wf">
@@ -53,7 +68,7 @@ export function HomePage() {
                   <strong>Music Memory</strong> is a music journal and song diary app
                   for tracking the songs of your life — when you first heard each one,
                   where you were, and what you felt. A quiet, cinematic place to keep
-                  the tracks that already remember you. Free on iOS and Android.
+                  the tracks that already remember you. Coming soon to iOS and Android.
                 </p>
               </div>
               <div className="hero-bottom">
@@ -714,18 +729,22 @@ export function HomePage() {
             Start <span className="accent">writing it</span><br />down.
           </h2>
 
-          <div className="cta-row">
-            <a className="store-badge sb-ios sb-lg" href="#" aria-label="Download on the App Store">
+          <div className="cta-row cta-row-soon" aria-hidden="true">
+            <span className="store-badge sb-ios sb-lg is-soon" aria-label="Coming soon to the App Store">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg" alt="Download on the App Store" width="168" height="56" />
-            </a>
-            <a className="store-badge sb-android sb-lg" href="#" aria-label="Get it on Google Play">
+              <img src="/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg" alt="" width="168" height="56" />
+              <span className="badge-soon-tag">Soon</span>
+            </span>
+            <span className="store-badge sb-android sb-lg is-soon" aria-label="Coming soon to Google Play">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/GetItOnGooglePlay_Badge_Web_color_English.svg" alt="Get it on Google Play" width="190" height="56" />
-            </a>
+              <img src="/GetItOnGooglePlay_Badge_Web_color_English.svg" alt="" width="190" height="56" />
+              <span className="badge-soon-tag">Soon</span>
+            </span>
           </div>
 
-          <div className="trial">3-day free trial · annual plan</div>
+          <ComingSoonWaitlist />
+
+          <div className="trial">Not out yet — join the waitlist for launch day</div>
 
           <div className="recap">
             <div className="item">

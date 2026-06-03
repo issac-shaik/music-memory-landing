@@ -86,8 +86,8 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                 ))}
               </div>
               <div className="nav-cta">
-                <a href="#download" onClick={goToSection('#download')} className="cta">
-                  Start journaling
+                <a href="#waitlist" onClick={goToSection('#waitlist')} className="cta">
+                  Join the waitlist
                 </a>
               </div>
             </div>

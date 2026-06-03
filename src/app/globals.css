@@ -2940,3 +2940,153 @@ body.prod .phone-frame .screen .tab-bar .tab {
   .faq-wf .faq-item .a { padding: 0 0 22px; }
   .faq-wf .faq-item .a p { font-size: 14.5px; }
 }
+
+/* ============================================================
+   0 — COMING SOON / WAITLIST
+   ============================================================ */
+.coming-soon {
+  border-bottom: 1px solid var(--ink-12);
+  background:
+    radial-gradient(1200px 300px at 50% -120px, var(--accent-soft), transparent 70%),
+    var(--bg);
+}
+.coming-soon-wf {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 96px var(--page-x) 72px;
+  text-align: center;
+}
+.coming-soon-pill {
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 6px 14px;
+  margin-bottom: 24px;
+}
+.coming-soon-title {
+  font-family: var(--f-display);
+  font-size: clamp(30px, 6vw, 52px);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 18px;
+}
+.coming-soon-sub {
+  font-family: var(--f-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-70);
+  max-width: 520px;
+  margin: 0 auto 32px;
+}
+
+/* Waitlist form (used in the coming-soon banner and the final CTA) */
+.waitlist { width: 100%; max-width: 480px; margin: 0 auto; }
+.waitlist-form {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+.waitlist-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--f-sans);
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--ink-07);
+  border: 1px solid var(--ink-20);
+  border-radius: 999px;
+  padding: 13px 20px;
+  outline: none;
+  transition: border-color .2s linear, background .2s linear;
+}
+.waitlist-input::placeholder { color: var(--ink-35); }
+.waitlist-input:focus {
+  border-color: var(--accent);
+  background: var(--ink-12);
+}
+.waitlist-btn {
+  flex: 0 0 auto;
+  background: var(--accent);
+  color: #1a0a00;
+  font-family: var(--f-sans);
+  font-size: 14px;
+  font-weight: 600;
+  border: 0;
+  border-radius: 999px;
+  padding: 13px 22px;
+  cursor: pointer;
+  transition: transform .25s var(--ease-cinema), opacity .2s linear;
+  white-space: nowrap;
+}
+.waitlist-btn:hover:not(:disabled) { transform: translateY(-1px); }
+.waitlist-btn:disabled { opacity: 0.6; cursor: default; }
+.waitlist-success {
+  font-family: var(--f-sans);
+  font-size: 15px;
+  color: var(--accent);
+  margin: 0;
+  padding: 12px 0;
+}
+.waitlist-error {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: #ff8a6b;
+  margin: 10px 0 0;
+}
+
+/* Final-CTA waitlist spacing */
+.cta-wf .waitlist { margin-top: 28px; }
+
+/* Disabled "coming soon" store badges */
+.store-badge.is-soon {
+  position: relative;
+  opacity: 0.45;
+  filter: grayscale(0.4);
+  cursor: default;
+  pointer-events: none;
+}
+.store-badge.is-soon:hover { transform: none; opacity: 0.45; }
+.badge-soon-tag {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  font-family: var(--f-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1a0a00;
+  background: var(--accent);
+  border-radius: 999px;
+  padding: 2px 6px;
+  line-height: 1;
+}
+.cta-row-soon { opacity: 0.92; }
+
+/* Hero "join the waitlist" inline link */
+.hero-waitlist-link {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 6px 4px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.hero-waitlist-link:hover { opacity: 0.8; }
+
+@media (max-width: 560px) {
+  .coming-soon-wf { padding: 72px var(--page-x) 56px; }
+  .waitlist-form { flex-direction: column; }
+  .waitlist-input, .waitlist-btn { width: 100%; }
+}
