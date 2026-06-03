@@ -1,4 +1,4 @@
-import { ClientEffects, HeroBadges, StoryProgress, BillingToggle } from './HomeClient'
+import { ClientEffects, HeroBadges, StoryProgress, BillingToggle, FaqPricingAnswer } from './HomeClient'
 
 const SONGS = [
   "Stay close, stay quiet", "Window seat", "Five o'clock light",
@@ -671,15 +671,7 @@ export function HomePage() {
                 <span className="q">Is Music Memory free?</span>
                 <span className="ic" aria-hidden="true">+</span>
               </summary>
-              <div className="a">
-                <p>
-                  Yes. The free tier lets you log <strong>one memory per day,
-                  forever</strong>. Music Memory Pro unlocks unlimited entries, photos
-                  and videos, location tagging, and access to the public song
-                  memory feed. Pro is $4.99/month or $29.99/year with a 3-day free
-                  trial.
-                </p>
-              </div>
+              <FaqPricingAnswer />
             </details>
 
             <details className="faq-item">

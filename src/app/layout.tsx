@@ -185,8 +185,9 @@ export default function RootLayout({
     url: 'https://musicmemory.app',
     offers: {
       '@type': 'Offer',
-      price: '0',
+      price: '9.99',
       priceCurrency: 'USD',
+      description: 'Subscription with a 3-day free trial. $9.99/month or $49.99/year (prices vary by region).',
     },
   }
 
@@ -261,7 +262,7 @@ export default function RootLayout({
         name: 'Is Music Memory free?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes. The free tier lets you log one music memory per day, forever. Music Memory Pro unlocks unlimited entries, photos and videos, location tagging, and access to the public song memory feed. Pro is $29.99/year or $4.99/month with a 3-day free trial.',
+          text: 'Music Memory is a subscription with a 3-day free trial. Music Memory Pro unlocks unlimited entries, photos and videos, location tagging, and access to the public song memory feed. Pro is $49.99/year or $9.99/month (prices vary by region and are shown in your local currency where available).',
         },
       },
       {
