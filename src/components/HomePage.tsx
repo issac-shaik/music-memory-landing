@@ -37,23 +37,8 @@ export function HomePage() {
     <main className="page">
       <ClientEffects />
 
-      {/* 00 COMING SOON — pre-launch waitlist banner */}
-      <section className="coming-soon" id="waitlist" data-screen-label="00 Coming soon">
-        <div className="coming-soon-wf">
-          <span className="coming-soon-pill">◉ Coming soon</span>
-          <h2 className="coming-soon-title">
-            Music Memory is almost here.
-          </h2>
-          <p className="coming-soon-sub">
-            The music journal &amp; song diary app for the songs of your life.
-            Join the waitlist and we&apos;ll email you the moment it launches.
-          </p>
-          <ComingSoonWaitlist />
-        </div>
-      </section>
-
       {/* 02 HERO */}
-      <section className="reveal in" data-screen-label="02 Hero">
+      <section className="reveal in" id="waitlist" data-screen-label="02 Hero">
         <div className="hero-wf">
           <div className="hero-grid">
             <div className="hero-copy">

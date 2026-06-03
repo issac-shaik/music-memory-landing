@@ -186,7 +186,7 @@ export function BillingToggle() {
             href="#waitlist"
             onClick={(e) => {
               e.preventDefault()
-              scrollToSelector('.coming-soon')
+              scrollToSelector('#waitlist')
             }}
           >
             Join the waitlist
@@ -223,26 +223,22 @@ export function BillingToggle() {
 
 export function HeroBadges() {
   // Pre-launch: the app isn't downloadable yet, so the store badges are shown
-  // as disabled "coming soon" chips and the CTA points to the waitlist instead.
+  // as disabled "coming soon" chips, with the waitlist signup inline below them.
   return (
     <div className="hero-badges">
-      <span className="store-badge sb-ios is-soon" aria-label="Coming soon to the App Store">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg" alt="" width="135" height="44" />
-        <span className="badge-soon-tag">Soon</span>
-      </span>
-      <span className="store-badge sb-android is-soon" aria-label="Coming soon to Google Play">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/GetItOnGooglePlay_Badge_Web_color_English.svg" alt="" width="152" height="44" />
-        <span className="badge-soon-tag">Soon</span>
-      </span>
-      <button
-        type="button"
-        className="hero-waitlist-link"
-        onClick={() => scrollToSelector('.coming-soon')}
-      >
-        Join the waitlist →
-      </button>
+      <div className="store-row">
+        <span className="store-badge sb-ios is-soon" aria-label="Coming soon to the App Store">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg" alt="" width="135" height="44" />
+          <span className="badge-soon-tag">Soon</span>
+        </span>
+        <span className="store-badge sb-android is-soon" aria-label="Coming soon to Google Play">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/GetItOnGooglePlay_Badge_Web_color_English.svg" alt="" width="152" height="44" />
+          <span className="badge-soon-tag">Soon</span>
+        </span>
+      </div>
+      <ComingSoonWaitlist />
     </div>
   )
 }
@@ -367,7 +363,7 @@ export function ComingSoonWaitlist() {
             required
           />
           <button type="submit" className="waitlist-btn" disabled={state === 'submitting'}>
-            {state === 'submitting' ? 'Joining…' : 'Join the waitlist'}
+            {state === 'submitting' ? 'Joining…' : 'Join Waitlist'}
           </button>
         </form>
       )}
