@@ -327,12 +327,16 @@ export function ComingSoonWaitlist() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: value }),
       })
+      const data = await res.json().catch(() => null)
       if (res.ok) {
         setState('success')
-        setMessage("You're on the list — check your inbox.")
+        setMessage(
+          data?.already
+            ? "You're already part of the waitlist!"
+            : "You're on the list — check your inbox."
+        )
         setEmail('')
       } else {
-        const data = await res.json().catch(() => null)
         setState('error')
         setMessage(data?.error || 'Something went wrong. Please try again.')
       }
