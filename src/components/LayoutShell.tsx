@@ -63,12 +63,14 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
       <div className="nav-shell">
         <div className="page">
           <nav
-            className="nav-wf nav-floating"
+            className="nav-floating"
             aria-label="Main navigation"
             style={
               scrolled
                 ? {
-                    background: 'rgba(15, 15, 17, 0.92)',
+                    background: 'rgba(5, 5, 7, 0.92)',
+                    borderColor: 'var(--stroke-strong)',
+                    boxShadow: '0 8px 30px rgba(0, 0, 0, 0.5)',
                   }
                 : undefined
             }

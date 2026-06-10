@@ -148,14 +148,13 @@ export function BillingToggle() {
 
           {pricing.isIndia && (
             <div className="region-banner" role="status">
-              <span className="region-dot">◉</span>
               Regional pricing applied
             </div>
           )}
 
           <div className="plan-head">
             <div className="plan-name">
-              Music Memory <span className="mark">◉</span>
+              Music Memory
             </div>
             <div className="plan-price">
               {anchor && <span className="anchor">{anchor}</span>}
@@ -269,7 +268,7 @@ export function FaqPricingAnswer() {
     <div className="a">
       <p>
         No — Music Memory is a subscription. You get a <strong>3-day free
-        trial</strong>, then Pro is {pricing.monthly}/month or {pricing.yearly}/year.
+          trial</strong>, then Pro is {pricing.monthly}/month or {pricing.yearly}/year.
         Pro includes unlimited memories, photos and videos, location tagging,
         and access to the public song memory feed.
       </p>

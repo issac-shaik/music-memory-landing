@@ -1,4 +1,5 @@
 import { ClientEffects, HeroBadges, StoryProgress, BillingToggle, FaqPricingAnswer, ComingSoonWaitlist } from './HomeClient'
+import { SongSearchWizard } from './SongSearchWizard'
 
 const SONGS = [
   "Stay close, stay quiet", "Window seat", "Five o'clock light",
@@ -22,6 +23,22 @@ function song() { return SONGS[_si++ % SONGS.length] }
 function artist() { return ARTISTS[_ai++ % ARTISTS.length] }
 function resetCounters() { _si = 0; _ai = 0 }
 
+// Real, recognizable songs for "THE ARCHIVE" cards — actual title, artist, and
+// Apple Music cover art (cover URLs are Apple's templated artwork; we fill the
+// {w}x{h} with 96x96 to serve a crisp image into the 48px cover box at 2×).
+// Ordered to pair with each memory card's quote/place/date below.
+const ARCHIVE_SONGS = [
+  { title: 'Dynamite', artist: 'BTS', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/03/8d/0e/038d0e52-e96d-f386-b8eb-9f77fa013543/195497146918_Cover.jpg/{w}x{h}bb.jpg' },
+  { title: 'Hey There Delilah', artist: "Plain White T's", cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/a8/a4/23/a8a423e8-643b-79d0-81e4-00b3ca683b8c/00050087104436.rgb.jpg/{w}x{h}bb.jpg' },
+  { title: 'Thinking Out Loud', artist: 'Ed Sheeran', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/2d/36/f9/2d36f9a7-2c3e-ce0f-7fb6-036feecb221f/825646974450.jpg/{w}x{h}bb.jpg' },
+  { title: 'Sunflower', artist: 'Post Malone & Swae Lee', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/4b/30/2c/4b302cb6-7a14-5464-4e97-0577e9d0be49/18UMGIM82277.rgb.jpg/{w}x{h}bb.jpg' },
+  { title: 'Fix You', artist: 'Coldplay', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/0c/82/48/0c8248a8-4a5b-d30d-8056-f32d650d2fc9/190295978068.jpg/{w}x{h}bb.jpg' },
+  { title: 'Blinding Lights', artist: 'The Weeknd', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/a6/6e/bf/a66ebf79-5008-8948-b352-a790fc87446b/19UM1IM04638.rgb.jpg/{w}x{h}bb.jpg' },
+  { title: 'Wonderwall', artist: 'Oasis', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/04/92/e0/0492e08b-cbcc-9969-9ad6-8f5a0888068c/5051961007107.jpg/{w}x{h}bb.jpg' },
+  { title: 'Heat Waves', artist: 'Glass Animals', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/da/8b/77/da8b7731-6f4f-eacf-5e74-8b23389eefa1/20UMGIM03371.rgb.jpg/{w}x{h}bb.jpg' },
+  { title: 'Watermelon Sugar', artist: 'Harry Styles', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/2b/c4/c9/2bc4c9d4-3bc6-ab13-3f71-df0b89b173de/886448022213.jpg/{w}x{h}bb.jpg' },
+]
+
 const STORY_STEPS = [
   '01 — Hear the song again',
   '02 — Attach the date you first heard it',
@@ -43,7 +60,7 @@ export function HomePage() {
           <div className="hero-grid">
             <div className="hero-copy">
               <div>
-                <div className="eyebrow hero-eyebrow">◉ Music Memory · The music journal &amp; song diary app</div>
+                <div className="eyebrow hero-eyebrow">Music Memory · The music journal &amp; song diary app</div>
                 <h1 className="hero-headline">
                   Every song<br />
                   remembers<br />
@@ -120,7 +137,7 @@ export function HomePage() {
         <div className="story-wf">
           <div className="story-grid">
             <div className="story-sticky">
-              <div className="eyebrow">◉ A memory, becoming.</div>
+              <div className="eyebrow">A memory, becoming.</div>
               <h3 style={{ marginTop: 20 }}>
                 How a song<br /><em>becomes</em><br />a memory.
               </h3>
@@ -234,6 +251,13 @@ export function HomePage() {
             </div>
           </div>
         </div>
+      </section>
+
+      <div className="divider"></div>
+
+      {/* 03b TRY IT — interactive song memory wizard */}
+      <section data-screen-label="03b Try It">
+        <SongSearchWizard />
       </section>
 
       <div className="divider"></div>
@@ -415,7 +439,7 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className="showcase-row reveal">
+          {/* <div className="showcase-row reveal">
             <div className="showcase-copy">
               <h3>One song a day.<br /><em>Or ten.</em></h3>
               <p>A quiet daily streak. A nudge in the morning, a
@@ -439,7 +463,7 @@ export function HomePage() {
                 <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, color: 'var(--ink-50)', textTransform: 'uppercase' as const, letterSpacing: '0.1em', marginTop: 18 }}>M T W T F S S</div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="showcase-row flip reveal">
             <div className="showcase-copy">
@@ -518,7 +542,7 @@ export function HomePage() {
       <section className="reveal" data-screen-label="07 Social Proof" id="community">
         <div className="proof-wf">
           <div className="counter">
-            <div className="eyebrow" style={{ marginBottom: 20 }}>◉ THE ARCHIVE</div>
+            <div className="eyebrow" style={{ marginBottom: 20 }}>THE ARCHIVE</div>
             <div className="big">
               <span className="ticker">{(100000).toLocaleString('en-US')}</span>+
               <br />
@@ -538,14 +562,21 @@ export function HomePage() {
               { body: '"My grandmother\'s kitchen. The kettle and the chorus arrived at the same time."', meta: ['1998', 'LISBON', '@joanaf'], react: ['♡ 623', '↩ 54'] },
               { body: '"Drove the long way home just so it would finish."', meta: ['NOV 2021', 'AUSTIN', '@thom'], react: ['♡ 91', '↩ 3'] },
               { body: '"The summer I learned to be alone. This song was company."', meta: ['JUL 2020', 'BERLIN', '@iwrite'], react: ['♡ 1,108', '↩ 140'] },
-            ].map((card, i) => (
-              <div key={i} className="mem-card">
-                <div className="row"><div className="cv"></div><div><div className="song">{song()}</div><div className="ar">{artist()}</div></div></div>
-                <div className="body">{card.body}</div>
-                <div className="meta">{card.meta.map((m, j) => <span key={j} className={m.includes('@') ? '' : j === card.meta.length - 2 ? 'pin' : ''}>{m}</span>)}</div>
-                <div className="react">{card.react.map((r, j) => <span key={j}>{r}</span>)}</div>
-              </div>
-            ))}
+            ].map((card, i) => {
+              const track = ARCHIVE_SONGS[i % ARCHIVE_SONGS.length]
+              return (
+                <div key={i} className="mem-card">
+                  <div className="row">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img className="cv" src={track.cover.replace('{w}', '96').replace('{h}', '96')} alt={`${track.title} by ${track.artist}`} width="48" height="48" loading="lazy" />
+                    <div><div className="song">{track.title}</div><div className="ar">{track.artist}</div></div>
+                  </div>
+                  <div className="body">{card.body}</div>
+                  <div className="meta">{card.meta.map((m, j) => <span key={j} className={m.includes('@') ? '' : j === card.meta.length - 2 ? 'pin' : ''}>{m}</span>)}</div>
+                  <div className="react">{card.react.map((r, j) => <span key={j}>{r}</span>)}</div>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -556,7 +587,7 @@ export function HomePage() {
       <section className="reveal" data-screen-label="08 Pricing" id="pricing">
         <div className="pricing-wf">
           <div className="pricing-head">
-            <div className="eyebrow">◉ PRICING</div>
+            <div className="eyebrow">PRICING</div>
             <h2 className="h-section" style={{ marginTop: 18 }}>
               One subscription.<br /><em>Everything</em> included.
             </h2>
@@ -576,7 +607,7 @@ export function HomePage() {
       <section className="reveal" data-screen-label="08b FAQ" id="faq">
         <div className="faq-wf">
           <div className="faq-head">
-            <div className="eyebrow">◉ FAQ</div>
+            <div className="eyebrow"> FAQ</div>
             <h2 className="h-section" style={{ marginTop: 18 }}>
               The music journal,<br />
               <em>questioned.</em>
@@ -661,7 +692,7 @@ export function HomePage() {
                   <strong> Apple Music catalogue</strong> so the real cover art and
                   metadata attach to your entries, and you can play tracks from the
                   app. You can also <strong>export a Music Memory collection back to
-                  Apple Music</strong> as a real playlist. Spotify support will be coming in the future.
+                    Apple Music</strong> as a real playlist. Spotify support will be coming in the future.
                 </p>
               </div>
             </details>
@@ -708,7 +739,7 @@ export function HomePage() {
       {/* 08 FINAL CTA */}
       <section className="reveal" data-screen-label="09 Final CTA" id="download">
         <div className="cta-wf">
-          <div className="eyebrow">◉ THE FINAL FRAME</div>
+          <div className="eyebrow"> THE FINAL FRAME</div>
           <h2 className="h-final" style={{ marginTop: 36 }}>
             Your songs<br />already <em>remember</em>.<br />
             Start <span className="accent">writing it</span><br />down.

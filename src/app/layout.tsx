@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Instrument_Serif, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
+import { Instrument_Serif, Space_Grotesk, JetBrains_Mono, Newsreader, Hanken_Grotesk } from 'next/font/google'
 import './globals.css'
 import { LayoutShell } from '@/components/LayoutShell'
 
@@ -25,10 +25,28 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-mono',
 })
 
+// "Liner Notes" theme fonts — Newsreader (editorial serif, used italic for
+// emphasis) + Hanken Grotesk (sans for body/labels). Self-hosted via next/font
+// so there's no external request and no layout shift.
+const newsreader = Newsreader({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-serif',
+})
+
+const hankenGrotesk = Hanken_Grotesk({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-hanken',
+})
+
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#000000',
+  themeColor: '#F4EDE0',
 }
 
 export const metadata: Metadata = {
@@ -285,7 +303,7 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en" className={`${instrumentSerif.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${instrumentSerif.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${newsreader.variable} ${hankenGrotesk.variable}`}>
       <head>
         <link rel="canonical" href="https://musicmemory.app/" />
         <link
@@ -315,7 +333,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       </head>
-      <body className="v2 prod">
+      <body className="v2 prod liner">
         <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
