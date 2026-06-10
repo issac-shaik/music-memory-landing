@@ -22,17 +22,19 @@ song-search wizard).
 | `npm run dev`     | Dev server (proxies `/apple-music/*` to the Worker) |
 | `npm run build`   | Regenerates pricing data, builds to `./out`       |
 | `npm run preview` | Preview the production build                      |
-| `npm run pages:dev` | Serve `./out` through Wrangler (Pages Functions active) |
+| `npm run worker:dev` | Serve `./out` through Wrangler with the proxy Worker |
 
 `npm run gen:pricing` rebuilds `src/data/pricing.generated.ts` from the two
 CSVs in `src/` (it also runs automatically before `dev` and `build`).
 
 ## Deploy
 
-Pushing to `main` auto-deploys via Cloudflare Pages (build command
-`npm run build`, output directory `out`). `functions/apple-music/[[path]].ts`
-is a Pages Function that proxies the song-search wizard's API calls to the
-backend Worker so the browser only ever makes same-origin requests.
+Pushing to `main` auto-deploys via Cloudflare's git integration as a
+**Worker with static assets** (build command `npm run build`, assets served
+from `./out` per `wrangler.toml` — it is not a classic Pages project, so a
+`functions/` directory would be ignored). `worker/index.ts` proxies the
+song-search wizard's `/apple-music/*` calls to the backend Worker so the
+browser only ever makes same-origin requests.
 
 ## SEO
 

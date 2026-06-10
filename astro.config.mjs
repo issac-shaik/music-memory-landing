@@ -4,10 +4,10 @@ import react from '@astrojs/react'
 import tailwindcss from '@tailwindcss/vite'
 
 // Backend Worker that the song-search wizard talks to. In production we never
-// hit this directly from the browser — the same-origin Cloudflare Pages
-// Function at functions/apple-music/[[path]].ts proxies to it. In `astro dev`
-// there are no Pages Functions, so the Vite dev server proxies the same path
-// to the Worker instead. Either way the browser only ever makes a same-origin
+// hit this directly from the browser — the same-origin route /apple-music/*
+// is proxied to it by worker/index.ts (the site deploys as a Cloudflare
+// Worker with static assets). In `astro dev` the Vite dev server proxies the
+// same path instead. Either way the browser only ever makes a same-origin
 // request, so there is no CORS anywhere.
 const BACKEND_ORIGIN =
   process.env.PUBLIC_API_BASE_URL ??

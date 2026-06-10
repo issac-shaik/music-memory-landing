@@ -1,5 +1,9 @@
 name = "music-memory-landing"
+main = "worker/index.ts"
 compatibility_date = "2024-01-01"
 
 [assets]
 directory = "./out"
+binding = "ASSETS"
+# Serve the styled /404.html for unknown paths instead of an empty 404.
+not_found_handling = "404-page"

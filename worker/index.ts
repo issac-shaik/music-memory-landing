@@ -1,21 +1,20 @@
-// Cloudflare Pages Function — same-origin proxy for the Music Memory backend.
+// Worker entry for the musicmemory.app deployment (Workers static assets).
 //
-// Why this exists: the wizard fetches the Apple Music catalogue from the
-// backend Worker. That Worker only allows CORS for the production origins
-// (musicmemory.app / www.musicmemory.app), so a direct browser fetch from
-// localhost or a *.pages.dev preview fails CORS. By calling this path on our
-// OWN origin and forwarding server-side (where CORS does not apply), the
-// browser never makes a cross-origin request and CORS errors disappear
-// everywhere.
+// The site deploys as a Cloudflare Worker with `[assets] directory = "./out"`
+// (see wrangler.toml) — NOT classic Pages — so a `functions/` directory would
+// be ignored. This script handles the one dynamic route, /apple-music/*, and
+// every other request falls through to the static assets binding.
 //
-// Matches requests to /apple-music/* (e.g. /apple-music/search?term=...).
+// Why the proxy exists: the song-search wizard fetches the Apple Music
+// catalogue from the backend Worker. That Worker only allows CORS for the
+// production origins, so a direct browser fetch from previews fails CORS. By
+// calling this path on our OWN origin and forwarding server-side (where CORS
+// does not apply), the browser never makes a cross-origin request.
 
 const BACKEND_ORIGIN = 'https://musicmemory-backend.issac-shaik.workers.dev'
 
-// Minimal shape of the Pages Functions event context (avoids a dependency on
-// @cloudflare/workers-types, which isn't installed).
-interface EventContext {
-  request: Request
+interface Env {
+  ASSETS: { fetch: (request: Request) => Promise<Response> }
 }
 
 async function proxy(request: Request): Promise<Response> {
@@ -56,5 +55,12 @@ async function proxy(request: Request): Promise<Response> {
   })
 }
 
-export const onRequest = (context: EventContext): Promise<Response> =>
-  proxy(context.request)
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const url = new URL(request.url)
+    if (url.pathname.startsWith('/apple-music/')) {
+      return proxy(request)
+    }
+    return env.ASSETS.fetch(request)
+  },
+}

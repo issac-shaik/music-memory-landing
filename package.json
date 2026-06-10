@@ -10,8 +10,8 @@
     "prebuild": "node scripts/gen-pricing.mjs",
     "build": "astro build",
     "preview": "astro preview",
-    "pages:dev": "npx wrangler pages dev ./out",
-    "pages:deploy": "npx wrangler pages deploy ./out"
+    "worker:dev": "npx wrangler dev",
+    "worker:deploy": "npx wrangler deploy"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.0",
