@@ -18,6 +18,10 @@ export default defineConfig({
   // Cloudflare Pages is configured to publish ./out (the old Next export
   // directory) — keep emitting there so the deploy settings stay untouched.
   outDir: './out',
+  // Emit /privacy.html instead of /privacy/index.html so URLs keep the exact
+  // shape the old Next export had (/privacy serves 200, no trailing-slash
+  // redirect) and keep matching the canonicals + sitemap entries.
+  build: { format: 'file' },
   integrations: [react()],
   vite: {
     plugins: [tailwindcss()],
