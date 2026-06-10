@@ -19,21 +19,26 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-red-900" />
 
         <section>
-          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">How to request account deletion</h2>
-          <p class="leading-relaxed mb-4">
-            [Provide instructions here. E.g., Contact us at support@musicmemory.com or use the delete button inside the app settings.]
-          </p>
-          <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
-            <li>Open the Music Memory app</li>
-            <li>Go to Settings</li>
-            <li>Scroll down and tap &ldquo;Delete Account&rdquo;</li>
-          </ul>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">How to delete your account</h2>
+          <ol class="list-decimal pl-5 space-y-3 leading-relaxed" style="color: var(--ink-90)">
+            <li>Open the Music Memory app and navigate to <strong style="color: var(--ink)">Settings</strong> via the tab bar at the bottom of the screen.</li>
+            <li>Scroll down to the <strong style="color: var(--ink)">Danger Zone</strong> section and tap <strong style="color: var(--ink)">Delete Account</strong>.</li>
+            <li>You will be prompted to confirm your password. Once confirmed, your account will be scheduled for permanent deletion in <strong style="color: var(--ink)">14 days</strong>.</li>
+          </ol>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">What happens when you delete your account?</h2>
-          <p class="leading-relaxed">
-            All your memories, journals, linked media, and account details will be permanently removed from our servers. This action cannot be undone.
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">What happens after you request deletion?</h2>
+          <p class="leading-relaxed mb-4">
+            Once deletion is scheduled, the following applies during the 14-day grace period:
+          </p>
+          <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
+            <li>Your profile will be hidden from other users</li>
+            <li>All of your public memories will be hidden from the community</li>
+            <li>You can cancel the deletion at any time by simply signing back in to your account</li>
+          </ul>
+          <p class="leading-relaxed mt-4">
+            After the 14-day grace period, your account and all associated data — including journal entries, media files, and profile information — will be <strong style="color: var(--ink)">permanently and irreversibly deleted</strong>. This action cannot be undone.
           </p>
         </section>
       </div>
