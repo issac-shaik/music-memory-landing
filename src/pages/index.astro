@@ -74,6 +74,14 @@ const ARCHIVE_CARDS = [
   { body: '"The summer I learned to be alone. This song was company."', meta: ['JUL 2020', 'BERLIN', '@iwrite'], react: ['♡ 1,108', '↩ 140'] },
 ]
 
+// Marquee rows for THE ARCHIVE: each card paired with its song, split across
+// two horizontally scrolling rows (top row drifts slower than the bottom).
+const ARCHIVE_ENTRIES = ARCHIVE_CARDS.map((card, i) => ({
+  card,
+  track: ARCHIVE_SONGS[i % ARCHIVE_SONGS.length],
+}))
+const MARQUEE_ROWS = [ARCHIVE_ENTRIES.slice(0, 5), ARCHIVE_ENTRIES.slice(5)]
+
 const COMMUNITY_STACK = [
   { who: '@m.k', said: '"Played at every bus stop in Seoul, summer 2018."', react: '♡ 312', accent: false },
   { who: '@noahw', said: '"Skipping class in the parking lot."', react: '♡ 188', accent: false },
@@ -593,6 +601,7 @@ const softwareJsonLd = {
     {/* 06 SOCIAL PROOF */}
     <section class="reveal" data-screen-label="07 Social Proof" id="community">
       <div class="proof-wf">
+        {/* Counter retired for now — bring back once the archive has real numbers.
         <div class="counter">
           <div class="eyebrow" style="margin-bottom: 20px">THE ARCHIVE</div>
           <div class="big">
@@ -602,22 +611,38 @@ const softwareJsonLd = {
           </div>
           <div class="small">preserved in Music Memory · since 2026</div>
         </div>
+        */}
 
-        <div class="masonry">
-          {ARCHIVE_CARDS.map((card, i) => {
-            const track = ARCHIVE_SONGS[i % ARCHIVE_SONGS.length]
-            return (
-              <div class="mem-card">
-                <div class="row">
-                  <img class="cv" src={track.cover.replace('{w}', '96').replace('{h}', '96')} alt={`${track.title} by ${track.artist}`} width="48" height="48" loading="lazy" />
-                  <div><div class="song">{track.title}</div><div class="ar">{track.artist}</div></div>
-                </div>
-                <div class="body">{card.body}</div>
-                <div class="meta">{card.meta.map((m, j) => <span class={m.includes('@') ? '' : j === card.meta.length - 2 ? 'pin' : ''}>{m}</span>)}</div>
-                <div class="react">{card.react.map((r) => <span>{r}</span>)}</div>
+        <div class="archive-head">
+          <div class="eyebrow">THE ARCHIVE</div>
+          <h2 class="archive-title">
+            You can create your<br />
+            <em>own journal</em> like this.
+          </h2>
+        </div>
+
+        <div class="archive-marquee">
+          {MARQUEE_ROWS.map((row, r) => (
+            <div class={`marquee-row ${r === 0 ? 'marquee-slow' : 'marquee-fast'}`}>
+              <div class="marquee-track">
+                {[0, 1].map((copy) => (
+                  <div class="marquee-group" aria-hidden={copy === 1 ? 'true' : undefined}>
+                    {row.map(({ card, track }) => (
+                      <div class="mem-card">
+                        <div class="row">
+                          <img class="cv" src={track.cover.replace('{w}', '96').replace('{h}', '96')} alt={`${track.title} by ${track.artist}`} width="48" height="48" loading="lazy" />
+                          <div><div class="song">{track.title}</div><div class="ar">{track.artist}</div></div>
+                        </div>
+                        <div class="body">{card.body}</div>
+                        <div class="meta">{card.meta.map((m, j) => <span class={m.includes('@') ? '' : j === card.meta.length - 2 ? 'pin' : ''}>{m}</span>)}</div>
+                        <div class="react">{card.react.map((r) => <span>{r}</span>)}</div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </div>
-            )
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </section>

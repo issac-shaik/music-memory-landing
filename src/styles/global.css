@@ -4947,7 +4947,9 @@ body.liner .nav-cta .cta {
 /* Kill the dark radial glows; paper hero with an "issue line" feel. */
 body.liner .hero-wf {
   height: auto;
-  padding: 128px 0 30px;
+  /* Keep the first screen short enough that the waitlist field is in view
+     without scrolling — the navbar CTA anchors to #waitlist = this section. */
+  padding: 40px 0 30px;
 }
 
 body.liner .hero-wf::before {
@@ -4979,7 +4981,7 @@ body.liner .hero-eyebrow::before {
 
 body.liner .hero-headline {
   font-family: var(--f-serif);
-  font-size: clamp(46px, 8vw, 116px) !important;
+  font-size: clamp(46px, 6.6vw, 96px) !important;
   line-height: 0.98 !important;
   letter-spacing: -0.02em !important;
   margin-top: 14px;
@@ -4993,10 +4995,10 @@ body.liner .hero-headline em {
 body.liner .hero-sub {
   font-family: var(--f-serif);
   color: var(--ink-70);
-  font-size: clamp(18px, 1.7vw, 22px);
+  font-size: clamp(17px, 1.5vw, 20px);
   line-height: 1.5;
-  max-width: 34ch;
-  margin-top: 26px;
+  max-width: 38ch;
+  margin-top: 18px;
 }
 
 body.liner .hero-sub strong {
@@ -5006,7 +5008,11 @@ body.liner .hero-sub strong {
 
 body.liner .hero-bottom {
   display: block;
-  margin-top: 28px;
+  margin-top: 20px;
+}
+
+body.liner .hero-badges {
+  gap: 16px;
 }
 
 /* Hero figure: frame the phone screenshot in a paper "plate". */
@@ -5569,3 +5575,193 @@ body.liner .quotes .quote em {
 body.liner .quotes .quote .accent {
   color: var(--accent-ink);
 }
+/* ============================================================
+   THE ARCHIVE — full-bleed 100vh dark break + two-row marquee
+   The section lives inside .page (max-width + gutters), so it
+   breaks itself out to the full viewport width; the marquee rows
+   then run edge to edge with no side bars.
+   ============================================================ */
+#community {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#community .proof-wf {
+  width: 100%;
+  padding: 96px 0;
+}
+
+.archive-head {
+  text-align: center;
+  margin-bottom: 72px;
+  padding: 0 var(--page-x);
+}
+
+.archive-title {
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(40px, 6.5vw, 92px);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 18px 0 0;
+}
+
+.archive-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.archive-marquee {
+  display: grid;
+  gap: 22px;
+}
+
+.marquee-row {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+/* Track holds two identical groups; sliding from -50% to 0 moves the cards
+   left → right and loops seamlessly at the group boundary. */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: archive-marquee-ltr linear infinite;
+  will-change: transform;
+}
+
+.marquee-slow .marquee-track {
+  animation-duration: 80s;
+}
+
+.marquee-fast .marquee-track {
+  animation-duration: 45s;
+}
+
+.marquee-row:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-group {
+  display: flex;
+  gap: 22px;
+  padding-right: 22px;
+}
+
+@keyframes archive-marquee-ltr {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Marquee cards: fixed width, flex children (masonry margins don't apply) */
+.archive-marquee .mem-card {
+  width: clamp(280px, 32vw, 380px);
+  flex: none;
+  display: block;
+  margin-bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+@media (max-width: 700px) {
+  #community .proof-wf {
+    padding: 72px 0;
+  }
+
+  .archive-head {
+    margin-bottom: 48px;
+  }
+
+  .archive-marquee {
+    gap: 16px;
+  }
+
+  .marquee-group {
+    gap: 16px;
+    padding-right: 16px;
+  }
+
+  .archive-marquee .mem-card {
+    width: min(78vw, 320px);
+  }
+
+  .archive-marquee .mem-card .body {
+    font-size: 17px;
+  }
+}
+
+/* ============================================================
+   MOBILE — liner overrides
+   The liner rules above are more specific than the base mobile
+   blocks (body.liner X beats .a .b inside a media query), so the
+   stacked layouts have to be re-asserted under body.liner here.
+   ============================================================ */
+@media (max-width: 900px) {
+  body.liner .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body.liner .hero-stage {
+    display: flex;
+    justify-content: center;
+  }
+
+  body.liner .hero-stage .phone-shot {
+    margin-inline: auto;
+  }
+
+  body.liner .nav-links {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  body.liner .nav-inner {
+    padding: 10px 16px;
+    gap: 12px;
+  }
+
+  body.liner .logo-block {
+    font-size: 18px;
+  }
+
+  body.liner .logo-block .logo-mark {
+    width: 24px;
+    height: 24px;
+  }
+
+  body.liner .nav-cta .cta {
+    padding: 8px 14px;
+    font-size: 12.5px;
+  }
+
+  body.liner .hero-wf {
+    padding: 88px 0 24px;
+  }
+
+  body.liner .hero-stage .phone-shot {
+    max-width: 100%;
+  }
+
+  body.liner .wizard-label {
+    font-size: 20px;
+  }
+}
+
