@@ -1,73 +1,47 @@
-# React + TypeScript + Vite
+# musicmemory-landing
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Marketing site for [Music Memory](https://musicmemory.app) — the music journal
+& song diary app. Built with **Astro 5** as a fully static, crawler-first site:
+every page is plain HTML at build time, and React loads only for the four
+interactive islands (waitlist form, pricing toggle, FAQ pricing answer, and the
+song-search wizard).
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Astro 5** (static output → `./out`)
+- **React 19** islands via `@astrojs/react` (`client:idle` / `client:visible`)
+- **Tailwind CSS 4** via `@tailwindcss/vite` (most styling is the hand-written
+  design system in `src/styles/global.css`; the "Liner Notes" theme is scoped
+  under `body.liner` at the end of that file)
+- **Fontsource** variable fonts (Newsreader + Hanken Grotesk, self-hosted)
 
-## React Compiler
+## Commands
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Command           | Action                                            |
+| ----------------- | ------------------------------------------------- |
+| `npm run dev`     | Dev server (proxies `/apple-music/*` to the Worker) |
+| `npm run build`   | Regenerates pricing data, builds to `./out`       |
+| `npm run preview` | Preview the production build                      |
+| `npm run pages:dev` | Serve `./out` through Wrangler (Pages Functions active) |
 
-## Expanding the ESLint configuration
+`npm run gen:pricing` rebuilds `src/data/pricing.generated.ts` from the two
+CSVs in `src/` (it also runs automatically before `dev` and `build`).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Deploy
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Pushing to `main` auto-deploys via Cloudflare Pages (build command
+`npm run build`, output directory `out`). `functions/apple-music/[[path]].ts`
+is a Pages Function that proxies the song-search wizard's API calls to the
+backend Worker so the browser only ever makes same-origin requests.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## SEO
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Per-page titles/descriptions/canonicals + Open Graph/Twitter cards in
+  `src/layouts/BaseLayout.astro`
+- JSON-LD: Organization + WebSite on every page; MobileApplication,
+  SoftwareApplication, FAQPage on the home page (FAQ content lives in
+  `src/data/faq.ts` so the visible FAQ and the structured data never drift)
+- Hand-maintained `public/sitemap.xml` (update `lastmod` + add entries when
+  adding pages), `public/robots.txt` (search + AI crawlers welcomed),
+  `public/llms.txt`
+- Keyword pages: `/faq`, `/music-journal-app`, `/song-diary-app`

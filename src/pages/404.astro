@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="Page Not Found" description="This page doesn't exist. Head back to Music Memory — the music journal and song diary app.">
+  <main class="page">
+    <section class="reveal in" style="min-height: 60vh; display: grid; place-items: center; text-align: center; padding: 96px var(--page-x)">
+      <div>
+        <div class="eyebrow" style="justify-content: center">404 — SIDE B IS BLANK</div>
+        <h1 class="h-section" style="margin-top: 18px">
+          This track<br /><em>doesn't exist.</em>
+        </h1>
+        <p class="subcopy" style="margin-top: 24px">
+          The page you're looking for was never recorded.
+          Head back to the <a href="/" style="color: var(--accent)">home page</a> or
+          browse the <a href="/faq" style="color: var(--accent)">FAQ</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

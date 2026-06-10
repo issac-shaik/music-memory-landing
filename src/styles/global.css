@@ -1,5 +1,28 @@
 @import "tailwindcss";
 
+/* Font families — self-hosted via Fontsource variable fonts (imported in
+   BaseLayout.astro), replacing the next/font CSS variables. Only Newsreader
+   and Hanken Grotesk are shipped: the Liner Notes theme (body.liner, end of
+   this file) remaps every --f-* slot to those two, so the pre-liner families
+   (Instrument Serif / Space Grotesk / JetBrains Mono) resolve to system
+   fallbacks instead of costing font bytes. */
+:root {
+  --font-serif: 'Newsreader Variable';
+  --font-hanken: 'Hanken Grotesk Variable';
+  --font-display: Georgia;
+  --font-sans: system-ui;
+  --font-mono: ui-monospace;
+}
+
+/* Crawlers and no-JS readers must see content that the IntersectionObserver
+   reveal effect would otherwise leave at opacity 0. */
+@media (scripting: none) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @theme {
   --color-accent: #FF6500;
   --color-accent-dark: #e55b00;

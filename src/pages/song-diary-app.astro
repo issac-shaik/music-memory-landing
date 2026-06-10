@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const SITE = 'https://musicmemory.app'
+
+const pageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${SITE}/song-diary-app#webpage`,
+  url: `${SITE}/song-diary-app`,
+  name: 'Song Diary App — keep a diary of the songs of your life',
+  description:
+    'A song diary app records the story behind every track you love — the first listen, the place, the feeling. See how to keep a song diary with Music Memory.',
+  isPartOf: { '@id': `${SITE}/#website` },
+  about: { '@id': `${SITE}/#app` },
+}
+---
+
+<BaseLayout
+  title="Song Diary App — Keep a Diary of Your Songs"
+  description="A song diary app records the story behind every track you love — the first listen, the place, the feeling, the photos. Learn how to keep a song diary with Music Memory on iOS and Android."
+  canonical="/song-diary-app"
+  structuredData={[pageJsonLd]}
+>
+  <main class="page">
+    <article class="legal-page">
+      <div class="eyebrow" style="margin-bottom: 24px">Dear diary, it has a chorus</div>
+      <h1>The song<br /><em>diary</em> app.</h1>
+
+      <div class="space-y-8 glass p-8 rounded-3xl">
+        <section>
+          <p class="leading-relaxed text-lg">
+            A <strong>song diary</strong> is the simplest honest record of a life:
+            one song, one date, one place, one feeling at a time. Where a regular
+            diary asks you to summarise a day, a song diary only asks what was
+            playing — and the rest of the memory follows on its own.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">What goes in a song diary entry?</h2>
+          <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
+            <li><strong>The song</strong> — pulled from the Apple Music catalogue with its real cover art, or a custom entry for mixtapes and rarities.</li>
+            <li><strong>The first listen</strong> — the date you first heard it. A year or a season is enough; the diary builds a timeline from it.</li>
+            <li><strong>The place</strong> — Shibuya Crossing, a Queens kitchen, the back seat of a specific car.</li>
+            <li><strong>The feeling</strong> — a sentence or five hundred words on what it meant.</li>
+            <li><strong>The evidence</strong> — up to five photos or videos that were near the song in your life.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">Song diary vs. listening history</h2>
+          <p class="leading-relaxed">
+            Spotify Wrapped and Last.fm tell you <em>what</em> you played and how often.
+            A song diary records what no scrobbler can see: that you drove the long way
+            home so the track could finish, that it was raining the first time, that
+            the kettle and the chorus arrived at the same time in your grandmother's
+            kitchen. Frequency is data. A diary is memory.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">Keeping a song diary with Music Memory</h2>
+          <p class="leading-relaxed mb-4">
+            <strong>Music Memory</strong> is a song diary app for iOS and Android built
+            around exactly this ritual. Beyond single entries, it lets you:
+          </p>
+          <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
+            <li>Backfill entries for songs you heard years ago, so the diary covers your whole life — not just from today forward.</li>
+            <li>Group entries into <strong>collections</strong> and export any collection back to Apple Music as a playable playlist.</li>
+            <li>Keep a gentle <strong>daily streak</strong> — one song a day, or ten.</li>
+            <li>Optionally share an entry to a song's <strong>public feed</strong> and read how other people remember the same track. Everything is private unless you opt in.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">Start your song diary</h2>
+          <p class="leading-relaxed">
+            Music Memory is coming soon to the App Store and Google Play.
+            <a href="/#waitlist" style="color: var(--accent)">Join the waitlist</a> for launch day,
+            learn <a href="/music-journal-app" style="color: var(--accent)">what a music journal app is</a>,
+            or browse the <a href="/faq" style="color: var(--accent)">FAQ</a>.
+          </p>
+        </section>
+      </div>
+    </article>
+  </main>
+</BaseLayout>

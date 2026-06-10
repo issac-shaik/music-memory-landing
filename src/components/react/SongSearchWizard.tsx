@@ -1,7 +1,6 @@
-'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { ComingSoonWaitlist } from './HomeClient'
+import { ComingSoonWaitlist } from './Waitlist'
 
 interface AppleMusicTrack {
   id: string
@@ -272,7 +271,6 @@ export function SongSearchWizard() {
                   className="wizard-search-item"
                   onClick={() => selectSong(song)}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={song.coverUrl}
                     alt={song.albumName}
@@ -294,7 +292,6 @@ export function SongSearchWizard() {
         {step === 'date' && selectedSong && (
           <div>
             <div className="wizard-header-song">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={selectedSong.coverUrl} alt="" width="36" height="36" />
               <div>
                 <div className="name">{selectedSong.name}</div>
@@ -345,7 +342,6 @@ export function SongSearchWizard() {
         {step === 'location' && selectedSong && (
           <div>
             <div className="wizard-header-song">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={selectedSong.coverUrl} alt="" width="36" height="36" />
               <div>
                 <div className="name">{selectedSong.name}</div>
@@ -396,7 +392,6 @@ export function SongSearchWizard() {
         {step === 'memory' && selectedSong && (
           <div>
             <div className="wizard-header-song">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={selectedSong.coverUrl} alt="" width="36" height="36" />
               <div>
                 <div className="name">{selectedSong.name}</div>
@@ -431,7 +426,6 @@ export function SongSearchWizard() {
                     {m.type === 'video' ? (
                       <video src={m.url} muted playsInline />
                     ) : (
-                      // eslint-disable-next-line @next/next/no-img-element
                       <img src={m.url} alt="" />
                     )}
                     <button
@@ -520,7 +514,6 @@ export function SongSearchWizard() {
 
                 <div className="polaroid-card">
                   <div className="polaroid-art-frame">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={selectedSong.coverUrl} alt={selectedSong.albumName} />
                   </div>
                   <div className="polaroid-details">
@@ -539,7 +532,6 @@ export function SongSearchWizard() {
                             {m.type === 'video' ? (
                               <video src={m.url} muted playsInline />
                             ) : (
-                              // eslint-disable-next-line @next/next/no-img-element
                               <img src={m.url} alt="" />
                             )}
                           </div>
@@ -580,3 +572,4 @@ export function SongSearchWizard() {
     </div>
   )
 }
+export default SongSearchWizard

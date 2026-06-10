@@ -1,7 +1,5 @@
-'use client'
-
 import { useCallback, useMemo, useState } from 'react'
-import { PRICING_BY_ISO, USD_FALLBACK, type RegionPrice } from '../data/pricing.generated'
+import { PRICING_BY_ISO, USD_FALLBACK, type RegionPrice } from '../../data/pricing.generated'
 
 export type GeoStatus = 'idle' | 'locating' | 'resolved' | 'denied' | 'error'
 

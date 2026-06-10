@@ -2,25 +2,16 @@
 node_modules
 /.pnp
 .pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
 
-# next.js
-/.next/
+# astro
 /out/
-
-# legacy Vite build output
 /dist/
-
-# production
-/build
+.astro/
 
 # misc
 .DS_Store
 *.pem
+*.bak
 
 # debug
 npm-debug.log*
@@ -33,7 +24,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 # generated pricing data (rebuilt from the CSVs via prebuild/predev)
 src/data/pricing.generated.ts
@@ -41,3 +31,6 @@ src/data/pricing.generated.ts
 # cloudflare
 .vercel
 .wrangler
+
+# legacy next.js build output (pre-Astro migration)
+/.next/

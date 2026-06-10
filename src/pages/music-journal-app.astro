@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const SITE = 'https://musicmemory.app'
+
+const pageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${SITE}/music-journal-app#webpage`,
+  url: `${SITE}/music-journal-app`,
+  name: 'What is a music journal app? — Music Memory',
+  description:
+    'A music journal app lets you attach memories — dates, places, feelings, photos — to the songs of your life. Learn how music journaling works and how Music Memory does it.',
+  isPartOf: { '@id': `${SITE}/#website` },
+  about: { '@id': `${SITE}/#app` },
+}
+---
+
+<BaseLayout
+  title="What Is a Music Journal App?"
+  description="A music journal app lets you attach memories — dates, places, feelings, photos — to the songs of your life. Learn how music journaling works, why it beats a playlist, and how Music Memory does it."
+  canonical="/music-journal-app"
+  structuredData={[pageJsonLd]}
+>
+  <main class="page">
+    <article class="legal-page">
+      <div class="eyebrow" style="margin-bottom: 24px">Music journaling, explained</div>
+      <h1>The music<br /><em>journal</em> app.</h1>
+
+      <div class="space-y-8 glass p-8 rounded-3xl">
+        <section>
+          <p class="leading-relaxed text-lg">
+            A <strong>music journal app</strong> is a diary where the entries are songs.
+            Instead of writing "Dear diary…", you pick a track and write down what it
+            means to you: when you first heard it, where you were, who you were with,
+            and what you felt. Over time, your journal becomes a chronological archive
+            of your life — told through the music that scored it.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">Why journal music instead of making playlists?</h2>
+          <p class="leading-relaxed mb-4">
+            A playlist remembers <em>which</em> songs you loved. A music journal remembers
+            <em>why</em>. Ten years from now, a playlist called "summer 2019" is a list of
+            tracks; a journal entry from summer 2019 tells you that you first heard that
+            song on a train platform in the rain, three days before everything changed.
+          </p>
+          <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
+            <li><strong>Context:</strong> every entry pins a date and a place to a song.</li>
+            <li><strong>Feeling:</strong> a few sentences capture what the song meant in the moment.</li>
+            <li><strong>Texture:</strong> photos and videos sit alongside the track — the polaroid, the ticket stub, the 2 a.m. screenshot.</li>
+            <li><strong>Story:</strong> entries organise into a timeline, so your listening history reads like chapters, not a queue.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">How Music Memory works</h2>
+          <p class="leading-relaxed mb-4">
+            <strong>Music Memory</strong> is a music journal app for iOS and Android.
+            Each entry takes under a minute:
+          </p>
+          <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
+            <li>Search the <strong>Apple Music catalogue</strong> and attach the real song with its cover art (or create a custom entry for anything not in the catalogue).</li>
+            <li>Pin the <strong>date you first heard it</strong> — even just a year or a season works.</li>
+            <li>Drop the <strong>place</strong> it belongs to: a city, a kitchen, a parking lot.</li>
+            <li>Write <strong>what you felt</strong>, and add up to five photos or videos.</li>
+            <li>Group entries into <strong>collections</strong> ("first year of grad school") and export them back to Apple Music as real playlists.</li>
+          </ul>
+          <p class="leading-relaxed mt-4">
+            Every memory is private by default. If you choose, you can share one to a
+            song's public feed and read how strangers remember the same track.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">Who is music journaling for?</h2>
+          <p class="leading-relaxed">
+            Anyone whose autobiography has a soundtrack: people who can name the song
+            playing during their first kiss, the album that got them through a move,
+            the track their mom played in the kitchen on Sundays. If a shuffle ever
+            ambushed you with a memory, a <a href="/song-diary-app" style="color: var(--accent)">song diary</a> is
+            how you keep that from fading.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">Start your music journal</h2>
+          <p class="leading-relaxed">
+            Music Memory is coming soon to the iOS App Store and Google Play.
+            <a href="/#waitlist" style="color: var(--accent)">Join the waitlist</a> to get it on launch day,
+            <a href="/#features" style="color: var(--accent)">see every feature</a>, or read the
+            <a href="/faq" style="color: var(--accent)">frequently asked questions</a>.
+          </p>
+        </section>
+      </div>
+    </article>
+  </main>
+</BaseLayout>

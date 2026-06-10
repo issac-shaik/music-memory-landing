@@ -1,0 +1,21 @@
+# Music Memory
+
+> Music Memory is a music journal and song diary app for iOS and Android by Moonveil Labs. It lets people track the songs of their life: log a song from the Apple Music catalogue, pin the date and place they first heard it, write what they felt, attach up to five photos or videos, group entries into collections, export collections back to Apple Music as playlists, and optionally share a memory to a song's public feed. Every entry is private by default. The app is currently pre-launch (waitlist open) and will be a subscription with a 3-day free trial — $9.99/month or $49.99/year, with regional pricing.
+
+Key facts:
+- Product: Music Memory (music journal / song diary / music memory tracker app)
+- Platforms: iOS App Store and Google Play (coming soon; waitlist at https://musicmemory.app/#waitlist)
+- Company: Moonveil Labs
+- Support: support@musicmemory.app
+- Music catalogue: Apple Music (search, cover art, playlist export); Spotify support planned
+- Privacy: entries are private by default; sharing to a song's public feed is opt-in per entry
+
+## Pages
+
+- [Home](https://musicmemory.app/): What Music Memory is, every feature, pricing, and the waitlist
+- [FAQ](https://musicmemory.app/faq): Frequently asked questions about the app, pricing, platforms, and privacy
+- [What is a music journal app?](https://musicmemory.app/music-journal-app): Explainer on music journaling and how Music Memory implements it
+- [Song diary app](https://musicmemory.app/song-diary-app): What a song diary is and how it differs from listening history
+- [Privacy Policy](https://musicmemory.app/privacy)
+- [Terms of Service](https://musicmemory.app/terms)
+- [Community Guidelines](https://musicmemory.app/community-guidelines)

@@ -1,0 +1,215 @@
+---
+import '@fontsource-variable/newsreader/wght.css'
+import '@fontsource-variable/newsreader/wght-italic.css'
+import '@fontsource-variable/hanken-grotesk/wght.css'
+import '../styles/global.css'
+
+interface Props {
+  title?: string
+  description?: string
+  /** Path for the canonical URL, e.g. "/privacy". Defaults to current page. */
+  canonical?: string
+  /** Extra JSON-LD objects to embed for this page. */
+  structuredData?: Record<string, unknown>[]
+  /** Image to preload (the home hero LCP image). */
+  preloadImage?: string
+}
+
+const SITE = 'https://musicmemory.app'
+const DEFAULT_TITLE = 'Music Memory — Music Journal, Song Diary & Memory Tracker App'
+const DEFAULT_DESCRIPTION =
+  'Music Memory is the music journal and song diary app for tracking the songs of your life. Log songs, tag where you first heard them, write what you felt, and build a private archive of your music memories. Free on iOS and Android.'
+
+const {
+  title = DEFAULT_TITLE,
+  description = DEFAULT_DESCRIPTION,
+  canonical = Astro.url.pathname,
+  structuredData = [],
+  preloadImage,
+} = Astro.props
+
+// Page titles follow the old Next template: "%s | Music Memory — Music Journal App"
+const fullTitle =
+  title === DEFAULT_TITLE ? title : `${title} | Music Memory — Music Journal App`
+const canonicalUrl = new URL(canonical, SITE).href
+
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${SITE}/#org`,
+  name: 'Moonveil Labs',
+  url: SITE,
+  logo: `${SITE}/adaptive-icon.png`,
+}
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE}/#website`,
+  url: SITE,
+  name: 'Music Memory',
+  description: 'The music journal and song diary app for tracking the songs of your life.',
+  inLanguage: 'en-US',
+  publisher: { '@id': `${SITE}/#org` },
+}
+
+const jsonLdBlocks = [orgJsonLd, websiteJsonLd, ...structuredData]
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en-US" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {preloadImage && <link rel="preload" href={preloadImage} as="image" type="image/webp" />}
+
+    <meta name="theme-color" content="#F4EDE0" />
+    <meta name="application-name" content="Music Memory" />
+    <meta name="author" content="Moonveil Labs" />
+    <meta name="publisher" content="Moonveil Labs" />
+    <meta
+      name="keywords"
+      content="music journal, music journal app, song diary, song diary app, music diary, song tracker, music memory, music memories, track songs you listened to, listening journal, music timeline, apple music journal"
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="apple-mobile-web-app-title" content="Music Memory" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Music Memory" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${SITE}/image.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Music Memory — the music journal and song diary app" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${SITE}/image.png`} />
+
+    {jsonLdBlocks.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
+
+    <noscript>
+      <style>
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body class="v2 prod liner">
+    <div class="nav-shell">
+      <div class="page">
+        <nav class="nav-floating" aria-label="Main navigation">
+          <div class="nav-inner">
+            <a href="/" class="logo-block" style="text-decoration: none">
+              <img src="/adaptive-icon.png" alt="" class="logo-mark" width="28" height="28" />
+              Music Memory
+            </a>
+            <div class="nav-links">
+              <a href="/#memories">Memories</a>
+              <a href="/#features">Features</a>
+              <a href="/#community">Community</a>
+              <a href="/#faq">FAQ</a>
+            </div>
+            <div class="nav-cta">
+              <a href="/#waitlist" class="cta">Join the waitlist</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <slot />
+
+    <footer class="reveal" data-screen-label="10 Footer">
+      <div class="page">
+        <div class="foot-wf foot-slim">
+          <div class="top">
+            <div class="brand">
+              Music <em style="font-style: italic; color: var(--ink-50)">Memory.</em>
+            </div>
+            <ul class="legal-links">
+              <li><a href="/faq">FAQ</a></li>
+              <li><a href="/privacy">Privacy Policy</a></li>
+              <li><a href="/terms">Terms of Service</a></li>
+              <li><a href="/community-guidelines">Community Guidelines</a></li>
+              <li><a href="/delete-account">Delete Account</a></li>
+            </ul>
+          </div>
+
+          <div class="bottom">
+            <span>© 2026 Moonveil Labs</span>
+            <span class="center">Made with care for the songs you can't forget.</span>
+            <span class="right">v2.0</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Nav: translucent paper-glass once scrolled (CSS keys off .is-scrolled).
+      const shell = document.querySelector('.nav-shell')
+      if (shell) {
+        let last: boolean | null = null
+        let ticking = false
+        const update = () => {
+          const next = window.scrollY > 40
+          if (next !== last) {
+            last = next
+            shell.classList.toggle('is-scrolled', next)
+          }
+          ticking = false
+        }
+        update()
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (!ticking) {
+              ticking = true
+              requestAnimationFrame(update)
+            }
+          },
+          { passive: true }
+        )
+      }
+
+      // Reveal-on-scroll: add .in as elements enter the viewport.
+      const revealEls = document.querySelectorAll('.reveal')
+      if (typeof IntersectionObserver === 'undefined') {
+        revealEls.forEach((el) => el.classList.add('in'))
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('in')
+                io.unobserve(e.target)
+              }
+            }
+          },
+          { threshold: 0.05, rootMargin: '0px 0px -2% 0px' }
+        )
+        const schedule =
+          typeof requestIdleCallback !== 'undefined'
+            ? requestIdleCallback
+            : (cb: () => void) => setTimeout(cb, 1)
+        schedule(() => revealEls.forEach((el) => io.observe(el)))
+      }
+    </script>
+  </body>
+</html>

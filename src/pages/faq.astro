@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import FaqList from '../components/FaqList.astro'
+import { faqJsonLd } from '../data/faq'
+---
+
+<BaseLayout
+  title="FAQ — Music Journal & Song Diary Questions"
+  description="Frequently asked questions about Music Memory, the music journal and song diary app: what it is, how it differs from a playlist, Apple Music support, pricing, and privacy."
+  canonical="/faq"
+  structuredData={[faqJsonLd()]}
+>
+  <main class="page">
+    <section class="reveal in" style="padding-top: 72px">
+      <div class="faq-wf">
+        <div class="faq-head">
+          <div class="eyebrow">FAQ</div>
+          <h1 class="h-section" style="margin-top: 18px">
+            The music journal,<br />
+            <em>questioned.</em>
+          </h1>
+          <p class="subcopy" style="margin-top: 24px">
+            Everything people ask about <strong>Music Memory</strong> — the music
+            journal and song diary app — before they start journaling their songs.
+          </p>
+        </div>
+
+        <FaqList />
+
+        <p class="subcopy" style="margin-top: 48px; text-align: center">
+          Still curious? See <a href="/#features" style="color: var(--accent)">what the app does</a>,
+          read why a <a href="/music-journal-app" style="color: var(--accent)">music journal app</a> beats a
+          playlist, or <a href="/#waitlist" style="color: var(--accent)">join the waitlist</a> for launch day.
+        </p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

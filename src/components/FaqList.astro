@@ -1,0 +1,20 @@
+---
+import { FAQ } from '../data/faq'
+import FaqPricingAnswer from './react/FaqPricingAnswer'
+---
+
+<div class="faq-list">
+  {FAQ.map((f) => (
+    <details class="faq-item">
+      <summary>
+        <span class="q">{f.question}</span>
+        <span class="ic" aria-hidden="true">+</span>
+      </summary>
+      {f.pricing ? (
+        <FaqPricingAnswer client:visible />
+      ) : (
+        <div class="a" set:html={f.answerHtml} />
+      )}
+    </details>
+  ))}
+</div>

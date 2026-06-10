@@ -1,35 +1,32 @@
 {
   "name": "musicmemory-landing",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "type": "module",
   "scripts": {
     "gen:pricing": "node scripts/gen-pricing.mjs",
     "predev": "node scripts/gen-pricing.mjs",
-    "dev": "next dev",
+    "dev": "astro dev",
     "prebuild": "node scripts/gen-pricing.mjs",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "pages:build": "npx @cloudflare/next-on-pages",
-    "pages:dev": "npx wrangler pages dev .vercel/output/static",
-    "pages:deploy": "npx wrangler pages deploy .vercel/output/static"
+    "build": "astro build",
+    "preview": "astro preview",
+    "pages:dev": "npx wrangler pages dev ./out",
+    "pages:deploy": "npx wrangler pages deploy ./out"
   },
   "dependencies": {
-    "clsx": "^2.1.1",
-    "lucide-react": "^1.14.0",
-    "next": "^15.3.2",
+    "@astrojs/react": "^4.4.0",
+    "@fontsource-variable/hanken-grotesk": "^5.2.5",
+    "@fontsource-variable/newsreader": "^5.2.5",
+    "@tailwindcss/vite": "^4.2.4",
+    "astro": "^5.16.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "tailwind-merge": "^3.5.0"
+    "tailwindcss": "^4.2.4"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.8",
-    "@tailwindcss/postcss": "^4.2.4",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "postcss": "^8.5.4",
-    "tailwindcss": "^4.2.4",
     "typescript": "~5.7.3"
   }
 }

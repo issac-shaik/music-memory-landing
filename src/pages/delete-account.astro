@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout
+  title="Delete Account"
+  description="Request deletion of your Music Memory account and all associated data."
+  canonical="/delete-account"
+>
+    <div class="max-w-4xl mx-auto px-6 py-24" style="color: var(--ink-90)">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4" style="color: var(--ink)">Delete Account</h1>
+        <p class="text-lg" style="color: var(--ink-90)">
+          We&apos;re sorry to see you go. If you wish to delete your Music Memory account and all associated data, follow the instructions below.
+        </p>
+      </div>
+
+      <div class="space-y-8 glass p-8 rounded-3xl border border-red-500/20 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-red-900" />
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">How to request account deletion</h2>
+          <p class="leading-relaxed mb-4">
+            [Provide instructions here. E.g., Contact us at support@musicmemory.com or use the delete button inside the app settings.]
+          </p>
+          <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
+            <li>Open the Music Memory app</li>
+            <li>Go to Settings</li>
+            <li>Scroll down and tap &ldquo;Delete Account&rdquo;</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">What happens when you delete your account?</h2>
+          <p class="leading-relaxed">
+            All your memories, journals, linked media, and account details will be permanently removed from our servers. This action cannot be undone.
+          </p>
+        </section>
+      </div>
+    </div>
+</BaseLayout>
