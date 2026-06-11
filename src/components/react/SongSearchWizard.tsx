@@ -229,7 +229,7 @@ export function SongSearchWizard() {
 
   return (
     <div className="wizard-container reveal" id="try-it">
-      <div className="eyebrow" style={{ justifyContent: 'center' }}>
+      <div className="eyebrow" style={{ textAlign: 'center' }}>
         <span> Capture the moment</span>
       </div>
       <h2 className="wizard-title text-center">

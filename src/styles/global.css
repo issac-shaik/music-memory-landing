@@ -2436,8 +2436,15 @@ main.page>section:has(.story-wf) {
     gap: 36px;
   }
 
-  .showcase-row.flip .showcase-vis {
+  /* Stacked: always text first, image below — for both normal and flip rows */
+  .showcase-row .showcase-copy,
+  .showcase-row.flip .showcase-copy {
     order: 0;
+  }
+
+  .showcase-row .showcase-vis,
+  .showcase-row.flip .showcase-vis {
+    order: 1;
   }
 
   /* Image container hugs the screenshot once stacked — no fixed 4/5 crop */
@@ -5765,3 +5772,101 @@ body.liner .quotes .quote .accent {
   }
 }
 
+
+/* ============================================================
+   NAV over THE ARCHIVE — while the navbar band overlaps the dark
+   #community section (.nav-dark set by the BaseLayout scroll
+   handler), the paper-glass bar flips to night-glass with light
+   ink. The CTA stays accent orange, which reads on both.
+   ============================================================ */
+body.liner .nav-shell.nav-dark .nav-floating,
+body.liner .nav-shell.nav-dark.is-scrolled .nav-floating,
+body.liner .nav-shell.nav-dark .nav-floating[style] {
+  background: rgba(22, 18, 12, 0.85) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  backdrop-filter: blur(16px) saturate(120%);
+  border-bottom: 1px solid var(--night-rule) !important;
+}
+
+body.liner .logo-block,
+body.liner .nav-links,
+body.liner .nav-links a {
+  transition: color 0.3s;
+}
+
+body.liner .nav-dark .logo-block {
+  color: var(--night-text);
+}
+
+body.liner .nav-dark .nav-links {
+  color: var(--night-soft);
+}
+
+body.liner .nav-dark .nav-links a:hover {
+  color: var(--night-text);
+}
+
+/* ============================================================
+   WIZARD ("Try it") — full-viewport beat, like THE ARCHIVE: the
+   section spans 100vh with the wizard centered inside it. The
+   padding only matters once the card outgrows the viewport (open
+   search results, the memory step with media tiles…) — then the
+   section stretches and the padding keeps the edges clear.
+   ============================================================ */
+main.page > section:has(.wizard-container) {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wizard-container {
+  width: 100%;
+  padding: 64px 24px;
+}
+
+@media (max-width: 700px) {
+  .wizard-container {
+    padding: 48px 16px;
+  }
+
+  .wizard-title {
+    margin-bottom: 26px;
+  }
+
+  .wizard-card {
+    padding: 24px 18px;
+  }
+}
+
+/* Wizard actions on small screens: the three buttons don't fit one row at
+   ~390px ("Don't remember" wraps to two lines next to a one-line Continue).
+   Stack instead — skip/continue share a full-width row in equal halves, the
+   quiet Back link drops underneath. */
+@media (max-width: 560px) {
+  .wizard-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .wizard-btn-grp {
+    width: 100%;
+    flex: none;
+  }
+
+  .wizard-btn-grp .wizard-btn-skip,
+  .wizard-btn-grp .wizard-btn-continue {
+    flex: 1;
+    white-space: nowrap;
+    padding: 12px 10px;
+    font-size: 13.5px;
+  }
+
+  .wizard-actions .wizard-btn-back {
+    order: 1;
+    align-self: flex-start;
+    padding-left: 0;
+  }
+}

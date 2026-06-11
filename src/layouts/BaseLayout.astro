@@ -18,7 +18,7 @@ interface Props {
 const SITE = 'https://musicmemory.app'
 const DEFAULT_TITLE = 'Music Memory — Music Journal, Song Diary & Memory Tracker App'
 const DEFAULT_DESCRIPTION =
-  'Music Memory is the music journal and song diary app for tracking the songs of your life. Log songs, tag where you first heard them, write what you felt, and build a private archive of your music memories. Free on iOS and Android.'
+  'Music Memory is the music journal and song diary app for tracking the songs of your life. Log songs, tag where you first heard them, write what you felt, and build a private archive of your music memories. Coming soon to iOS and Android.'
 
 const {
   title = DEFAULT_TITLE,
@@ -64,8 +64,6 @@ const jsonLdBlocks = [orgJsonLd, websiteJsonLd, ...structuredData]
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="alternate" hreflang="en-US" href={canonicalUrl} />
-    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
     <link rel="sitemap" href="/sitemap.xml" />
     <link rel="icon" type="image/png" href="/icon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -88,7 +86,7 @@ const jsonLdBlocks = [orgJsonLd, websiteJsonLd, ...structuredData]
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${SITE}/image.png`} />
+    <meta property="og:image" content={`${SITE}/og-image.png`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Music Memory — the music journal and song diary app" />
@@ -96,7 +94,7 @@ const jsonLdBlocks = [orgJsonLd, websiteJsonLd, ...structuredData]
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${SITE}/image.png`} />
+    <meta name="twitter:image" content={`${SITE}/og-image.png`} />
 
     {jsonLdBlocks.map((block) => (
       <script type="application/ld+json" set:html={JSON.stringify(block)} />
@@ -162,16 +160,30 @@ const jsonLdBlocks = [orgJsonLd, websiteJsonLd, ...structuredData]
     </footer>
 
     <script>
-      // Nav: translucent paper-glass once scrolled (CSS keys off .is-scrolled).
+      // Nav: translucent paper-glass once scrolled (CSS keys off .is-scrolled),
+      // and night-glass while it floats over a dark section (.nav-dark keys
+      // off the navbar band overlapping #community — homepage only).
       const shell = document.querySelector('.nav-shell')
       if (shell) {
+        const navEl = shell.querySelector('.nav-floating')
+        const darkSection = document.getElementById('community')
         let last: boolean | null = null
+        let lastDark: boolean | null = null
         let ticking = false
         const update = () => {
           const next = window.scrollY > 40
           if (next !== last) {
             last = next
             shell.classList.toggle('is-scrolled', next)
+          }
+          if (navEl && darkSection) {
+            const navBottom = navEl.getBoundingClientRect().bottom
+            const r = darkSection.getBoundingClientRect()
+            const dark = r.top < navBottom && r.bottom > 0
+            if (dark !== lastDark) {
+              lastDark = dark
+              shell.classList.toggle('nav-dark', dark)
+            }
           }
           ticking = false
         }

@@ -58,6 +58,15 @@ async function proxy(request: Request): Promise<Response> {
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
+
+    // Canonical host: 301 www.musicmemory.app/* -> musicmemory.app/*, preserving
+    // path + query. The apex is the canonical in every <link rel="canonical">,
+    // so collapsing the www duplicate here keeps host-level URLs single-source.
+    if (url.hostname === 'www.musicmemory.app') {
+      url.hostname = 'musicmemory.app'
+      return Response.redirect(url.toString(), 301)
+    }
+
     if (url.pathname.startsWith('/apple-music/')) {
       return proxy(request)
     }
