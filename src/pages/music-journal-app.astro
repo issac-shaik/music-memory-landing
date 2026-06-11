@@ -3,27 +3,78 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 
 const SITE = 'https://musicmemory.app'
 
+// Page-specific FAQ. answerHtml (visible) and answerText (JSON-LD) MUST say the
+// same thing — Google requires the FAQPage schema to match the rendered answer.
+const faq = [
+  {
+    question: 'What is a music journal app?',
+    answerHtml:
+      '<p>A music journal app is a diary where the entries are songs. Instead of writing about your day in paragraphs, you pick a track and record what it means to you — when you first heard it, where you were, who you were with, and what you felt. Over time the app organises those entries into a chronological archive of your life, told through the music that scored it.</p>',
+    answerText:
+      'A music journal app is a diary where the entries are songs. Instead of writing about your day in paragraphs, you pick a track and record what it means to you — when you first heard it, where you were, and what you felt. Over time the app organises those entries into a chronological archive of your life, told through music.',
+  },
+  {
+    question: 'How is a music journal different from a playlist?',
+    answerHtml:
+      '<p>A playlist remembers <em>which</em> songs you loved; a music journal remembers <em>why</em>. A playlist is an ordered list of tracks with no context. A journal entry attaches a date, a place, a feeling, and photos to each song, so years later you have the story behind the music — not just the music.</p>',
+    answerText:
+      'A playlist remembers which songs you loved; a music journal remembers why. A playlist is an ordered list of tracks with no context. A journal entry attaches a date, place, feeling, and photos to each song, so years later you have the story behind the music — not just the music.',
+  },
+  {
+    question: 'What should I write in a music journal entry?',
+    answerHtml:
+      '<p>Keep it short and specific. The most useful entries answer four questions: When did you first hear this song? Where were you? Who were you with? How did it make you feel? A single honest sentence about the moment is worth more than a paragraph of description — the song carries the rest.</p>',
+    answerText:
+      'Keep it short and specific. The most useful entries answer four questions: when did you first hear the song, where were you, who were you with, and how did it make you feel? A single honest sentence about the moment is worth more than a paragraph of description.',
+  },
+  {
+    question: 'Do I need Apple Music or Spotify to keep a music journal?',
+    answerHtml:
+      '<p>No subscription to a streaming service is required to journal. Music Memory pulls songs and cover art from the Apple Music catalogue so your entries look right, and you can export a collection back to Apple Music as a real playlist — but you can also create custom entries for mixtapes, live shows, and anything that is not in the catalogue.</p>',
+    answerText:
+      'No. Music Memory pulls songs and cover art from the Apple Music catalogue so entries look right, and you can export a collection back to Apple Music as a playlist — but you can also create custom entries for mixtapes, live shows, and anything not in the catalogue. A streaming subscription is not required to journal.',
+  },
+  {
+    question: 'Is a music journal app private?',
+    answerHtml:
+      '<p>In Music Memory every entry is private by default. Your journal lives on your account and nothing is published anywhere unless you deliberately choose to share a single entry to a song’s public feed. There is no public-by-default timeline and no social graph you have to opt out of.</p>',
+    answerText:
+      'In Music Memory every entry is private by default. Nothing is published unless you deliberately choose to share a single entry to a song’s public feed. There is no public-by-default timeline and no social graph to opt out of.',
+  },
+]
+
 const pageJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
   '@id': `${SITE}/music-journal-app#webpage`,
   url: `${SITE}/music-journal-app`,
-  name: 'What is a music journal app? — Music Memory',
+  name: 'What Is a Music Journal App? — Music Memory',
   description:
-    'A music journal app lets you attach memories — dates, places, feelings, photos — to the songs of your life. Learn how music journaling works and how Music Memory does it.',
+    'A music journal app lets you attach memories — dates, places, feelings, photos — to the songs of your life. Learn how music journaling works, why it beats a playlist, how it compares to other apps, and how Music Memory does it.',
   isPartOf: { '@id': `${SITE}/#website` },
   about: { '@id': `${SITE}/#app` },
+}
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${SITE}/music-journal-app#faq`,
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answerText },
+  })),
 }
 ---
 
 <BaseLayout
   title="What Is a Music Journal App?"
-  description="A music journal app lets you attach memories — dates, places, feelings, photos — to the songs of your life. Learn how music journaling works, why it beats a playlist, and how Music Memory does it."
+  description="A music journal app lets you attach memories — dates, places, feelings, photos — to the songs of your life. Learn how music journaling works, why it beats a playlist, how it compares to Last.fm and Day One, and how Music Memory does it."
   canonical="/music-journal-app"
-  structuredData={[pageJsonLd]}
+  structuredData={[pageJsonLd, faqJsonLd]}
 >
   <main class="page">
-    <article class="legal-page">
+    <article class="legal-page prose-page">
       <div class="eyebrow" style="margin-bottom: 24px">Music journaling, explained</div>
       <h1>The music<br /><em>journal</em> app.</h1>
 
@@ -36,6 +87,17 @@ const pageJsonLd = {
             and what you felt. Over time, your journal becomes a chronological archive
             of your life — told through the music that scored it.
           </p>
+          <p class="leading-relaxed mt-4">
+            That single idea is older than any app. People have kept the names of songs
+            in the backs of notebooks, on the sleeves of mixtapes, and in the captions
+            of photos for as long as there has been recorded music. A music journal app
+            just gives that instinct a proper home: one place where the song, the date,
+            the place, the feeling, and the photographs live together, and where the
+            whole collection sorts itself into a timeline you can actually scroll back
+            through. The rest of this page explains how music journaling works, why it
+            holds up better than a playlist, how the dedicated apps compare, and what an
+            entry looks like in practice.
+          </p>
         </section>
 
         <section>
@@ -45,6 +107,14 @@ const pageJsonLd = {
             <em>why</em>. Ten years from now, a playlist called "summer 2019" is a list of
             tracks; a journal entry from summer 2019 tells you that you first heard that
             song on a train platform in the rain, three days before everything changed.
+          </p>
+          <p class="leading-relaxed mb-4">
+            The difference matters because memory is unreliable in a very specific way:
+            we remember that a song mattered long after we have forgotten the details
+            that made it matter. The street, the person sitting next to us, the exact
+            week — those fade first, and a streaming service has no reason to keep them.
+            A music journal exists precisely to catch those details before they go. It
+            is the difference between an archive and a queue.
           </p>
           <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
             <li><strong>Context:</strong> every entry pins a date and a place to a song.</li>
@@ -68,8 +138,126 @@ const pageJsonLd = {
             <li>Group entries into <strong>collections</strong> ("first year of grad school") and export them back to Apple Music as real playlists.</li>
           </ul>
           <p class="leading-relaxed mt-4">
+            Because the date field accepts something as loose as a year or a season, you
+            are not limited to journaling forward from today. You can <strong>backfill
+            decades</strong> — the song from your wedding, the one that played at a
+            funeral, the album that got you through a move ten years ago — and the
+            timeline slots each one into its proper place. Within a few sittings most
+            people have a journal that reaches back across their whole life, not just the
+            week they downloaded the app.
+          </p>
+          <p class="leading-relaxed mt-4">
             Every memory is private by default. If you choose, you can share one to a
-            song's public feed and read how strangers remember the same track.
+            song's public feed and read how strangers remember the same track — but
+            nothing leaves your account unless you decide, per entry, that it should.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">Music journal apps compared</h2>
+          <p class="leading-relaxed mb-4">
+            "Music journal" can mean a few different things, and several kinds of app get
+            recommended for it — a scrobbler, a general journaling app, the notes app
+            already on your phone. They solve genuinely different problems. Here is an
+            honest comparison of where each one fits.
+          </p>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead>
+                <tr>
+                  <th scope="col">Capability</th>
+                  <th scope="col" class="is-us">Music Memory</th>
+                  <th scope="col">Last.fm</th>
+                  <th scope="col">Day One</th>
+                  <th scope="col">Notes app</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Built around songs</th>
+                  <td class="is-us">Yes — the song is the entry</td>
+                  <td>Yes — but auto-logged plays</td>
+                  <td>No — text-first</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <th scope="row">Real cover art &amp; metadata</th>
+                  <td class="is-us">Yes (Apple Music catalogue)</td>
+                  <td>Yes</td>
+                  <td>Manual</td>
+                  <td>Manual</td>
+                </tr>
+                <tr>
+                  <th scope="row">First-listen date &amp; place</th>
+                  <td class="is-us">Yes, on every entry</td>
+                  <td>No (tracks frequency, not firsts)</td>
+                  <td>Date yes, place yes</td>
+                  <td>Manual</td>
+                </tr>
+                <tr>
+                  <th scope="row">Photos &amp; video per song</th>
+                  <td class="is-us">Up to five per entry</td>
+                  <td>No</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <th scope="row">Chronological music timeline</th>
+                  <td class="is-us">Yes — chapters of your life</td>
+                  <td>Charts &amp; scrobble history</td>
+                  <td>Calendar of entries</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <th scope="row">Export to a real playlist</th>
+                  <td class="is-us">Yes (back to Apple Music)</td>
+                  <td>No</td>
+                  <td>No</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <th scope="row">Private by default</th>
+                  <td class="is-us">Yes, per-entry sharing</td>
+                  <td>Public profile by default</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="leading-relaxed mt-4">
+            The short version: a scrobbler like Last.fm answers "what did I play and how
+            often", which is a statistics question. A general journal like Day One is
+            superb for writing about days, but a song is an afterthought there, not the
+            spine of the entry. The notes app can do anything and therefore organises
+            nothing. Music Memory is the narrow tool for the narrow job — keeping the
+            story attached to the song — and it is built so that the whole archive sorts
+            itself by time without you maintaining it.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">What to put in your music journal</h2>
+          <p class="leading-relaxed mb-4">
+            If you have never kept a music journal, the blank page can feel like the hard
+            part. It is not, because you are never starting from nothing — you are
+            starting from a song, and the song does most of the remembering. These
+            prompts are enough to fill a first session:
+          </p>
+          <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
+            <li>The first song you remember loving as a kid — and who introduced it to you.</li>
+            <li>The track that was playing the night you met someone who mattered.</li>
+            <li>A song tied to a single place: a city you moved to, a kitchen, a long drive.</li>
+            <li>The album that carried you through a hard month, and what it carried you out of.</li>
+            <li>A song you can't hear without thinking of one specific person.</li>
+            <li>The last song at a wedding, a graduation, or a goodbye.</li>
+          </ul>
+          <p class="leading-relaxed mt-4">
+            Notice that none of these ask you to be a good writer. A music journal works
+            because the song is the heavy lifting; your job is only to pin the few facts
+            memory tends to drop — the when, the where, and the one feeling that made the
+            track stick. Do that for ten songs and you have something you will reread for
+            the rest of your life.
           </p>
         </section>
 
@@ -80,8 +268,26 @@ const pageJsonLd = {
             playing during their first kiss, the album that got them through a move,
             the track their mom played in the kitchen on Sundays. If a shuffle ever
             ambushed you with a memory, a <a href="/song-diary-app" style="color: var(--accent)">song diary</a> is
-            how you keep that from fading.
+            how you keep that from fading. It is for the person who screenshots lyrics,
+            who remembers years by their music, who has said "this song reminds me of"
+            more times than they can count — and who would like, finally, to write the
+            rest of that sentence down somewhere it will keep.
           </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">Music journal app — frequently asked questions</h2>
+          <div class="faq-list">
+            {faq.map((f) => (
+              <details class="faq-item">
+                <summary>
+                  <span class="q">{f.question}</span>
+                  <span class="ic" aria-hidden="true">+</span>
+                </summary>
+                <div class="a" set:html={f.answerHtml} />
+              </details>
+            ))}
+          </div>
         </section>
 
         <section>
@@ -97,3 +303,49 @@ const pageJsonLd = {
     </article>
   </main>
 </BaseLayout>
+
+<style>
+  /* Comparison table — liner-theme tokens, scoped to these prose pages. */
+  .cmp-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--stroke);
+    border-radius: 16px;
+  }
+  .cmp {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    color: var(--ink-90);
+  }
+  .cmp th,
+  .cmp td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--ink-12);
+    vertical-align: top;
+  }
+  .cmp thead th {
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--ink-03);
+    white-space: nowrap;
+  }
+  .cmp tbody th[scope='row'] {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .cmp tbody tr:last-child th,
+  .cmp tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .cmp .is-us {
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .cmp thead th.is-us {
+    color: var(--accent-ink);
+  }
+</style>
