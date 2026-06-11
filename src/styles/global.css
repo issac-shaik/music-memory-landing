@@ -3003,12 +3003,15 @@ body.prod .nav-wf .cta:hover {
   box-shadow: 0 12px 28px -10px rgba(255, 101, 0, 0.5);
 }
 
-/* Section anchors */
+/* Section anchors — every nav/CTA target needs this so it clears the sticky
+   navbar instead of landing with its heading hidden underneath it. */
 body.prod #memories,
 body.prod #features,
 body.prod #community,
 body.prod #download,
-body.prod #pricing {
+body.prod #pricing,
+body.prod #faq,
+body.prod #waitlist {
   scroll-margin-top: 96px;
 }
 
