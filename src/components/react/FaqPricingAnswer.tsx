@@ -10,22 +10,19 @@ export function FaqPricingAnswer() {
         Pro includes unlimited memories, photos and videos, location tagging,
         and access to the public song memory feed.
       </p>
-      {pricing.status === 'idle' && (
-        <button type="button" className="region-link" onClick={pricing.requestLocation}>
-          See pricing for your country
-        </button>
+      {(pricing.status === 'detecting' || pricing.status === 'locating') && (
+        <span className="region-note">Detecting your region…</span>
       )}
-      {pricing.status === 'locating' && <span className="region-note">Detecting your region…</span>}
       {pricing.status === 'resolved' && pricing.isRegional && (
         <span className="region-note">Showing {pricing.countryName} pricing</span>
       )}
       {pricing.status === 'resolved' && !pricing.isRegional && (
-        <span className="region-note">Showing standard pricing</span>
+        <button type="button" className="region-link" onClick={pricing.requestLocation}>
+          Showing standard (USD) pricing — use my precise location
+        </button>
       )}
       {(pricing.status === 'denied' || pricing.status === 'error') && (
-        <button type="button" className="region-link" onClick={pricing.requestLocation}>
-          Couldn&apos;t detect region — show prices in USD. Try again
-        </button>
+        <span className="region-note">Showing standard (USD) pricing</span>
       )}
     </div>
   )

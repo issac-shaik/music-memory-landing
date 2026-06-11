@@ -1,7 +1,9 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { PRICING_BY_ISO, USD_FALLBACK, type RegionPrice } from '../../data/pricing.generated'
 
-export type GeoStatus = 'idle' | 'locating' | 'resolved' | 'denied' | 'error'
+// 'detecting' = silent IP-based lookup on mount (no permission prompt).
+// 'locating'  = user explicitly asked for precise GPS-based detection.
+export type GeoStatus = 'detecting' | 'locating' | 'resolved' | 'denied' | 'error'
 
 // "Anchor" (pre-discount) prices we strike through to show the regional
 // discount. Apple's standard non-discounted tiers for these markets.
@@ -44,8 +46,30 @@ export type PricingView = {
 }
 
 export function usePricing(): PricingView {
-  const [status, setStatus] = useState<GeoStatus>('idle')
+  const [status, setStatus] = useState<GeoStatus>('detecting')
   const [iso, setIso] = useState<string | null>(null)
+
+  // Silent, permission-free region detection on mount: ask our own Worker,
+  // which reads the visitor's IP-derived country from Cloudflare (request.cf).
+  // No location prompt; resolves to USD if we can't tell or have no tier.
+  useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      try {
+        const res = await fetch('/geo')
+        const data = (await res.json()) as { country?: string | null }
+        if (cancelled) return
+        const code = data?.country
+        if (code && PRICING_BY_ISO[code]) setIso(code)
+        setStatus('resolved')
+      } catch {
+        if (!cancelled) setStatus('resolved') // fall back to USD silently
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const requestLocation = useCallback(() => {
     if (typeof navigator === 'undefined' || !navigator.geolocation) {

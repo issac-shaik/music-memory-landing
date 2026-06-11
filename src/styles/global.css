@@ -2389,23 +2389,13 @@ img.proof-wf__cv,
   transform: translateY(0);
 }
 
-/* Performance: skip layout/paint for offscreen sections.
-   Each main section gets a contain-intrinsic-size hint so the
-   browser can reserve space without painting until visible. */
-main.page>section,
-main.page>.divider {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 1200px;
-}
-
-main.page>section:first-of-type {
-  content-visibility: visible;
-}
-
-/* Sections with full-bleed background pseudos can't be paint-contained */
-main.page>section:has(.story-wf) {
-  content-visibility: visible;
-}
+/* NOTE: previously used `content-visibility: auto` here to skip painting
+   offscreen sections. Removed — the contain-intrinsic-size placeholder
+   (1200px) made in-page anchor links (#faq, #community) land in the wrong
+   spot when clicked from the top of a loaded page, because the browser
+   jumped to the *estimated* offset before the real section heights rendered.
+   With only ~7 mostly-static sections on one page the paint saving was
+   marginal; correct anchor scrolling is worth more. */
 
 /* Promote heavy fixed/sticky chrome to its own compositor layer */
 .nav-shell {

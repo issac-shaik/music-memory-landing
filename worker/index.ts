@@ -17,6 +17,22 @@ interface Env {
   ASSETS: { fetch: (request: Request) => Promise<Response> }
 }
 
+// Cloudflare adds request.cf with the visitor's IP-derived ISO country. This
+// lets the page show regional pricing WITHOUT a browser location prompt.
+// `cf` is absent in some local dev modes, so callers must tolerate null.
+function geo(request: Request): Response {
+  const cf = (request as Request & { cf?: { country?: string } }).cf
+  const country = cf?.country ?? null
+  return new Response(JSON.stringify({ country }), {
+    headers: {
+      'content-type': 'application/json',
+      // Per-visitor value — never let a CDN/browser cache one user's country
+      // for another.
+      'cache-control': 'no-store',
+    },
+  })
+}
+
 async function proxy(request: Request): Promise<Response> {
   const incoming = new URL(request.url)
   // Preserve the full path (/apple-music/...) and query string, swapping only
@@ -65,6 +81,10 @@ export default {
     if (url.hostname === 'www.musicmemory.app') {
       url.hostname = 'musicmemory.app'
       return Response.redirect(url.toString(), 301)
+    }
+
+    if (url.pathname === '/geo') {
+      return geo(request)
     }
 
     if (url.pathname.startsWith('/apple-music/')) {

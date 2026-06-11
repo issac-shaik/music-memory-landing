@@ -31,6 +31,13 @@ export default defineConfig({
           target: BACKEND_ORIGIN,
           changeOrigin: true,
         },
+        // /geo lives in THIS site's Worker (worker/index.ts), which only runs
+        // in production — astro dev serves static files and has no request.cf.
+        // Proxy to prod so regional pricing resolves while developing.
+        '/geo': {
+          target: 'https://musicmemory.app',
+          changeOrigin: true,
+        },
       },
     },
   },
