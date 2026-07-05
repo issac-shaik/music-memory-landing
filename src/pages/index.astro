@@ -82,13 +82,6 @@ const ARCHIVE_ENTRIES = ARCHIVE_CARDS.map((card, i) => ({
 }))
 const MARQUEE_ROWS = [ARCHIVE_ENTRIES.slice(0, 5), ARCHIVE_ENTRIES.slice(5)]
 
-const COMMUNITY_STACK = [
-  { who: '@m.k', said: '"Played at every bus stop in Seoul, summer 2018."', react: '♡ 312', accent: false },
-  { who: '@noahw', said: '"Skipping class in the parking lot."', react: '♡ 188', accent: false },
-  { who: '@you', said: '"Walked home in the rain on purpose."', react: '♡ 47', accent: true },
-  { who: '@l.alvarez', said: '"Mom played it the morning we moved."', react: '♡ 502', accent: false },
-]
-
 const appJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'MobileApplication',
@@ -431,13 +424,8 @@ const softwareJsonLd = {
             </div>
           </div>
           <div class="showcase-vis">
-            <div class="map-vis">
-              <div class="pin a"></div>
-              <div class="pin b"></div>
-              <div class="pin c"></div>
-              <div class="place a">TOKYO · 03</div>
-              <div class="place b">LISBON · 07</div>
-              <div class="place c">QUEENS · 01</div>
+            <div class="phone-shot">
+              <img src="/Locations.png" alt="Music Memory locations — see every song you tagged in a city you've been to" width="828" height="1598" loading="lazy" />
             </div>
           </div>
         </div>
@@ -472,7 +460,7 @@ const softwareJsonLd = {
           </div>
           <div class="showcase-vis">
             <div class="phone-shot rounded">
-              <img src="/Collections.webp" alt="Music Memory collections — group songs into chapters and curated playlists of moments" width="860" height="1582" loading="lazy" />
+              <img src="/Collections.png" alt="Music Memory collections — group songs into chapters and curated playlists of moments" width="868" height="1600" loading="lazy" />
             </div>
           </div>
         </div>
@@ -498,29 +486,18 @@ const softwareJsonLd = {
         <div class="showcase-row flip reveal">
           <div class="showcase-copy">
             <h3>See how others<br />remember the<br /><em>same</em> song.</h3>
-            <p>Make a memory public and you'll see everyone else
-              who attached their life to the same track. React,
-              reply, recognise yourself in a stranger.</p>
+<p>Scroll the Explore feed — an endless, vertical stream
+              of public memories from people you follow and strangers
+              alike. React, reply, recognise yourself in someone
+              else's story.</p>
             <div class="feat-meta">
               <div><strong>Reactions</strong>Like / dislike · threaded comments</div>
               <div><strong>Safety</strong>Per-post report · moderation queue</div>
             </div>
           </div>
           <div class="showcase-vis">
-            <div class="community-stack">
-              {COMMUNITY_STACK.map((m) => (
-                <div
-                  class="mem"
-                  style={m.accent ? 'border-color: var(--accent); background: var(--accent-soft)' : undefined}
-                >
-                  <div class="av" style="width: 36px; height: 36px; border-radius: 50%; background: var(--ink-12)"></div>
-                  <div>
-                    <div class="who" style={m.accent ? 'color: var(--accent)' : undefined}>{m.who}</div>
-                    <div class="said">{m.said}</div>
-                  </div>
-                  <div class="react" style={m.accent ? 'color: var(--accent)' : undefined}>{m.react}</div>
-                </div>
-              ))}
+            <div class="phone-shot">
+              <img src="/Social.png" alt="Music Memory community feed — see how others remember the same song" width="838" height="1600" loading="lazy" />
             </div>
           </div>
         </div>
@@ -538,28 +515,8 @@ const softwareJsonLd = {
             </div>
           </div>
           <div class="showcase-vis">
-            <div class="toggle-vis">
-              <div class="tile active">
-                <div>
-                  <div class="name">Private</div>
-                  <div class="sub">Visible only to you · default</div>
-                </div>
-                <div class="pill">SELECTED</div>
-              </div>
-              <div class="tile">
-                <div>
-                  <div class="name">Followers only</div>
-                  <div class="sub">Visible to people who follow you</div>
-                </div>
-                <div class="pill">TAP</div>
-              </div>
-              <div class="tile">
-                <div>
-                  <div class="name">Public</div>
-                  <div class="sub">Visible on this song's memory feed</div>
-                </div>
-                <div class="pill">TAP</div>
-              </div>
+            <div class="phone-shot">
+              <img src="/Privacy_toggle.png" alt="Music Memory privacy — keep a memory private, share with followers, or make it public" width="828" height="1594" loading="lazy" />
             </div>
           </div>
         </div>
