@@ -59,15 +59,15 @@ const ARCHIVE_SONGS = [
 ]
 
 const ARCHIVE_CARDS = [
-  { body: '"Played at every bus stop in Seoul, summer 2018. The way the speakers crackled is the way I remember the city."', meta: ['JUL 2018', 'SEOUL', '@m.k'], react: ['♡ 312', '↩ 24'] },
-  { body: '"Mom played this the morning we moved. I was eleven. I still cry at the bridge."', meta: ['2007', 'QUEENS', '@l.alvarez'], react: ['♡ 502', '↩ 71'] },
-  { body: '"The first slow dance of my life was off-tempo and perfect."', meta: ['MAY 2014', 'DURHAM', '@anon'], react: ['♡ 884', '↩ 102'] },
-  { body: '"Skipping class in the parking lot. The windows down even though it was cold. I knew it was going to matter."', meta: ['OCT 2019', 'PORTLAND', '@noahw'], react: ['♡ 188', '↩ 12'] },
-  { body: '"My dad\'s funeral. I wasn\'t ready, but the song was."', meta: ['MAR 2022', '@anon'], react: ['♡ 1,402', '↩ 188'] },
-  { body: '"Walked home in the rain on purpose, just so it could keep playing."', meta: ['JUN 2019', 'TOKYO', '@you'], react: ['♡ 47', '↩ 6'] },
-  { body: '"My grandmother\'s kitchen. The kettle and the chorus arrived at the same time."', meta: ['1998', 'LISBON', '@joanaf'], react: ['♡ 623', '↩ 54'] },
-  { body: '"Drove the long way home just so it would finish."', meta: ['NOV 2021', 'AUSTIN', '@thom'], react: ['♡ 91', '↩ 3'] },
-  { body: '"The summer I learned to be alone. This song was company."', meta: ['JUL 2020', 'BERLIN', '@iwrite'], react: ['♡ 1,108', '↩ 140'] },
+  { body: '"Played at every bus stop that summer. The way the speakers crackled is the way I remember the city."', meta: ['JUL 2018', 'SEOUL'] },
+  { body: '"Mom played this the morning we moved. I was eleven. I still remember the bridge."', meta: ['2007', 'QUEENS'] },
+  { body: '"The first slow dance of my life was off-tempo and perfect."', meta: ['MAY 2014', 'DURHAM'] },
+  { body: '"The windows were down even though it was cold. I knew the moment was going to matter."', meta: ['OCT 2019', 'PORTLAND'] },
+  { body: '"A difficult goodbye. I wasn\'t ready, but the song was."', meta: ['MAR 2022'] },
+  { body: '"Walked home in the rain on purpose, just so it could keep playing."', meta: ['JUN 2019', 'TOKYO'] },
+  { body: '"My grandmother\'s kitchen. The kettle and the chorus arrived at the same time."', meta: ['1998', 'LISBON'] },
+  { body: '"Drove the long way home just so it would finish."', meta: ['NOV 2021', 'AUSTIN'] },
+  { body: '"The summer I learned to be alone. This song was company."', meta: ['JUL 2020', 'BERLIN'] },
 ]
 
 // Marquee rows for THE ARCHIVE: each card paired with its song, split across
@@ -549,23 +549,11 @@ const softwareJsonLd = {
 
     <div class="divider"></div>
 
-    {/* 06 SOCIAL PROOF */}
-    <section class="reveal" data-screen-label="07 Social Proof" id="community">
+    {/* 06 ILLUSTRATIVE JOURNAL */}
+    <section class="reveal" data-screen-label="07 Illustrative Journal" id="community">
       <div class="proof-wf">
-        {/* Counter retired for now — bring back once the archive has real numbers.
-        <div class="counter">
-          <div class="eyebrow" style="margin-bottom: 20px">THE ARCHIVE</div>
-          <div class="big">
-            <span class="ticker">100,000</span>+
-            <br />
-            <span class="unit">memories</span>
-          </div>
-          <div class="small">preserved in Music Memory · since 2026</div>
-        </div>
-        */}
-
         <div class="archive-head">
-          <div class="eyebrow">THE ARCHIVE</div>
+          <div class="eyebrow">ILLUSTRATIVE JOURNAL</div>
           <h2 class="archive-title">
             You can create your<br />
             <em>own journal</em> like this.
@@ -585,8 +573,7 @@ const softwareJsonLd = {
                           <div><div class="song">{track.title}</div><div class="ar">{track.artist}</div></div>
                         </div>
                         <div class="body">{card.body}</div>
-                        <div class="meta">{card.meta.map((m, j) => <span class={m.includes('@') ? '' : j === card.meta.length - 2 ? 'pin' : ''}>{m}</span>)}</div>
-                        <div class="react">{card.react.map((r) => <span>{r}</span>)}</div>
+                        <div class="meta">{card.meta.map((m, j) => <span class={j === card.meta.length - 1 && card.meta.length > 1 ? 'pin' : ''}>{m}</span>)}</div>
                       </div>
                     ))}
                   </div>
