@@ -39,7 +39,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 
           <h3 class="text-lg font-semibold mt-6 mb-3" style="color: var(--ink)">2.2 Information Collected Automatically</h3>
           <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
-            <li><strong>Analytics Data:</strong> We use PostHog to collect usage analytics, including screen views, feature interactions, onboarding progress, and error events. You are identified by your Supabase user ID and email address.</li>
+            <li><strong>Optional Analytics Data:</strong> If you explicitly consent, we use PostHog to collect minimized screen routes, feature interactions, onboarding enum choices, and app lifecycle events. PostHog receives a random analytics identifier, not your Supabase account ID or email address.</li>
             <li><strong>Device Information:</strong> Device model, operating system version, and application version (collected for diagnostics and support purposes).</li>
             <li><strong>Subscription Status:</strong> Information about your subscription tier and entitlements, processed through RevenueCat.</li>
           </ul>
@@ -96,7 +96,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
           <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
             <li><strong>Supabase:</strong> Authentication, database hosting, and real-time data synchronization. <a href="https://supabase.com/privacy" class="hover:underline" style="color: var(--accent)">Privacy Policy</a></li>
             <li><strong>Cloudflare:</strong> Backend infrastructure (Workers), media storage (R2), and content delivery. <a href="https://www.cloudflare.com/privacypolicy/" class="hover:underline" style="color: var(--accent)">Privacy Policy</a></li>
-            <li><strong>PostHog:</strong> Product analytics and event tracking. Your user ID and email are shared for identification purposes. <a href="https://posthog.com/privacy" class="hover:underline" style="color: var(--accent)">Privacy Policy</a></li>
+            <li><strong>PostHog:</strong> Optional product analytics after explicit consent. We do not send email addresses, account IDs, journal or comment text, usernames, exact song names, searches, precise locations, or media URLs. <a href="https://posthog.com/privacy" class="hover:underline" style="color: var(--accent)">Privacy Policy</a></li>
             <li><strong>RevenueCat:</strong> Subscription management and payment processing. Your user ID is shared to manage entitlements. <a href="https://www.revenuecat.com/privacy" class="hover:underline" style="color: var(--accent)">Privacy Policy</a></li>
             <li><strong>Apple (Apple Music API, Apple Sign-In):</strong> Song catalog data retrieval and authentication. <a href="https://www.apple.com/legal/privacy/" class="hover:underline" style="color: var(--accent)">Privacy Policy</a></li>
             <li><strong>Google (Google Sign-In and Gemini):</strong> Authentication services and, only after your explicit request and consent, language detection and translation through Google Gemini. <a href="https://policies.google.com/privacy" class="hover:underline" style="color: var(--accent)">Privacy Policy</a> and <a href="https://ai.google.dev/gemini-api/terms" class="hover:underline" style="color: var(--accent)">Gemini API Terms</a></li>
@@ -108,8 +108,18 @@ import BaseLayout from '../layouts/BaseLayout.astro'
           </p>
         </section>
 
+        <section id="analytics">
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">6. Optional Product Analytics</h2>
+          <p class="leading-relaxed mb-4">
+            PostHog analytics remain off unless you separately choose “Allow analytics.” Declining or later withdrawing consent does not restrict subscriptions or any other feature. When enabled, Music Memory uses a random analytics identifier and coarse event facts to understand feature usage and reliability. We do not use this information for cross-company tracking or targeted advertising.
+          </p>
+          <p class="leading-relaxed">
+            You can withdraw consent under Settings → Share optional analytics. Capture stops immediately, local PostHog state is cleared, and PostHog is not initialized again unless you opt in. Music Memory&apos;s target retention period for identifiable or pseudonymous PostHog event data is 12 months; production PostHog settings must be configured to enforce that limit.
+          </p>
+        </section>
+
         <section id="ai-translation">
-          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">6. Optional AI Translation</h2>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">7. Optional AI Translation</h2>
           <p class="leading-relaxed mb-4">
             AI translation is optional and runs only after you select text, request a translation, and provide current-version consent. Music Memory sends only the selected journal or comment text through our Cloudflare Worker to Google Gemini. Google acts as a third-party AI processor to detect the source language and return a translation. We do not include your user ID, email, username, location, media, or entry ID in the Gemini request.
           </p>
@@ -122,7 +132,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">7. Data Sharing and Visibility</h2>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">8. Data Sharing and Visibility</h2>
           <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
             <li><strong>Private Entries:</strong> By default, all journal entries are private and visible only to you.</li>
             <li><strong>Public Entries:</strong> If you choose to make an entry public (Pro subscription required), your username, avatar, journal text, date first heard, location name, and attached media will be visible to other users who also have an entry for the same song.</li>
@@ -132,19 +142,19 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">8. Data Retention</h2>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">9. Data Retention</h2>
           <p class="leading-relaxed mb-4">
             We retain your personal information for as long as your account is active or as needed to provide the Service. Specifically:
           </p>
           <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
             <li><strong>Active Accounts:</strong> Data is retained indefinitely while your account remains active.</li>
             <li><strong>Deleted Accounts:</strong> Upon requesting account deletion, your data enters a fourteen (14) day grace period. After this period, all data is permanently and irreversibly purged, including: journal entries, media files (from Cloudflare R2), reactions, reports, comments, survey answers, profile data, and authentication credentials.</li>
-            <li><strong>Analytics Data:</strong> Anonymized analytics data may be retained for product improvement purposes after account deletion.</li>
+            <li><strong>Analytics Data:</strong> Consented PostHog event data is retained for no more than 12 months and is submitted for deletion when an account is permanently deleted.</li>
           </ul>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">9. Your Rights and Choices</h2>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">10. Your Rights and Choices</h2>
           <p class="leading-relaxed mb-4">
             Depending on your jurisdiction, you may have the following rights regarding your personal data:
           </p>
@@ -162,28 +172,28 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">10. Children&apos;s Privacy</h2>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">11. Children&apos;s Privacy</h2>
           <p class="leading-relaxed">
             The Service is not directed to children under the age of thirteen (13). We do not knowingly collect personal information from children under 13. If we become aware that we have collected personal data from a child under 13 without parental consent, we will take steps to delete that information promptly. If you believe we have inadvertently collected information from a child under 13, please contact us immediately.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">11. International Data Transfers</h2>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">12. International Data Transfers</h2>
           <p class="leading-relaxed">
             Your information may be transferred to and processed in countries other than your country of residence. Our service providers (Supabase, Cloudflare, PostHog, RevenueCat, and—when you request AI translation—Google) operate globally. These jurisdictions may have data protection laws that differ from those in your jurisdiction.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">12. Changes to This Privacy Policy</h2>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">13. Changes to This Privacy Policy</h2>
           <p class="leading-relaxed">
             We may update this Privacy Policy from time to time. We will notify you of material changes by updating the &ldquo;Effective Date&rdquo; at the top of this policy and, where practicable, by providing in-app notification. Your continued use of the Service after any changes constitutes your acceptance of the revised Privacy Policy. We encourage you to review this Privacy Policy periodically.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">13. Contact Us</h2>
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">14. Contact Us</h2>
           <p class="leading-relaxed">
             If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us at:
           </p>
