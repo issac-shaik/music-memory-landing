@@ -2089,14 +2089,6 @@ a {
   border-radius: 3px;
 }
 
-/* Real album art now renders into .cv as an <img> — make it fill the cover box
-   and sit above the placeholder background. */
-img.proof-wf__cv,
-.proof-wf .mem-card img.cv {
-  object-fit: cover;
-  display: block;
-}
-
 .proof-wf .mem-card .song {
   font-family: var(--f-sans);
   font-weight: 600;
@@ -2718,23 +2710,28 @@ body.v2 .showcase-vis .detail-screen .panel .media-row>div:nth-child(2n+2) {
   background: linear-gradient(135deg, oklch(0.36 0.10 220), oklch(0.18 0.04 210));
 }
 
-body.v2 .proof-wf .masonry .mem-card:nth-child(5n+1) .cv {
+body.v2 .proof-wf .masonry .mem-card:nth-child(5n+1) .cv,
+body.v2 .proof-wf .marquee-group .mem-card:nth-child(5n+1) .cv {
   background: linear-gradient(135deg, oklch(0.42 0.16 35), oklch(0.20 0.06 25));
 }
 
-body.v2 .proof-wf .masonry .mem-card:nth-child(5n+2) .cv {
+body.v2 .proof-wf .masonry .mem-card:nth-child(5n+2) .cv,
+body.v2 .proof-wf .marquee-group .mem-card:nth-child(5n+2) .cv {
   background: linear-gradient(135deg, oklch(0.38 0.12 245), oklch(0.18 0.04 240));
 }
 
-body.v2 .proof-wf .masonry .mem-card:nth-child(5n+3) .cv {
+body.v2 .proof-wf .masonry .mem-card:nth-child(5n+3) .cv,
+body.v2 .proof-wf .marquee-group .mem-card:nth-child(5n+3) .cv {
   background: linear-gradient(135deg, oklch(0.42 0.14 85), oklch(0.20 0.05 80));
 }
 
-body.v2 .proof-wf .masonry .mem-card:nth-child(5n+4) .cv {
+body.v2 .proof-wf .masonry .mem-card:nth-child(5n+4) .cv,
+body.v2 .proof-wf .marquee-group .mem-card:nth-child(5n+4) .cv {
   background: linear-gradient(135deg, oklch(0.36 0.10 330), oklch(0.17 0.04 320));
 }
 
-body.v2 .proof-wf .masonry .mem-card:nth-child(5n+5) .cv {
+body.v2 .proof-wf .masonry .mem-card:nth-child(5n+5) .cv,
+body.v2 .proof-wf .marquee-group .mem-card:nth-child(5n+5) .cv {
   background: linear-gradient(135deg, oklch(0.40 0.10 160), oklch(0.18 0.04 150));
 }
 
