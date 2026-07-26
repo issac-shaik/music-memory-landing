@@ -114,14 +114,17 @@ import BaseLayout from '../layouts/BaseLayout.astro'
             PostHog analytics remain off unless you separately choose “Allow analytics.” Declining or later withdrawing consent does not restrict subscriptions or any other feature. When enabled, Music Memory uses a random analytics identifier and coarse event facts to understand feature usage and reliability. We do not use this information for cross-company tracking or targeted advertising.
           </p>
           <p class="leading-relaxed">
-            You can withdraw consent under Settings → Share optional analytics. Capture stops immediately, local PostHog state is cleared, and PostHog is not initialized again unless you opt in. Music Memory&apos;s target retention period for identifiable or pseudonymous PostHog event data is 12 months; production PostHog settings must be configured to enforce that limit.
+            You can withdraw consent under Settings → Share optional analytics. Capture stops immediately, local PostHog state is cleared, and PostHog is not initialized again unless you opt in. PostHog retains previously collected, consented event data according to its service retention settings. Music Memory submits the random analytics identifier for deletion as part of permanent account deletion.
           </p>
         </section>
 
         <section id="ai-translation">
           <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">7. Optional AI Translation</h2>
           <p class="leading-relaxed mb-4">
-            AI translation is optional and runs only after you select text, request a translation, and provide current-version consent. Music Memory sends only the selected journal or comment text through our Cloudflare Worker to Google Gemini. Google acts as a third-party AI processor to detect the source language and return a translation. We do not include your user ID, email, username, location, media, or entry ID in the Gemini request.
+            AI translation is optional and is available only to users who are at least 18 years old. When you first request translation, Music Memory asks for your date of birth solely to determine translation eligibility. Our authenticated Cloudflare Worker performs that calculation and immediately discards the exact date. We retain only a positive eligibility result, timestamp, and policy version; the date of birth is not stored and is never sent to Google Gemini.
+          </p>
+          <p>
+            Translation runs only after you select text, request a translation, pass the age check, and provide separate current-version consent. Music Memory sends only the selected journal or comment text through our Cloudflare Worker to Google Gemini. Google acts as a third-party AI processor to detect the source language and return a translation. We do not include your user ID, email, username, location, media, entry ID, or date of birth in the Gemini request.
           </p>
           <p class="leading-relaxed mb-4">
             Music Memory may cache the original-text hash, translated output, and detected language in Cloudflare KV for up to 90 days. Raw translation text is not included in product analytics or general Worker logs. Google may process the selected text in countries where it or its subprocessors operate, subject to Google&apos;s applicable privacy terms, Gemini API terms, and data-processing terms. Those terms—not this policy—govern Google&apos;s retention and use of request data; we do not promise that Google excludes prompts from model training unless the deployed service contract expressly provides that protection.
@@ -149,7 +152,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
           <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
             <li><strong>Active Accounts:</strong> Data is retained indefinitely while your account remains active.</li>
             <li><strong>Deleted Accounts:</strong> Upon requesting account deletion, your data enters a fourteen (14) day grace period. After this period, all data is permanently and irreversibly purged, including: journal entries, media files (from Cloudflare R2), reactions, reports, comments, survey answers, profile data, and authentication credentials.</li>
-            <li><strong>Analytics Data:</strong> Consented PostHog event data is retained for no more than 12 months and is submitted for deletion when an account is permanently deleted.</li>
+            <li><strong>Analytics Data:</strong> Consented PostHog event data is retained according to PostHog&apos;s service retention settings. Music Memory submits the random analytics identifier for deletion when an account is permanently deleted.</li>
           </ul>
         </section>
 
@@ -163,7 +166,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
             <li><strong>Export:</strong> You may export all your journal entries in Markdown format at any time via the Settings screen.</li>
             <li><strong>Correction:</strong> You may update your profile information (username, avatar) through the application.</li>
             <li><strong>Deletion:</strong> You may request complete account deletion through the Settings screen, which initiates a 14-day grace period followed by permanent data purge.</li>
-            <li><strong>Withdrawal of Consent:</strong> You may revoke push notification permissions through your device settings and withdraw AI translation consent in Music Memory settings at any time.</li>
+            <li><strong>Withdrawal of Consent:</strong> You may revoke push notification permissions through your device settings and withdraw optional analytics or AI translation consent in Music Memory settings at any time.</li>
             <li><strong>Visibility Control:</strong> You may toggle any public entry back to private at any time.</li>
           </ul>
           <p class="leading-relaxed mt-4">
