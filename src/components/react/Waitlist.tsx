@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react'
+import { getUiCopy } from '../../data/uiTranslations'
 
 // Backend base URL (Cloudflare Worker). Inlined at build time for the static
 // export. Falls back to the production worker host if unset.
@@ -11,6 +12,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 type WaitlistState = 'idle' | 'submitting' | 'success' | 'error'
 
 export function ComingSoonWaitlist() {
+  const copy = getUiCopy()
   const [email, setEmail] = useState('')
   const [state, setState] = useState<WaitlistState>('idle')
   const [message, setMessage] = useState('')
@@ -22,7 +24,7 @@ export function ComingSoonWaitlist() {
     const value = email.trim().toLowerCase()
     if (!EMAIL_RE.test(value)) {
       setState('error')
-      setMessage('Please enter a valid email address.')
+      setMessage(copy.invalidEmail)
       return
     }
 
@@ -39,17 +41,17 @@ export function ComingSoonWaitlist() {
         setState('success')
         setMessage(
           data?.already
-            ? "You're already part of the waitlist!"
-            : "You're on the list — check your inbox."
+            ? copy.alreadyWaiting
+            : copy.joined
         )
         setEmail('')
       } else {
         setState('error')
-        setMessage(data?.error || 'Something went wrong. Please try again.')
+        setMessage(data?.error || copy.genericError)
       }
     } catch {
       setState('error')
-      setMessage('Network error. Please try again.')
+      setMessage(copy.networkError)
     }
   }
 
@@ -68,13 +70,13 @@ export function ComingSoonWaitlist() {
               setEmail(e.target.value)
               if (state === 'error') setState('idle')
             }}
-            aria-label="Email address"
+            aria-label={copy.emailAddress}
             autoComplete="email"
             inputMode="email"
             required
           />
           <button type="submit" className="waitlist-btn" disabled={state === 'submitting'}>
-            {state === 'submitting' ? 'Joining…' : 'Join Waitlist'}
+            {state === 'submitting' ? copy.joining : copy.joinWaitlist}
           </button>
         </form>
       )}

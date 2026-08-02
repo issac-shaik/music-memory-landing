@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { usePricing } from './usePricing'
+import { getUiCopy } from '../../data/uiTranslations'
 
 function scrollToSelector(sel: string) {
   const el = document.querySelector(sel)
@@ -9,23 +10,24 @@ function scrollToSelector(sel: string) {
 export function BillingToggle() {
   const [billing, setBilling] = useState<'annual' | 'monthly'>('annual')
   const pricing = usePricing()
+  const copy = getUiCopy()
 
   const amount = billing === 'annual' ? pricing.yearly : pricing.monthly
   const anchor = billing === 'annual' ? pricing.anchorYearly : pricing.anchorMonthly
-  const per = billing === 'annual' ? '/year' : '/month'
+  const per = billing === 'annual' ? copy.perYear : copy.perMonth
 
   return (
     <>
       <div className="billing-toggle-wrap">
-        <div className="billing-toggle" role="tablist" aria-label="Billing period">
+        <div className="billing-toggle" role="tablist" aria-label={copy.billingPeriod}>
           <button
             role="tab"
             aria-selected={billing === 'annual'}
             className={billing === 'annual' ? 'on' : ''}
             onClick={() => setBilling('annual')}
           >
-            Annual
-            <span className="save">3-day free trial</span>
+            {copy.annual}
+            <span className="save">{copy.freeTrial}</span>
           </button>
           <button
             role="tab"
@@ -33,18 +35,18 @@ export function BillingToggle() {
             className={billing === 'monthly' ? 'on' : ''}
             onClick={() => setBilling('monthly')}
           >
-            Monthly
+            {copy.monthly}
           </button>
         </div>
       </div>
 
       <div className="pricing-solo">
         <div className="plan plan-pro plan-solo">
-          <div className="plan-ribbon">Full access</div>
+          <div className="plan-ribbon">{copy.fullAccess}</div>
 
           {pricing.isIndia && (
             <div className="region-banner" role="status">
-              Regional pricing applied
+              {copy.regionalPricing}
             </div>
           )}
 
@@ -59,21 +61,17 @@ export function BillingToggle() {
             </div>
             <div className="plan-tag">
               {billing === 'annual'
-                ? '3-day free trial, then billed yearly · cancel anytime'
-                : 'Billed monthly · cancel anytime'}
+                ? copy.annualTerms
+                : copy.monthlyTerms}
             </div>
           </div>
 
           <ul className="plan-list">
-            <li className="yes hl"><span className="ic"><CheckIcon /></span>Unlimited song memories</li>
-            <li className="yes"><span className="ic"><CheckIcon /></span>Write what the song means to you &amp; when you first heard it</li>
-            <li className="yes hl"><span className="ic"><CheckIcon /></span>Attach photos &amp; videos to any memory</li>
-            <li className="yes hl"><span className="ic"><CheckIcon /></span>Tag the place where you first heard it</li>
-            <li className="yes hl"><span className="ic"><CheckIcon /></span>Share your memories to the song&apos;s public feed</li>
-            <li className="yes hl"><span className="ic"><CheckIcon /></span>Read how others remember the same song</li>
-            <li className="yes"><span className="ic"><CheckIcon /></span>Add custom songs not on Apple Music</li>
-            <li className="yes"><span className="ic"><CheckIcon /></span>Organise memories into collections</li>
-            <li className="yes"><span className="ic"><CheckIcon /></span>Daily streak tracking</li>
+            {copy.features.map((feature, index) => (
+              <li className={index === 1 || index >= 6 ? 'yes' : 'yes hl'} key={feature}>
+                <span className="ic"><CheckIcon /></span>{feature}
+              </li>
+            ))}
           </ul>
 
           <a
@@ -84,28 +82,28 @@ export function BillingToggle() {
               scrollToSelector('#waitlist')
             }}
           >
-            Join the waitlist
+            {copy.joinWaitlist}
           </a>
 
           <div className="plan-region">
             {(pricing.status === 'detecting' || pricing.status === 'locating') && (
-              <span className="region-note">Detecting your region…</span>
+              <span className="region-note">{copy.detectingRegion}</span>
             )}
             {pricing.status === 'resolved' && pricing.isRegional && (
-              <span className="region-note">Showing {pricing.countryName} pricing</span>
+              <span className="region-note">{copy.showingCountryPricing(pricing.countryName ?? '')}</span>
             )}
             {pricing.status === 'resolved' && !pricing.isRegional && (
               <button type="button" className="region-link" onClick={pricing.requestLocation}>
-                Showing standard (USD) pricing — use my precise location
+                {copy.usePreciseLocation}
               </button>
             )}
             {(pricing.status === 'denied' || pricing.status === 'error') && (
-              <span className="region-note">Showing standard (USD) pricing</span>
+              <span className="region-note">{copy.standardPricing}</span>
             )}
           </div>
 
           <div className="plan-fine">
-            Billed through the App Store / Google Play. Prices shown in your local currency where available.
+            {copy.billingFinePrint}
           </div>
         </div>
       </div>
