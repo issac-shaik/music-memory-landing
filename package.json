@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "prebuild": "node scripts/gen-pricing.mjs",
     "build": "astro build",
+    "translate:site": "npm run build && node scripts/generate-localized-site.mjs && npm run build",
     "preview": "astro preview",
     "worker:dev": "npx wrangler dev",
     "worker:deploy": "npx wrangler deploy"

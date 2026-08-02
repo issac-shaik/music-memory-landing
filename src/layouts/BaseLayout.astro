@@ -3,6 +3,7 @@ import '@fontsource-variable/newsreader/wght.css'
 import '@fontsource-variable/newsreader/wght-italic.css'
 import '@fontsource-variable/hanken-grotesk/wght.css'
 import '../styles/global.css'
+import LanguageSelector from '../components/LanguageSelector.astro'
 
 interface Props {
   title?: string
@@ -126,6 +127,7 @@ const jsonLdBlocks = [orgJsonLd, websiteJsonLd, ...structuredData]
               <a href="/#faq">FAQ</a>
             </div>
             <div class="nav-cta">
+              <LanguageSelector />
               <a href="/#waitlist" class="cta">Join the waitlist</a>
             </div>
           </div>
