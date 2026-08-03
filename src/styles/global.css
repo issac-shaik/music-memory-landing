@@ -2089,6 +2089,12 @@ a {
   border-radius: 3px;
 }
 
+img.proof-wf__cv,
+.proof-wf .mem-card img.cv {
+  object-fit: cover;
+  display: block;
+}
+
 .proof-wf .mem-card .song {
   font-family: var(--f-sans);
   font-weight: 600;
