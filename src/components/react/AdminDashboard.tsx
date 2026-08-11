@@ -223,7 +223,9 @@ function Gate({
       setStage('challenge')
       return
     }
-    for (const factor of listed.data.totp.filter((item) => item.status !== 'verified')) {
+    for (const factor of listed.data.all.filter(
+      (item) => item.factor_type === 'totp' && item.status !== 'verified',
+    )) {
       await supabase.auth.mfa.unenroll({ factorId: factor.id })
     }
     const enrolled = await supabase.auth.mfa.enroll({
