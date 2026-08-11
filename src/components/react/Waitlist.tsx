@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useState, type SubmitEvent } from 'react'
 import { getUiCopy } from '../../data/uiTranslations'
 
 // Backend base URL (Cloudflare Worker). Inlined at build time for the static
@@ -17,7 +17,7 @@ export function ComingSoonWaitlist() {
   const [state, setState] = useState<WaitlistState>('idle')
   const [message, setMessage] = useState('')
 
-  async function onSubmit(e: FormEvent) {
+  async function onSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault()
     if (state === 'submitting') return
 

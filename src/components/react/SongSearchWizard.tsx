@@ -80,7 +80,7 @@ export function SongSearchWizard() {
   }, [step])
 
   // Handle Apple Music Catalog search
-  const handleSearch = async (e?: React.FormEvent) => {
+  const handleSearch = async (e?: React.SubmitEvent<HTMLFormElement>) => {
     if (e) e.preventDefault()
     const trimmed = query.trim()
     if (trimmed.length < 3) {

@@ -1,6 +1,6 @@
 import { createClient, type Session, type SupabaseClient } from '@supabase/supabase-js'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import type { FormEvent } from 'react'
+import type { SubmitEvent } from 'react'
 
 type AdminRole = 'owner' | 'admin' | 'moderator'
 type Tab = 'queue' | 'overview' | 'team'
@@ -273,7 +273,7 @@ function Gate({
     return () => { cancelled = true }
   }, [inviteToken, onReady, prepareMfa, session, supabase])
 
-  const signIn = async (event: FormEvent) => {
+  const signIn = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault()
     setBusy(true)
     setError('')
@@ -297,7 +297,7 @@ function Gate({
     }
   }
 
-  const verifyMfa = async (event: FormEvent) => {
+  const verifyMfa = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!/^\d{6}$/u.test(code)) {
       setError('Enter the six-digit code from your authenticator app')
@@ -458,7 +458,7 @@ function Dashboard({
     }
   }
 
-  const invite = async (event: FormEvent) => {
+  const invite = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault()
     setInviteStatus('Sending invitation…')
     try {

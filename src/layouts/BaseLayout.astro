@@ -98,7 +98,7 @@ const jsonLdBlocks = [orgJsonLd, websiteJsonLd, ...structuredData]
     <meta name="twitter:image" content={`${SITE}/og-image.png`} />
 
     {jsonLdBlocks.map((block) => (
-      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(block)} />
     ))}
 
     <noscript>

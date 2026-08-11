@@ -695,7 +695,6 @@ const softwareJsonLd = {
         visible: false,
       }))
 
-      let raf = 0
       let running = false
       const tick = (now: number) => {
         let any = false
@@ -708,7 +707,7 @@ const softwareJsonLd = {
           m.card.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${m.baseRotate.toFixed(2)}deg)`
         }
         if (any) {
-          raf = requestAnimationFrame(tick)
+          requestAnimationFrame(tick)
         } else {
           running = false
         }
@@ -721,7 +720,7 @@ const softwareJsonLd = {
         }
         if (!running && metas.some((m) => m.visible)) {
           running = true
-          raf = requestAnimationFrame(tick)
+          requestAnimationFrame(tick)
         }
       })
       metas.forEach((m) => io.observe(m.card))

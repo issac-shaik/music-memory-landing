@@ -9,23 +9,25 @@
     "dev": "astro dev",
     "prebuild": "node scripts/gen-pricing.mjs",
     "build": "astro build",
+    "check": "astro check && tsc --noEmit",
     "translate:site": "npm run build && node scripts/generate-localized-site.mjs && npm run build",
     "preview": "astro preview",
     "worker:dev": "npx wrangler dev",
     "worker:deploy": "npx wrangler deploy"
   },
   "dependencies": {
-    "@astrojs/react": "^4.4.0",
+    "@astrojs/react": "^6.0.2",
     "@fontsource-variable/hanken-grotesk": "^5.2.5",
     "@fontsource-variable/newsreader": "^5.2.5",
     "@supabase/supabase-js": "^2.112.3",
-    "@tailwindcss/vite": "^4.2.4",
-    "astro": "^5.16.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.2.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "tailwindcss": "^4.2.4"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
