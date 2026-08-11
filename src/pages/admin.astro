@@ -1,0 +1,31 @@
+---
+import '@fontsource-variable/newsreader/wght.css'
+import '@fontsource-variable/newsreader/wght-italic.css'
+import '@fontsource-variable/hanken-grotesk/wght.css'
+import '../styles/admin.css'
+import AdminDashboard from '../components/react/AdminDashboard'
+
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL ?? ''
+const supabasePublishableKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? ''
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Review desk | Music Memory</title>
+    <meta name="description" content="Private Music Memory moderation dashboard" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#101114" />
+    <link rel="icon" type="image/png" href="/icon.png" />
+  </head>
+  <body>
+    <AdminDashboard
+      client:load
+      supabaseUrl={supabaseUrl}
+      supabasePublishableKey={supabasePublishableKey}
+    />
+  </body>
+</html>

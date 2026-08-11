@@ -2,9 +2,8 @@
 
 Marketing site for [Music Memory](https://musicmemory.app) — the music journal
 & song diary app. Built with **Astro 5** as a fully static, crawler-first site:
-every page is plain HTML at build time, and React loads only for the four
-interactive islands (waitlist form, pricing toggle, FAQ pricing answer, and the
-song-search wizard).
+every public page is plain HTML at build time. React loads only for interactive
+islands and for the private, no-index moderation dashboard at `/admin`.
 
 ## Stack
 
@@ -35,6 +34,17 @@ from `./out` per `wrangler.toml` — it is not a classic Pages project, so a
 `functions/` directory would be ignored). `worker/index.ts` proxies the
 song-search wizard's `/apple-music/*` calls to the backend Worker so the
 browser only ever makes same-origin requests.
+
+The Worker also proxies `/admin-api/*` to the backend's `/v1/admin/*` routes.
+The admin page accepts `PUBLIC_SUPABASE_URL` and
+`PUBLIC_SUPABASE_PUBLISHABLE_KEY` for local build previews. In production the
+Worker supplies the same browser-safe values at runtime from `SUPABASE_URL` and
+`SUPABASE_PUBLISHABLE_KEY`; neither is the service-role secret. Admin
+authorization is enforced by the backend using the invitation-only
+`admin_memberships` table and an AAL2 Supabase MFA session.
+Before deploying the dashboard, apply the backend migration
+`20260811062845_add_report_driven_admin_dashboard.sql` and configure the
+backend's `ADMIN_PORTAL_ORIGIN` as `https://musicmemory.app`.
 
 ## SEO
 

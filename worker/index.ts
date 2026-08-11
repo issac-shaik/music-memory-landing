@@ -15,6 +15,8 @@ const BACKEND_ORIGIN = 'https://musicmemory-backend.issac-shaik.workers.dev'
 
 interface Env {
   ASSETS: { fetch: (request: Request) => Promise<Response> }
+  SUPABASE_URL?: string
+  SUPABASE_PUBLISHABLE_KEY?: string
 }
 
 // Cloudflare adds request.cf with the visitor's IP-derived ISO country. This
@@ -33,11 +35,33 @@ function geo(request: Request): Response {
   })
 }
 
-async function proxy(request: Request): Promise<Response> {
+function adminConfig(env: Env): Response {
+  if (!env.SUPABASE_URL || !env.SUPABASE_PUBLISHABLE_KEY) {
+    return new Response(JSON.stringify({ error: 'Review desk configuration is unavailable' }), {
+      status: 503,
+      headers: {
+        'content-type': 'application/json',
+        'cache-control': 'no-store',
+      },
+    })
+  }
+  return new Response(JSON.stringify({
+    supabaseUrl: env.SUPABASE_URL,
+    supabasePublishableKey: env.SUPABASE_PUBLISHABLE_KEY,
+  }), {
+    headers: {
+      'content-type': 'application/json',
+      'cache-control': 'no-store',
+      'x-content-type-options': 'nosniff',
+    },
+  })
+}
+
+async function proxy(request: Request, rewrittenPath?: string): Promise<Response> {
   const incoming = new URL(request.url)
   // Preserve the full path (/apple-music/...) and query string, swapping only
   // the origin to the backend Worker.
-  const target = new URL(incoming.pathname + incoming.search, BACKEND_ORIGIN)
+  const target = new URL((rewrittenPath ?? incoming.pathname) + incoming.search, BACKEND_ORIGIN)
 
   // Forward the request method/body/headers, but strip hop-by-hop and
   // origin-specific headers so the Worker sees a clean server-to-server call.
@@ -87,8 +111,16 @@ export default {
       return geo(request)
     }
 
+    if (url.pathname === '/admin-config') {
+      return adminConfig(env)
+    }
+
     if (url.pathname.startsWith('/apple-music/')) {
       return proxy(request)
+    }
+    if (url.pathname === '/admin-api' || url.pathname.startsWith('/admin-api/')) {
+      const adminPath = `/v1/admin${url.pathname.slice('/admin-api'.length)}`
+      return proxy(request, adminPath)
     }
     return env.ASSETS.fetch(request)
   },

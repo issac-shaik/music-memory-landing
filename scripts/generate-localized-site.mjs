@@ -347,7 +347,12 @@ const injectTranslationNotice = (document, language) => {
   parent.childNodes.splice(index + 1, 0, notice)
 }
 
-const files = (await fs.readdir(outputDir)).filter((file) => file.endsWith('.html'))
+// The moderation dashboard is an invitation-only operational surface, not a
+// storefront page. Keep one canonical English route and do not duplicate it
+// into the public locale directories.
+const files = (await fs.readdir(outputDir)).filter(
+  (file) => file.endsWith('.html') && file !== 'admin.html'
+)
 const sources = new Map()
 const strings = new Set()
 

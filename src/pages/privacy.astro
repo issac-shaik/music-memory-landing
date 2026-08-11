@@ -12,7 +12,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 
       <div class="space-y-8 glass p-8 rounded-3xl">
         <p class="leading-relaxed text-sm" style="color: var(--ink-90)">
-          <strong>Effective Date:</strong> July 24, 2026
+          <strong>Effective Date:</strong> August 11, 2026
         </p>
 
         <section>
@@ -69,6 +69,14 @@ import BaseLayout from '../layouts/BaseLayout.astro'
             <li>To respond to your support requests and communications</li>
             <li>To send push notifications (with your consent) related to streaks and account activity</li>
           </ul>
+
+          <h3 class="text-lg font-semibold mt-6 mb-3" style="color: var(--ink)">3.1 Community Safety and Media Moderation</h3>
+          <p class="leading-relaxed mb-4">
+            Public-facing text is checked using server-owned deterministic safety and anti-spam rules. Content that passes publishes immediately. User reports and appeals create cases for authorized human moderators, who may review the reported shared text and attached media and decide whether to keep or remove it. Moderators do not have a browsing view of private &ldquo;Only Me&rdquo; entries. Users can immediately hide reported content, block accounts, and appeal moderation decisions.
+          </p>
+          <p class="leading-relaxed">
+            Photos and videos are validated and re-encoded by our Cloudflare Worker. They are not sent to Amazon Rekognition, Google Gemini, or another external image-recognition or AI moderation provider. An authorized moderator may view shared media only when the associated content is reported or appealed.
+          </p>
         </section>
 
         <section>
@@ -99,7 +107,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
             <li><strong>PostHog:</strong> Optional product analytics after explicit consent. We do not send email addresses, account IDs, journal or comment text, usernames, exact song names, searches, precise locations, or media URLs. <a href="https://posthog.com/privacy" class="hover:underline" style="color: var(--accent)">Privacy Policy</a></li>
             <li><strong>RevenueCat:</strong> Subscription management and payment processing. Your user ID is shared to manage entitlements. <a href="https://www.revenuecat.com/privacy" class="hover:underline" style="color: var(--accent)">Privacy Policy</a></li>
             <li><strong>Apple (Apple Music API, Apple Sign-In):</strong> Song catalog data retrieval and authentication. <a href="https://www.apple.com/legal/privacy/" class="hover:underline" style="color: var(--accent)">Privacy Policy</a></li>
-            <li><strong>Google (Google Sign-In and Gemini):</strong> Authentication services and, only after your explicit request and consent, language detection and translation through Google Gemini. <a href="https://policies.google.com/privacy" class="hover:underline" style="color: var(--accent)">Privacy Policy</a> and <a href="https://ai.google.dev/gemini-api/terms" class="hover:underline" style="color: var(--accent)">Gemini API Terms</a></li>
+            <li><strong>Google (Google Sign-In and Gemini):</strong> Authentication services and, only after your explicit translation request and consent, language detection and translation through Google Gemini. <a href="https://policies.google.com/privacy" class="hover:underline" style="color: var(--accent)">Privacy Policy</a> and <a href="https://ai.google.dev/gemini-api/terms" class="hover:underline" style="color: var(--accent)">Gemini API Terms</a></li>
             <li><strong>OpenStreetMap/Nominatim:</strong> Location search queries. Only your search text is transmitted; no personal identifiers are sent. <a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy" class="hover:underline" style="color: var(--accent)">Privacy Policy</a></li>
             <li><strong>Expo (Push Notifications):</strong> Delivery of push notifications to your device. <a href="https://expo.dev/privacy" class="hover:underline" style="color: var(--accent)">Privacy Policy</a></li>
           </ul>
@@ -125,6 +133,9 @@ import BaseLayout from '../layouts/BaseLayout.astro'
           </p>
           <p>
             Translation runs only after you select text, request a translation, pass the age check, and provide separate current-version consent. Music Memory sends only the selected journal or comment text through our Cloudflare Worker to Google Gemini. Google acts as a third-party AI processor to detect the source language and return a translation. We do not include your user ID, email, username, location, media, entry ID, or date of birth in the Gemini request.
+          </p>
+          <p class="leading-relaxed mb-4">
+            Translation consent applies only to translation. The deterministic safety screening and report-driven human review described in Section 3.1 do not send text to Google Gemini or another third-party AI moderation provider.
           </p>
           <p class="leading-relaxed mb-4">
             Music Memory may cache the original-text hash, translated output, and detected language in Cloudflare KV for up to 90 days. Raw translation text is not included in product analytics or general Worker logs. Google may process the selected text in countries where it or its subprocessors operate, subject to Google&apos;s applicable privacy terms, Gemini API terms, and data-processing terms. Those terms—not this policy—govern Google&apos;s retention and use of request data; we do not promise that Google excludes prompts from model training unless the deployed service contract expressly provides that protection.
