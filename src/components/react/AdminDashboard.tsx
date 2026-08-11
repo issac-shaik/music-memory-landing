@@ -280,6 +280,21 @@ function Gate({
     if (result.error) setError(result.error.message)
   }
 
+  const signInWithGoogle = async () => {
+    setBusy(true)
+    setError('')
+    const redirectTo = new URL(window.location.href)
+    redirectTo.hash = ''
+    const result = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: redirectTo.toString() },
+    })
+    if (result.error) {
+      setError(result.error.message)
+      setBusy(false)
+    }
+  }
+
   const verifyMfa = async (event: FormEvent) => {
     event.preventDefault()
     if (!/^\d{6}$/u.test(code)) {
@@ -317,11 +332,15 @@ function Gate({
 
         {stage === 'signin' && (
           <form className="admin-form" onSubmit={signIn}>
-            <p className="gate-copy">Sign in with the Music Memory account that received the invitation.</p>
+            <p className="gate-copy">Owners can use their existing Google account. Invited team members can use the sign-in method connected to their Music Memory account.</p>
+            <button className="google-button" type="button" disabled={busy} onClick={() => void signInWithGoogle()}>
+              Continue with Google
+            </button>
+            <div className="auth-divider"><span>or use email and password</span></div>
             <label className="admin-field"><span>Email</span><input type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} /></label>
             <label className="admin-field"><span>Password</span><input type="password" autoComplete="current-password" required value={password} onChange={(event) => setPassword(event.target.value)} /></label>
             {error && <div className="gate-error" role="alert">{error}</div>}
-            <button className="primary-button" disabled={busy}>{busy ? 'Signing in…' : 'Continue securely'}</button>
+            <button className="primary-button" disabled={busy}>{busy ? 'Signing in…' : 'Continue with email'}</button>
           </form>
         )}
 

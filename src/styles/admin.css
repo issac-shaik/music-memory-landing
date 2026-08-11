@@ -99,6 +99,23 @@ button { color: inherit; }
 
 .admin-form { display: grid; gap: 14px; }
 
+.auth-divider {
+  align-items: center;
+  color: var(--desk-muted);
+  display: flex;
+  font-size: 11px;
+  gap: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.auth-divider::before,
+.auth-divider::after {
+  background: var(--desk-line);
+  content: '';
+  flex: 1;
+  height: 1px;
+}
+
 .admin-field { display: grid; gap: 7px; }
 
 .admin-field > span {
@@ -130,6 +147,7 @@ button { color: inherit; }
 }
 
 .primary-button,
+.google-button,
 .quiet-button,
 .approve-button,
 .remove-button {
@@ -142,11 +160,17 @@ button { color: inherit; }
 }
 
 .primary-button { background: var(--desk-orange); color: #210c00; }
+.google-button {
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, .88);
+  color: #17181b;
+}
 .quiet-button { background: transparent; border: 1px solid var(--desk-line); color: var(--desk-muted); }
 .approve-button { background: var(--desk-safe); color: #082116; }
 .remove-button { background: rgba(255, 130, 117, .12); color: var(--desk-danger); border: 1px solid rgba(255, 130, 117, .35); }
 
 .primary-button:hover,
+.google-button:hover,
 .quiet-button:hover,
 .approve-button:hover,
 .remove-button:hover { transform: translateY(-1px); }
