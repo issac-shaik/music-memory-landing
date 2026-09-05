@@ -7,40 +7,50 @@ import BaseLayout from '../layouts/BaseLayout.astro'
   description="Request deletion of your Music Memory account and all associated data."
   canonical="/delete-account"
 >
-    <div class="max-w-4xl mx-auto px-6 py-24" style="color: var(--ink-90)">
-      <div class="text-center mb-12">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-4" style="color: var(--ink)">Delete Account</h1>
-        <p class="text-lg" style="color: var(--ink-90)">
-          We&apos;re sorry to see you go. If you wish to delete your Music Memory account and all associated data, follow the instructions below.
-        </p>
-      </div>
-
-      <div class="space-y-8 glass p-8 rounded-3xl border border-red-500/20 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-red-900" />
-
-        <section>
-          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">How to delete your account</h2>
-          <ol class="list-decimal pl-5 space-y-3 leading-relaxed" style="color: var(--ink-90)">
-            <li>Open the Music Memory app and navigate to <strong style="color: var(--ink)">Settings</strong> via the tab bar at the bottom of the screen.</li>
-            <li>Scroll down to the <strong style="color: var(--ink)">Danger Zone</strong> section and tap <strong style="color: var(--ink)">Delete Account</strong>.</li>
-            <li>You will be prompted to confirm your password. Once confirmed, your account will be scheduled for permanent deletion in <strong style="color: var(--ink)">14 days</strong>.</li>
-          </ol>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">What happens after you request deletion?</h2>
-          <p class="leading-relaxed mb-4">
-            Once deletion is scheduled, the following applies during the 14-day grace period:
-          </p>
-          <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
-            <li>Your profile will be hidden from other users</li>
-            <li>All of your public memories will be hidden from the community</li>
-            <li>You can cancel the deletion at any time by simply signing back in to your account</li>
-          </ul>
-          <p class="leading-relaxed mt-4">
-            After the 14-day grace period, your account and all associated data — including journal entries, media files, and profile information — will be <strong style="color: var(--ink)">permanently and irreversibly deleted</strong>. This action cannot be undone.
-          </p>
-        </section>
-      </div>
+  <div class="max-w-4xl mx-auto px-6 py-24" style="color: var(--ink-90)">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4" style="color: var(--ink)">Delete Account</h1>
+      <p class="text-lg" style="color: var(--ink-90)">
+        We&apos;re sorry to see you go. If you wish to delete your Music Memory account and all associated data, follow the instructions below.
+      </p>
     </div>
+
+    <div class="space-y-8 glass p-8 rounded-3xl border border-red-500/20 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-red-900" />
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">How to delete your account</h2>
+        <ol class="list-decimal pl-5 space-y-3 leading-relaxed" style="color: var(--ink-90)">
+          <li>Open Music Memory and choose <strong style="color: var(--ink)">Access &amp; Support</strong>. This option is available from the sign-in or limited-access screen and from Settings when Settings is available.</li>
+          <li>Choose <strong style="color: var(--ink)">Delete Account</strong>. If needed, sign in or complete the authentication check shown by the app.</li>
+          <li>Review the deletion notice and explicitly confirm the request. Your account will be scheduled for permanent deletion in <strong style="color: var(--ink)">14 days</strong>.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">What happens after you request deletion?</h2>
+        <p class="leading-relaxed mb-4">
+          Deletion remains pending during the 14-day grace period. While it is pending:
+        </p>
+        <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
+          <li>Your profile and shared memories are hidden from other users.</li>
+          <li>Signing in does not cancel deletion; your account remains in the restricted pending state.</li>
+          <li>To keep your account, explicitly choose <strong style="color: var(--ink)">Cancel deletion and restore account</strong> on the pending-deletion screen before permanent deletion begins.</li>
+        </ul>
+        <p class="leading-relaxed mt-4">
+          Subscription cancellation or lapse does not delete your memories or change their selected visibility. Account deletion is a separate request that requires the confirmation above.
+        </p>
+        <p class="leading-relaxed mt-4">
+          After the grace period, permanent deletion begins across our configured data processors. Temporary provider failures are retried. Once deletion is complete, your account and associated data — including journal entries, media files, and profile information — are permanently and irreversibly deleted.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">Need help?</h2>
+        <p class="leading-relaxed">
+          Contact <a href="mailto:support@musicmemory.app" class="hover:underline" style="color: var(--accent)">support@musicmemory.app</a> if you cannot reach the in-app deletion control or have questions about a pending request.
+        </p>
+      </section>
+    </div>
+  </div>
 </BaseLayout>

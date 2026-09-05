@@ -193,7 +193,7 @@ const translateChunk = async (values, language, attempt = 1) => {
   )
 
   if (!response.ok) {
-    if (response.status === 429 && language === 'zh') {
+    if (response.status === 429) {
       return translateChunkWithChrome(values, language)
     }
     if (attempt < 4) {

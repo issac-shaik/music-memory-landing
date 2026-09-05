@@ -100,46 +100,46 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 
           <h3 class="text-lg font-semibold mt-6 mb-3" style="color: var(--ink)">5.1 Reporting Violations</h3>
           <p class="leading-relaxed mb-4">
-            If you encounter content or conduct that violates these Guidelines, you may report it using the flag icon. You can report a public entry, an individual comment, or another user&apos;s profile. When submitting a report, you will be asked to select a reason from the following categories:
+            If you encounter content or conduct that violates these Guidelines, you may report it using the flag icon. You can report a public entry, an individual comment, another user&apos;s profile, or another supported community item. When submitting a report, you will be asked to select a reason from the following categories:
           </p>
-          <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
-            <li>Inappropriate content</li>
-            <li>Harassment or bullying</li>
-            <li>Spam or misleading content</li>
-            <li>Hate speech</li>
-            <li>Other (with description)</li>
+          <ul data-report-reasons class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
+            <li data-report-reason="harassment">Harassment or bullying</li>
+            <li data-report-reason="hate_speech">Hate speech</li>
+            <li data-report-reason="sexual_content">Sexual content</li>
+            <li data-report-reason="violence_threats">Violence or threats</li>
+            <li data-report-reason="self_harm">Self-harm</li>
+            <li data-report-reason="spam_scam">Spam or scam</li>
+            <li data-report-reason="impersonation">Impersonation</li>
+            <li data-report-reason="copyright_ip">Copyright/IP</li>
+            <li data-report-reason="personal_information">Personal information</li>
+            <li data-report-reason="other">Other</li>
           </ul>
           <p class="leading-relaxed mt-4">
-            Each user may submit one (1) report per entry, per comment, or per user. False or malicious reporting is itself a violation of these Guidelines and may result in enforcement action against the reporter.
+            Each user may submit one stored report for the same target. Duplicate report attempts do not create another stored report. False or malicious reporting is itself a violation of these Guidelines and may be reviewed.
           </p>
 
-          <h3 class="text-lg font-semibold mt-6 mb-3" style="color: var(--ink)">5.2 Moderation Process</h3>
+          <h3 class="text-lg font-semibold mt-6 mb-3" style="color: var(--ink)">5.2 Deterministic Prepublication Checks</h3>
           <p class="leading-relaxed mb-4">
-            Our moderation system is automated and operates as follows. To make it resistant to coordinated or repeated reporting, thresholds are measured by the number of <strong>distinct users</strong> who report an entry within a rolling ninety (90) day window — multiple reports from the same person count once, and older reports age out over time.
+            Server-owned deterministic prepublication checks normalize public-facing text and apply the safety and anti-spam rules enforced by the Service before publication. Content that passes publishes immediately. Content that matches an enforced rule is not published, and the recorded decision can be appealed.
           </p>
-          <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
-            <li><strong>Flagging:</strong> Content reported by a small number of distinct users is flagged for review. Flagged content remains public and visible.</li>
-            <li><strong>Forced Private:</strong> Content reported by a substantial number of distinct users is removed from public visibility. A forced-private entry cannot be made public again by its author; if you believe this was in error, you may appeal (Section 10).</li>
-            <li><strong>Strikes:</strong> When an entry is first forced private due to reports, its author&apos;s account receives one (1) strike. Repeated reports on the same already-restricted entry do not add further strikes.</li>
-            <li><strong>Suspension:</strong> An account that accumulates three (3) strikes is suspended. A suspended account cannot make any entries public while the suspension is in effect.</li>
-            <li><strong>Recovery:</strong> Suspensions are not permanent. A suspension is automatically lifted after thirty (30) days, at which point the account&apos;s strike count is reset to zero, giving you a clean slate. Because reports also age out of the ninety-day window, content and accounts are not penalized indefinitely for past reports.</li>
-          </ul>
-
-          <h3 class="text-lg font-semibold mt-6 mb-3" style="color: var(--ink)">5.3 Profanity Filter</h3>
           <p class="leading-relaxed">
-            The Service employs automated profanity detection. Content flagged by the profanity filter may be subject to additional review or automatic restriction.
+            User reports are separate from those checks. A successful report immediately hides the reported target from the reporter, prevents another report from being stored for that same reporter and target, and creates or reuses a case for human review. A report by itself does not remove the target for everyone or impose an account action.
+          </p>
+
+          <h3 class="text-lg font-semibold mt-6 mb-3" style="color: var(--ink)">5.3 Human Review</h3>
+          <p class="leading-relaxed">
+            An authorized human reviewer evaluates the case and may keep or restore the target, remove it, issue a warning, suspend access, or terminate an account when appropriate. Review decisions and appeals are recorded so the outcome is based on the reviewed content and conduct rather than on the number of reports received.
           </p>
         </section>
 
         <section>
           <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">6. Visibility and Access</h2>
           <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
-            <li>You control whether each of your entries is public or private. Public entries appear in the community for the relevant song; private entries are visible only to you.</li>
-            <li>Entries you have made public — and the media attached to them — remain public and accessible to the community. We do not retroactively hide or privatize your shared memories.</li>
-            <li>Community entries for a given song are only visible to users who also have their own entry for that same song.</li>
-            <li>You may revert any of your public entries to private at any time.</li>
-            <li>An entry that has been forced private through moderation cannot be made public again by its author, subject to appeal (Section 10).</li>
-            <li>Suspended users cannot make any entries public while a suspension is in effect. Suspensions lift automatically after thirty (30) days.</li>
+            <li>You choose the audience available for an entry: Only Me, Followers, or Public. New entries remain Only Me unless you affirmatively choose a shared audience.</li>
+            <li>Your selected visibility remains unchanged unless you change it or an authorized human moderation decision changes the content&apos;s availability.</li>
+            <li>Community entries for a given song are visible only to users who are otherwise allowed to view them under the Service&apos;s access rules.</li>
+            <li>You may change a shared entry back to Only Me at any time.</li>
+            <li>When you report a target, it is hidden from you immediately; that local hiding does not change what other users can see before review.</li>
           </ul>
         </section>
 
@@ -166,17 +166,17 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         <section>
           <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">9. Consequences of Violations</h2>
           <p class="leading-relaxed mb-4">
-            Violations of these Guidelines may result in one or more of the following actions, at our sole discretion:
+            After human review, a violation may result in one or more proportionate actions:
           </p>
           <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
+            <li>No action, or restoration of content, when the report is not substantiated</li>
             <li>Removal or restriction of specific content</li>
-            <li>Issuance of a warning</li>
-            <li>Issuance of a strike against your account</li>
-            <li>Suspension of community privileges (automated suspensions lift after thirty (30) days; we may also impose suspensions manually in cases of severe or repeated violations)</li>
-            <li>Termination of your account</li>
+            <li>A warning</li>
+            <li>Temporary suspension of community privileges</li>
+            <li>Termination or banning of an account for severe or repeated violations</li>
           </ul>
           <p class="leading-relaxed mt-4">
-            The severity of enforcement action will be proportional to the nature and frequency of the violation. We reserve the right to take immediate action without prior warning in cases of severe violations.
+            The outcome depends on the reviewed content, context, and conduct, not the number of reports. An authorized reviewer may take immediate action after review when a severe violation presents a safety or legal risk.
           </p>
         </section>
 

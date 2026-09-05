@@ -1,0 +1,9 @@
+---
+interface Props { variant?: string }
+const { variant = '' } = Astro.props
+---
+<svg class={`memory-thread ${variant}`} viewBox="0 0 1200 660" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path class="thread-track" d="M-30 480C140 500 92 155 296 194S428 587 658 444S742 67 994 161S1100 510 1230 348" />
+  <path class="thread-draw" pathLength="1" d="M-30 480C140 500 92 155 296 194S428 587 658 444S742 67 994 161S1100 510 1230 348" />
+  <circle cx="297" cy="194" r="7" /><circle cx="993" cy="161" r="7" />
+</svg>

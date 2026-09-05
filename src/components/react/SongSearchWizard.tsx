@@ -229,13 +229,7 @@ export function SongSearchWizard() {
 
   return (
     <div className="wizard-container reveal" id="try-it">
-      <div className="eyebrow" style={{ textAlign: 'center' }}>
-        <span> Capture the moment</span>
-      </div>
-      <h2 className="wizard-title text-center">
-        Try it: capture a<br />
-        song <em>memory.</em>
-      </h2>
+      <h2 className="wizard-title">Make a little memory.</h2>
 
       <div className="wizard-card">
         {step === 'search' && (
@@ -258,7 +252,7 @@ export function SongSearchWizard() {
             </form>
 
             {searchError && (
-              <div style={{ color: 'var(--ink-50)', fontSize: 13, marginBottom: 16 }}>
+              <div role="status" style={{ color: 'var(--ink-50)', fontSize: 13, marginBottom: 16 }}>
                 {searchError}
               </div>
             )}
@@ -492,12 +486,11 @@ export function SongSearchWizard() {
             {hasForgotDetails ? (
               <div className="wizard-outcome-forgot">
                 <div className="alert-icon" aria-hidden="true">
-                  ⚠️
+                  ♡
                 </div>
                 <p>
-                  You forgot the story behind that song, but you will
-                  never forget another story behind your songs if you use{' '}
-                  <strong>Music Memory.</strong>
+                  You don’t need every detail. Start with what you remember,
+                  and give the next moment a home in <strong>Music Memory.</strong>
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
                   <ComingSoonWaitlist />
@@ -509,7 +502,7 @@ export function SongSearchWizard() {
             ) : (
               <div className="polaroid-outcome-container">
                 <div className="polaroid-title">
-                  <span>✨</span> Memory preview saved!
+                  Your memory preview
                 </div>
 
                 <div className="polaroid-card">
@@ -548,7 +541,7 @@ export function SongSearchWizard() {
 
                 <div style={{ textAlign: 'center', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
                   <div style={{ fontFamily: 'var(--f-display)', fontSize: 20, color: 'var(--ink)' }}>
-                    This memory is ready to be preserved forever.
+                    This preview stays in this tab. Join the waitlist to hear when the app launches.
                   </div>
                   <ComingSoonWaitlist />
                   <button type="button" className="wizard-reset-btn" onClick={resetWizard}>

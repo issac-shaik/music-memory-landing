@@ -1,748 +1,125 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import FaqList from '../components/FaqList.astro'
+import MemoryThread from '../components/MemoryThread.astro'
 import { faqJsonLd } from '../data/faq'
 import ComingSoonWaitlist from '../components/react/Waitlist'
 import BillingToggle from '../components/react/BillingToggle'
 import SongSearchWizard from '../components/react/SongSearchWizard'
-
 const SITE = 'https://musicmemory.app'
-
-// Floating hero cards use real songs and Apple Music cover artwork.
-const FLOAT_CARDS = [
-  {
-    cls: 'fc-1',
-    song: 'Redbone',
-    artist: 'Childish Gambino',
-    cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f1/3c/d7/f13cd7ab-7319-028a-8807-5991d0b308d4/0044003187658_Cover.jpg/{w}x{h}bb.jpg',
-    body: '“Spotify recommended this song to me when I was going home from the office”',
-    date: '02 MAR 2026',
-    pin: 'New Jersey',
-  },
-  {
-    cls: 'fc-2',
-    song: 'Jigsaw Falling Into Place',
-    artist: 'Radiohead',
-    cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/dd/50/c7/dd50c790-99ac-d3d0-5ab8-e3891fb8fd52/634904032463.png/{w}x{h}bb.jpg',
-    body: '“Drove the long way home just so it would finish.”',
-    date: '15 FEB 2026',
-    pin: 'Daytona Beach',
-  },
-  {
-    cls: 'fc-3',
-    song: 'Blinding Lights',
-    artist: 'The Weeknd',
-    cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/a6/6e/bf/a66ebf79-5008-8948-b352-a790fc87446b/19UM1IM04638.rgb.jpg/{w}x{h}bb.jpg',
-    body: '“I was driving my friend to his home cause he had too many beers”',
-    date: '15 FEB 2026',
-    pin: 'Orlando',
-  },
-]
-
-const STORY_STEPS = [
-  '01 — Hear the song again',
-  '02 — Attach the date you first heard it',
-  '03 — Drop the place it belongs to',
-  '04 — Write what you felt',
-  '05 — Add the photos that go with it',
-]
-
-// Real, recognizable songs for "THE ARCHIVE" cards. Apple Music artwork URLs
-// are templated, so the render replaces {w}x{h} with a crisp 2x thumbnail.
-const ARCHIVE_SONGS = [
-  { title: 'Dynamite', artist: 'BTS', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/03/8d/0e/038d0e52-e96d-f386-b8eb-9f77fa013543/195497146918_Cover.jpg/{w}x{h}bb.jpg' },
-  { title: 'Hey There Delilah', artist: "Plain White T's", cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/a8/a4/23/a8a423e8-643b-79d0-81e4-00b3ca683b8c/00050087104436.rgb.jpg/{w}x{h}bb.jpg' },
-  { title: 'Thinking Out Loud', artist: 'Ed Sheeran', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/2d/36/f9/2d36f9a7-2c3e-ce0f-7fb6-036feecb221f/825646974450.jpg/{w}x{h}bb.jpg' },
-  { title: 'Sunflower', artist: 'Post Malone & Swae Lee', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/4b/30/2c/4b302cb6-7a14-5464-4e97-0577e9d0be49/18UMGIM82277.rgb.jpg/{w}x{h}bb.jpg' },
-  { title: 'Fix You', artist: 'Coldplay', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/0c/82/48/0c8248a8-4a5b-d30d-8056-f32d650d2fc9/190295978068.jpg/{w}x{h}bb.jpg' },
-  { title: 'Blinding Lights', artist: 'The Weeknd', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/a6/6e/bf/a66ebf79-5008-8948-b352-a790fc87446b/19UM1IM04638.rgb.jpg/{w}x{h}bb.jpg' },
-  { title: 'Wonderwall', artist: 'Oasis', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/04/92/e0/0492e08b-cbcc-9969-9ad6-8f5a0888068c/5051961007107.jpg/{w}x{h}bb.jpg' },
-  { title: 'Heat Waves', artist: 'Glass Animals', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/da/8b/77/da8b7731-6f4f-eacf-5e74-8b23389eefa1/20UMGIM03371.rgb.jpg/{w}x{h}bb.jpg' },
-  { title: 'Watermelon Sugar', artist: 'Harry Styles', cover: 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/2b/c4/c9/2bc4c9d4-3bc6-ab13-3f71-df0b89b173de/886448022213.jpg/{w}x{h}bb.jpg' },
-]
-
-const ARCHIVE_CARDS = [
-  { body: '"Played at every bus stop that summer. The way the speakers crackled is the way I remember the city."', meta: ['JUL 2018', 'SEOUL'] },
-  { body: '"Mom played this the morning we moved. I was eleven. I still remember the bridge."', meta: ['2007', 'QUEENS'] },
-  { body: '"The first slow dance of my life was off-tempo and perfect."', meta: ['MAY 2014', 'DURHAM'] },
-  { body: '"The windows were down even though it was cold. I knew the moment was going to matter."', meta: ['OCT 2019', 'PORTLAND'] },
-  { body: '"A difficult goodbye. I wasn\'t ready, but the song was."', meta: ['MAR 2022'] },
-  { body: '"Walked home in the rain on purpose, just so it could keep playing."', meta: ['JUN 2019', 'TOKYO'] },
-  { body: '"My grandmother\'s kitchen. The kettle and the chorus arrived at the same time."', meta: ['1998', 'LISBON'] },
-  { body: '"Drove the long way home just so it would finish."', meta: ['NOV 2021', 'AUSTIN'] },
-  { body: '"The summer I learned to be alone. This song was company."', meta: ['JUL 2020', 'BERLIN'] },
-]
-
-// Marquee rows for THE ARCHIVE: each card paired with its song, split across
-// two horizontally scrolling rows (top row drifts slower than the bottom).
-const ARCHIVE_ENTRIES = ARCHIVE_CARDS.map((card, i) => ({
-  card,
-  track: ARCHIVE_SONGS[i % ARCHIVE_SONGS.length],
-}))
-const MARQUEE_ROWS = [ARCHIVE_ENTRIES.slice(0, 5), ARCHIVE_ENTRIES.slice(5)]
-
+const cover = 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/dd/50/c7/dd50c790-99ac-d3d0-5ab8-e3891fb8fd52/634904032463.png/300x300bb.jpg'
 const appJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'MobileApplication',
-  '@id': `${SITE}/#app`,
-  name: 'Music Memory',
-  alternateName: ['Music Memory App', 'Music Memory — Music Journal', 'Music Diary'],
-  description:
-    'Music Memory is a music journal and song diary app for tracking the songs of your life. Log songs, tag the dates and places you first heard them, write what you felt, and build a private archive of your music memories.',
-  applicationCategory: 'LifestyleApplication',
-  applicationSubCategory: 'Music Journal',
-  operatingSystem: 'iOS, Android',
-  url: SITE,
-  image: `${SITE}/og-image.png`,
-  screenshot: [
-    `${SITE}/screenshot-journal.png`,
-    `${SITE}/screenshot-entry.png`,
-    `${SITE}/Search_Songs.png`,
-    `${SITE}/Collections.png`,
-    `${SITE}/Export_Apple_Music.png`,
-  ],
-  featureList: [
-    'Music journal',
-    'Song diary',
-    'Track songs you listened to',
-    'Tag dates and places',
-    'Attach photos and videos to songs',
-    'Group songs into collections',
-    'Export collections to Apple Music',
-    'Daily song streak',
-    'Public song memory feed',
-  ],
-  offers: {
-    '@type': 'Offer',
-    price: '49.99',
-    priceCurrency: 'USD',
-    description: 'Annual subscription with a 3-day free trial. Monthly available at 9.99 USD.',
-  },
-  author: { '@id': `${SITE}/#org` },
+  '@context': 'https://schema.org', '@type': 'MobileApplication', '@id': `${SITE}/#app`,
+  name: 'Music Memory', applicationCategory: 'LifestyleApplication', operatingSystem: 'iOS, Android', url: SITE,
+  description: 'A music journal and song diary. Save songs with dates, places, memories, photos and videos. Coming soon to iOS and Android.',
+  screenshot: [`${SITE}/screenshot-journal.png`, `${SITE}/screenshot-entry.png`, `${SITE}/Collections.png`],
+  offers: { '@type': 'Offer', price: '49.99', priceCurrency: 'USD', description: 'Annual subscription with a 3-day free trial. Monthly available at 9.99 USD. Prices vary by region.' },
+  author: { '@id': `${SITE}/#org` }
 }
-
-const softwareJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  '@id': `${SITE}/#software`,
-  name: 'Music Memory',
-  description:
-    'Music journal and song diary app to track the songs of your life — when you first heard them, where you were, and what you felt.',
-  applicationCategory: 'LifestyleApplication',
-  operatingSystem: 'iOS, Android',
-  url: SITE,
-  offers: {
-    '@type': 'Offer',
-    price: '9.99',
-    priceCurrency: 'USD',
-    description: 'Subscription with a 3-day free trial. $9.99/month or $49.99/year (prices vary by region).',
-  },
-}
+const stories = [
+  { place: 'Portland', date: 'October 2019', text: 'The windows were down even though it was cold. I knew the moment was going to matter.' },
+  { place: 'Tokyo', date: 'June 2019', text: 'Walked home in the rain on purpose, just so it could keep playing.' },
+  { place: 'Austin', date: 'November 2021', text: 'Drove the long way home just so it would finish.' },
+]
 ---
-
-<BaseLayout
-  canonical="/"
-  preloadImage="/screenshot-journal.webp"
-  structuredData={[appJsonLd, softwareJsonLd, faqJsonLd(SITE)]}
->
-  <main class="page">
-    {/* 02 HERO */}
-    <section class="reveal in" id="waitlist" data-screen-label="02 Hero">
-      <div class="hero-wf">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <div>
-              <div class="eyebrow hero-eyebrow">Music Memory · The music journal &amp; song diary app</div>
-              <h1 class="hero-headline">
-                Every song<br />
-                remembers<br />
-                <em>something.</em>
-              </h1>
-              <p class="hero-sub">
-                <strong>Music Memory</strong> is a music journal and song diary app
-                for tracking the songs of your life — when you first heard each one,
-                where you were, and what you felt. A quiet, cinematic place to keep
-                the tracks that already remember you. Coming soon to iOS and Android.
-              </p>
-            </div>
-            <div class="hero-bottom">
-              <div class="hero-badges">
-                <div class="store-row">
-                  <span class="store-badge sb-ios is-soon" aria-label="Coming soon to the App Store">
-                    <img src="/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg" alt="" width="135" height="44" />
-                    <span class="badge-soon-tag">Soon</span>
-                  </span>
-                  <span class="store-badge sb-android is-soon" aria-label="Coming soon to Google Play">
-                    <img src="/GetItOnGooglePlay_Badge_Web_color_English.svg" alt="" width="152" height="44" />
-                    <span class="badge-soon-tag">Soon</span>
-                  </span>
-                </div>
-                <ComingSoonWaitlist client:idle />
-              </div>
-            </div>
-          </div>
-
-          <div class="hero-stage">
-            <div class="phone-shot">
-              <img
-                src="/screenshot-journal.webp"
-                alt="Music Memory music journal — songs as chapters of your life"
-                width="860"
-                height="1582"
-                fetchpriority="high"
-              />
-            </div>
-
-            {FLOAT_CARDS.map((card) => (
-              <div class={`float-card ${card.cls}`}>
-                <div class="top">
-                  <div class="cover">
-                    {card.cover && <img translate="no" src={card.cover.replace('{w}', '96').replace('{h}', '96')} alt={`${card.song} by ${card.artist}`} width="48" height="48" loading="lazy" />}
-                  </div>
-                  <div>
-                    <div class="song" translate="no">{card.song}</div>
-                    <div class="artist" translate="no">{card.artist}</div>
-                  </div>
-                </div>
-                <div class="body">{card.body}</div>
-                <div class="meta"><span>{card.date}</span><span class="pin">{card.pin}</span></div>
-              </div>
-            ))}
-          </div>
+<BaseLayout canonical="/" structuredData={[appJsonLd, faqJsonLd(SITE)]}>
+  <main>
+    <section class="home-hero motion-scene" aria-labelledby="hero-title">
+      <MemoryThread variant="hero-thread" />
+      <div class="page hero-layout">
+        <div class="hero-copy">
+          <p class="intro-line"><span class="little-spark" aria-hidden="true">✳</span> A music journal for the moments that stay.</p>
+          <h1 id="hero-title">Remember where the song takes you.</h1>
+          <p class="hero-description">Save the songs that bring a moment back. Add where you were, when it happened, and the details you want to keep.</p>
+          <div class="hero-actions"><a class="button" href="#waitlist">Join the waitlist</a><a class="text-link" href="#try-it">Try a memory <span aria-hidden="true">↗</span></a></div>
+          <p class="availability">Coming soon to iOS &amp; Android</p>
         </div>
+        <div class="memory-composition" aria-label="An illustrative song memory from a drive in Austin">
+          <div class="place-stamp"><span class="location-dot" aria-hidden="true"></span> Austin, Texas</div>
+          <figure class="drive-print drift-item">
+            <img src="/memory-drive.svg" alt="Illustration of a winding road through blue hills at dusk" width="720" height="520" fetchpriority="high" />
+            <figcaption>the long way home</figcaption>
+          </figure>
+          <div class="song-slip"><img src={cover} alt="In Rainbows album artwork" width="64" height="64" /><div translate="no"><strong>Jigsaw Falling Into Place</strong><span>Radiohead</span></div><span class="song-symbol" aria-hidden="true">♫</span></div>
+          <div class="memory-note drift-item"><span class="note-date">November 2021</span><p>“Drove the long way home just so it would finish.”</p><svg viewBox="0 0 100 18" aria-hidden="true"><path d="M1 12Q30 1 70 9T98 7" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+          <span class="sample-caption">A little example of what you can keep.</span>
+          <span class="composition-spark" aria-hidden="true">✳</span>
+        </div>
+      </div>
+      <div class="page hero-foot"><span>A song. A place. A piece of your life.</span><a href="#memories">Follow the memory <span aria-hidden="true">↓</span></a></div>
+    </section>
+
+    <section class="memory-story motion-scene" id="memories" aria-labelledby="story-title">
+      <MemoryThread />
+      <div class="page">
+        <div class="section-intro"><h2 id="story-title">The song is just<br />the beginning.</h2><p>Keep the rest of the moment with it.<br />The place. The feeling. The people just outside the frame.</p></div>
+        <ol class="memory-pieces">
+          <li><span class="step-label">01 / Find the song</span><div class="song-piece"><img src={cover} alt="In Rainbows album artwork" width="120" height="120" loading="lazy" /><div translate="no"><strong>Jigsaw Falling<br />Into Place</strong><p>Radiohead</p></div></div><p>Search Apple Music’s catalogue, or add a song of your own.</p></li>
+          <li><span class="step-label">02 / Place the moment</span><div class="date-piece"><strong>November<br />2021</strong><span><i class="location-dot" aria-hidden="true"></i> Austin, Texas</span></div><p>Give it a date and a place. A whole chapter comes back.</p></li>
+          <li><span class="step-label">03 / Keep the details</span><div class="detail-piece"><p>“Drove the long way home just so it would finish.”</p><span>A sentence can be enough.</span></div><p>Add what you remember, with photos or videos to bring it closer.</p></li>
+        </ol>
+        <p class="example-note">Illustrative memory. Yours will have its own story.</p>
       </div>
     </section>
 
-    <div class="divider"></div>
-
-    {/* 03 STORYTELLING */}
-    <section data-screen-label="03 Scroll Storytelling" id="memories">
-      <div class="story-wf">
-        <div class="story-grid">
-          <div class="story-sticky">
-            <div class="eyebrow">A memory, becoming.</div>
-            <h3 style="margin-top: 20px">
-              How a song<br /><em>becomes</em><br />a memory.
-            </h3>
-            <div class="progress" data-story-progress>
-              {STORY_STEPS.map((label, i) => (
-                <div class={`step${i === 0 ? ' on' : ''}`}>
-                  <span class="dot"></span>
-                  <span>{label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div class="story-frames">
-            <div class="story-frame reveal">
-              <div class="copy">
-                <div class="step-num">01 — REENCOUNTER</div>
-                <h4>You hear it again.<br />Somewhere unexpected.</h4>
-                <p>The first beat lands and the room rearranges. You were
-                  seventeen. You were on that train. You were everything.</p>
-              </div>
-              <div class="vis">
-                <div class="ghost-ui">
-                  <div style="height: 24px; border-radius: 4px; background: var(--ink-07)"></div>
-                  <div style="display: grid; grid-template-columns: 48px 1fr; gap: 8px; margin-top: 6px">
-                    <div style="width: 48px; height: 48px; background: var(--ink-12); border-radius: 3px"></div>
-                    <div>
-                      <div style="height: 10px; width: 60%; background: var(--ink-12); border-radius: 2px; margin-bottom: 6px"></div>
-                      <div style="height: 8px; width: 40%; background: var(--ink-07); border-radius: 2px"></div>
-                    </div>
-                  </div>
-                  <div style="display: grid; grid-template-columns: 48px 1fr; gap: 8px">
-                    <div style="width: 48px; height: 48px; background: var(--ink-12); border-radius: 3px"></div>
-                    <div>
-                      <div style="height: 10px; width: 70%; background: var(--ink-07); border-radius: 2px; margin-bottom: 6px"></div>
-                      <div style="height: 8px; width: 30%; background: var(--ink-07); border-radius: 2px"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="story-frame reveal">
-              <div class="copy">
-                <div class="step-num">02 — TIMESTAMP</div>
-                <h4>Pin it to <em>when</em>.<br />A date. A season.</h4>
-                <p>“First heard, June 2019.” That’s all it takes for a song
-                  to know which chapter it belongs to.</p>
-              </div>
-              <div class="vis">
-                <div class="ghost-ui" style="justify-content: center; align-items: center">
-                  <div style="font-family: var(--f-display); font-size: 48px; line-height: 1; text-align: center; color: var(--ink-90)">June 2019</div>
-                  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 14px">
-                    <div style="height: 14px; background: var(--ink-07); border-radius: 2px"></div>
-                    <div style="height: 14px; background: var(--ink-07); border-radius: 2px"></div>
-                    <div style="height: 14px; background: var(--accent); border-radius: 2px"></div>
-                    <div style="height: 14px; background: var(--ink-07); border-radius: 2px"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="story-frame reveal">
-              <div class="copy">
-                <div class="step-num">03 — PLACE</div>
-                <h4>Drop the place<br />it belongs to.</h4>
-                <p>Cities and corner stores. Beaches and bedrooms.
-                  Where you were is half of what the song means.</p>
-              </div>
-              <div class="vis">
-                <div class="ghost-ui" style="background: linear-gradient(135deg, rgba(255, 101, 0, 0.05), transparent 60%)">
-                  <div style="display: flex; align-items: center; gap: 8px">
-                    <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 6px var(--accent-soft)"></span>
-                    <span style="font-family: var(--f-mono); font-size: 11px; color: var(--ink-90)">SHIBUYA CROSSING · TOKYO, JP</span>
-                  </div>
-                  <div style="margin-top: 10px; height: 8px; width: 60%; background: var(--ink-07); border-radius: 2px"></div>
-                  <div style="margin-top: 6px; height: 8px; width: 40%; background: var(--ink-07); border-radius: 2px"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="story-frame reveal">
-              <div class="copy">
-                <div class="step-num">04 — FEELING</div>
-                <h4>Write what<br />you <em>felt</em>.</h4>
-                <p>Not what you did. What you felt. Even a sentence is
-                  enough to make a song stop being just sound.</p>
-              </div>
-              <div class="vis">
-                <div class="ghost-ui">
-                  <div style="font-family: var(--f-display); font-style: italic; font-size: 18px; line-height: 1.45; color: var(--ink-90)">“Walked home in the rain on purpose, just so it could keep playing.”</div>
-                  <div style="display: flex; gap: 10px; margin-top: 14px; font-family: var(--f-mono); font-size: 9.5px; color: var(--ink-35); letter-spacing: 0.06em; text-transform: uppercase">
-                    <span>32 WORDS</span><span>· DRAFT</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="story-frame reveal">
-              <div class="copy">
-                <div class="step-num">05 — TEXTURE</div>
-                <h4>Add the photos.<br />Up to five.</h4>
-                <p>The polaroid, the ticket stub, the screenshot at 2 a.m.
-                  Whatever the song was sitting next to in your life.</p>
-              </div>
-              <div class="vis">
-                <div class="ghost-ui">
-                  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px">
-                    <div style="aspect-ratio: 1/1; background: repeating-linear-gradient(135deg, transparent 0 6px, var(--ink-12) 6px 7px), var(--ink-07); border-radius: 3px"></div>
-                    <div style="aspect-ratio: 1/1; background: repeating-linear-gradient(135deg, transparent 0 6px, var(--ink-12) 6px 7px), var(--ink-07); border-radius: 3px"></div>
-                    <div style="aspect-ratio: 1/1; background: repeating-linear-gradient(135deg, transparent 0 6px, var(--ink-12) 6px 7px), var(--ink-07); border-radius: 3px"></div>
-                    <div style="aspect-ratio: 1/1; background: repeating-linear-gradient(135deg, transparent 0 6px, var(--ink-12) 6px 7px), var(--ink-07); border-radius: 3px"></div>
-                    <div style="aspect-ratio: 1/1; border: 1px dashed var(--ink-35); border-radius: 3px; display: grid; place-items: center; font-family: var(--f-mono); font-size: 18px; color: var(--ink-50)">+</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <section class="demo-section" aria-label="Try making a song memory">
+      <div class="page demo-layout"><div class="demo-intro"><span class="little-spark" aria-hidden="true">✳</span><h2>There’s a song<br />you’re thinking of.</h2><p>Start there. See how a few small details turn it into something you can return to.</p><p class="small-note">This is a browser preview. Your memory and attachments aren’t uploaded or saved to an account.</p></div><div><SongSearchWizard client:visible /><noscript><p>Enable JavaScript to try the song search preview.</p></noscript></div></div>
     </section>
 
-    <div class="divider"></div>
-
-    {/* 03b TRY IT — interactive song memory wizard */}
-    <section data-screen-label="03b Try It">
-      <SongSearchWizard client:visible />
+    <section class="product-section page" id="features" aria-labelledby="product-title">
+      <div class="section-intro"><h2 id="product-title">A home for your<br />musical memory.</h2><p>For yesterday’s discovery.<br />And the song you’ve carried for years.</p></div>
+      <article class="product-chapter journal-chapter">
+        <div class="chapter-copy"><span class="chapter-marker" aria-hidden="true">↶</span><h3>Find your<br />way back.</h3><p>Open your journal and travel through the songs of your life. Every cover holds a moment. Every month becomes a chapter.</p><p class="chapter-detail">Keep the date, place, words, and photos together. Come back whenever the song finds you again.</p></div>
+        <div class="journal-screens"><div class="screen-orbit" aria-hidden="true"></div><img class="journal-screen" src="/screenshot-journal.webp" alt="Music Memory journal with songs organized by month" width="860" height="1582" loading="lazy" /><img class="entry-screen" src="/screenshot-entry.webp" alt="A song memory with its date, location, story, and photos" width="938" height="1677" loading="lazy" /><span class="screen-caption">Your life, one song at a time.</span></div>
+      </article>
+      <article class="product-chapter collection-chapter">
+        <div class="collection-visual"><img src="/Collections.png" alt="Collections in the Music Memory app" width="868" height="1600" loading="lazy" /><div class="collection-label"><span>An idea for your collection</span><strong>The first<br />apartment.</strong><span>All the songs that made it home.</span></div></div>
+        <div class="chapter-copy"><span class="chapter-marker" aria-hidden="true">⊞</span><h3>Keep a chapter<br />together.</h3><p>The first apartment. The summer drives. The people who changed your taste in music. Gather the songs that belong together into collections.</p><p class="chapter-detail">Export a collection to Apple Music as a playlist. Listen to that chapter all over again.</p></div>
+      </article>
+      <article class="product-chapter privacy-chapter">
+        <div class="chapter-copy"><svg class="lock-icon" viewBox="0 0 40 44" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="6" y="19" width="28" height="23" rx="6"/><path d="M12 19V11a8 8 0 0 1 16 0v8M20 28v6"/></svg><h3>Some memories<br />are just for you.</h3><p>Every memory is private by default. When a story feels worth sharing, you choose who gets to see it.</p><p class="chapter-detail">Keep it to yourself, share with followers, or add it to the public feed. The choice belongs to each memory.</p></div>
+        <div class="privacy-visual"><img src="/Privacy_toggle.png" alt="Music Memory visibility options: private, followers, or public" width="828" height="1594" loading="lazy" /><span class="privacy-caption">A personal journal.<br />On your terms.</span></div>
+      </article>
     </section>
 
-    <div class="divider"></div>
+    <section class="shared-section motion-scene" id="community" aria-labelledby="shared-title"><MemoryThread /><div class="page"><div class="shared-heading"><h2 id="shared-title">Same song.<br />Entirely different lives.</h2><p>Discover the moments other people attach to a song.<br />You might find a little of yourself in theirs.</p><div class="shared-song"><img src={cover} alt="" width="44" height="44" loading="lazy" /><span translate="no">Jigsaw Falling Into Place <small>Radiohead</small></span></div></div><div class="shared-memories">{stories.map((story) => <figure><blockquote>“{story.text}”</blockquote><figcaption><span>{story.place}</span><span>{story.date}</span></figcaption></figure>)}</div><p class="example-note">Illustrative memories, not customer testimonials.</p></div></section>
 
-    {/* 04 PRODUCT SHOWCASE */}
-    <section data-screen-label="04 Product Showcase" id="features">
-      <div class="showcase-wf">
-        <div class="showcase-row bare reveal">
-          <div class="showcase-copy">
-            <h3>A grid of <em>covers</em>.<br />Months as chapters.</h3>
-            <p>Your journal looks like the inside of a record store —
-              month headers anchor each chapter, the current month
-              opens 2-up with full journal previews, older months
-              collapse to a tighter 4-up grid as you scroll back.</p>
-            <div class="feat-meta">
-              <div><strong>Layout</strong>Month-grouped · day labels above each card · cover → song → artist → date → snippet</div>
-            </div>
-          </div>
-          <div class="showcase-vis">
-            <div class="phone-shot">
-              <img src="/screenshot-journal.webp" alt="Music Memory journal grid — track songs you've listened to, month by month" width="860" height="1582" loading="lazy" />
-            </div>
-          </div>
-        </div>
-
-        <div class="showcase-row flip bare reveal">
-          <div class="showcase-copy">
-            <h3>Open a memory.<br />Stand <em>inside</em> it.</h3>
-            <p>Tap a cover and step inside. Song title and artist
-              at the top, the album cover centered large, then
-              Apple Music and Spotify shortcuts, the date, the
-              place — and your memory in its own panel beneath,
-              with the photos slotted under.</p>
-            <div class="feat-meta">
-              <div><strong>Background</strong>Ambient halo extracted from cover · soft top-down warmth</div>
-              <div><strong>Hierarchy</strong>Header → cover → play-on → date+place → memory → media</div>
-            </div>
-          </div>
-          <div class="showcase-vis">
-            <div class="phone-shot">
-              <img src="/screenshot-entry.webp" alt="Music Memory entry — a song diary with date, place, and a personal memory" width="938" height="1677" loading="lazy" />
-            </div>
-          </div>
-        </div>
-
-        <div class="showcase-row reveal">
-          <div class="showcase-copy">
-            <h3>Pull songs <em>directly</em><br />from Apple Music.</h3>
-            <p>Search the catalogue, attach the real cover, link out
-              to the track. Don't see it? Create a custom entry —
-              even mixtapes belong here.</p>
-            <div class="feat-meta">
-              <div><strong>Integrations</strong>Apple Music API</div>
-              <div><strong>Fallback</strong>Custom entry · upload cover · text</div>
-            </div>
-          </div>
-          <div class="showcase-vis">
-            <div class="phone-shot">
-              <img src="/Search_Songs.webp" alt="Search the Apple Music catalogue to add a song to your music journal" width="860" height="1582" loading="lazy" />
-            </div>
-          </div>
-        </div>
-
-        <div class="showcase-row flip reveal">
-          <div class="showcase-copy">
-            <h3>Where you<br /><em>first</em> heard it.</h3>
-            <p>A train platform in Berlin. The bathroom at a party.
-              Locations live with the memory — and you can see every
-              song you tagged in a city you've been to.</p>
-            <div class="feat-meta">
-              <div><strong>Search</strong>Place lookup · custom labels OK</div>
-              <div><strong>Privacy</strong>Coarse by default · exact opt-in</div>
-            </div>
-          </div>
-          <div class="showcase-vis">
-            <div class="phone-shot">
-              <img src="/Locations.png" alt="Music Memory locations — see every song you tagged in a city you've been to" width="828" height="1598" loading="lazy" />
-            </div>
-          </div>
-        </div>
-
-        <div class="showcase-row reveal">
-          <div class="showcase-copy">
-            <h3>Up to <em>five</em> media.</h3>
-            <p>The polaroid, the screenshot, the blurry concert clip.
-              Songs aren't sound alone — they're everything you saw
-              while they were playing.</p>
-            <div class="feat-meta">
-              <div><strong>Limits</strong>Up to 5 photos or 5 videos per memory</div>
-            </div>
-          </div>
-          <div class="showcase-vis">
-            <div class="media-shot">
-              <img src="/Media_selector.webp" alt="Attach up to five photos or videos to a song memory in Music Memory" width="860" height="1582" loading="lazy" />
-            </div>
-          </div>
-        </div>
-
-        <div class="showcase-row flip reveal">
-          <div class="showcase-copy">
-            <h3>Group the songs<br />that go <em>together</em>.</h3>
-            <p>Playlists of moments. "First year of grad school."
-              "The summer everything changed." Curate, name, cover —
-              and keep them private or share them.</p>
-            <div class="feat-meta">
-              <div><strong>Cover</strong>Upload Cover Art for each Collection</div>
-              <div><strong>Sort</strong>Manual drag · or chronological</div>
-            </div>
-          </div>
-          <div class="showcase-vis">
-            <div class="phone-shot rounded">
-              <img src="/Collections.png" alt="Music Memory collections — group songs into chapters and curated playlists of moments" width="868" height="1600" loading="lazy" />
-            </div>
-          </div>
-        </div>
-
-        <div class="showcase-row reveal">
-          <div class="showcase-copy">
-            <h3>Send a collection<br />back to <em>Apple Music</em>.</h3>
-            <p>One tap turns any collection into a real playlist
-              in your music library. Listen end-to-end and you've
-              just played a chapter of your life.</p>
-            <div class="feat-meta">
-              <div><strong>Format</strong>Apple Music playlist · ordered · public/private</div>
-              <div><strong>Sync</strong>One-way · re-export to overwrite</div>
-            </div>
-          </div>
-          <div class="showcase-vis">
-            <div class="phone-shot">
-              <img src="/Export_Apple_Music.webp" alt="Export a Music Memory collection back to Apple Music as a real playlist" width="878" height="1608" loading="lazy" />
-            </div>
-          </div>
-        </div>
-
-        <div class="showcase-row flip reveal">
-          <div class="showcase-copy">
-            <h3>See how others<br />remember the<br /><em>same</em> song.</h3>
-<p>Scroll the Explore feed — an endless, vertical stream
-              of public memories from people you follow and strangers
-              alike. React, reply, recognise yourself in someone
-              else's story.</p>
-            <div class="feat-meta">
-              <div><strong>Reactions</strong>Like / dislike · threaded comments</div>
-              <div><strong>Safety</strong>Per-post report · moderation queue</div>
-            </div>
-          </div>
-          <div class="showcase-vis">
-            <div class="phone-shot">
-              <img src="/Social.png" alt="Music Memory community feed — see how others remember the same song" width="838" height="1600" loading="lazy" />
-            </div>
-          </div>
-        </div>
-
-        <div class="showcase-row flip reveal">
-          <div class="showcase-copy">
-            <h3>Public, followers,<br /><em>or just for you.</em></h3>
-            <p>Every memory has three settings. Keep it private,
-              share it with your followers, or make it public — where
-              it joins the community archive of how songs live in
-              people's lives.</p>
-            <div class="feat-meta">
-              <div><strong>Default</strong>Private · opt-in to share</div>
-              <div><strong>Per-memory</strong>Choose at create or anytime after</div>
-            </div>
-          </div>
-          <div class="showcase-vis">
-            <div class="phone-shot">
-              <img src="/Privacy_toggle.png" alt="Music Memory privacy — keep a memory private, share with followers, or make it public" width="828" height="1594" loading="lazy" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    {/* 05 EDITORIAL TYPOGRAPHY */}
-    <section class="reveal" data-screen-label="05 Editorial Typography">
-      <div class="edit-wf">
-        <div class="quotes">
-          <div class="quote">
-            Every song<br />
-            has a<br />
-            <em>story.</em>
-          </div>
-          <div class="quote">
-            Some playlists are<br />
-            entire <span class="accent">chapters</span> of<br />
-            your life.
-          </div>
-          <div class="quote">
-            Relive<br />
-            life through<br />
-            <span class="accent">music</span><br />
-          </div>
-          <div class="quote">
-            Where were you<br />
-            when you <em>first</em><br />
-            heard it?
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    {/* 06 ILLUSTRATIVE JOURNAL */}
-    <section class="reveal" data-screen-label="07 Illustrative Journal" id="community">
-      <div class="proof-wf">
-        <div class="archive-head">
-          <div class="eyebrow">ILLUSTRATIVE JOURNAL</div>
-          <h2 class="archive-title">
-            You can create your<br />
-            <em>own journal</em> like this.
-          </h2>
-        </div>
-
-        <div class="archive-marquee">
-          {MARQUEE_ROWS.map((row, r) => (
-            <div class={`marquee-row ${r === 0 ? 'marquee-slow' : 'marquee-fast'}`}>
-              <div class="marquee-track">
-                {[0, 1].map((copy) => (
-                  <div class="marquee-group" aria-hidden={copy === 1 ? 'true' : undefined}>
-                    {row.map(({ card, track }) => (
-                      <div class="mem-card">
-                        <div class="row">
-                          <img class="cv" translate="no" src={track.cover.replace('{w}', '96').replace('{h}', '96')} alt={`${track.title} by ${track.artist}`} width="48" height="48" loading="lazy" />
-                          <div><div class="song" translate="no">{track.title}</div><div class="ar" translate="no">{track.artist}</div></div>
-                        </div>
-                        <div class="body">{card.body}</div>
-                        <div class="meta">{card.meta.map((m, j) => <span class={j === card.meta.length - 1 && card.meta.length > 1 ? 'pin' : ''}>{m}</span>)}</div>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    {/* 07 PRICING */}
-    <section class="reveal" data-screen-label="08 Pricing" id="pricing">
-      <div class="pricing-wf">
-        <div class="pricing-head">
-          <div class="eyebrow">PRICING</div>
-          <h2 class="h-section" style="margin-top: 18px">
-            One subscription.<br /><em>Everything</em> included.
-          </h2>
-          <p class="subcopy" style="margin-top: 24px">
-            Start with a 3-day free trial. Unlimited memories, photos, video,
-            location, and a public voice on every song's feed — all in.
-          </p>
-        </div>
-
-        <BillingToggle client:visible />
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    {/* 07b FAQ — SEO content */}
-    <section class="reveal" data-screen-label="08b FAQ" id="faq">
-      <div class="faq-wf">
-        <div class="faq-head">
-          <div class="eyebrow"> FAQ</div>
-          <h2 class="h-section" style="margin-top: 18px">
-            The music journal,<br />
-            <em>questioned.</em>
-          </h2>
-          <p class="subcopy" style="margin-top: 24px">
-            Everything people ask before they start journaling their songs.
-          </p>
-        </div>
-
-        <FaqList />
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    {/* 08 FINAL CTA */}
-    <section class="reveal" data-screen-label="09 Final CTA" id="download">
-      <div class="cta-wf">
-        <div class="eyebrow"> THE FINAL FRAME</div>
-        <h2 class="h-final" style="margin-top: 36px">
-          Your songs<br />already <em>remember</em>.<br />
-          Start <span class="accent">writing it</span><br />down.
-        </h2>
-
-        <div class="cta-row cta-row-soon" aria-hidden="true">
-          <span class="store-badge sb-ios sb-lg is-soon" aria-label="Coming soon to the App Store">
-            <img src="/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg" alt="" width="168" height="56" />
-            <span class="badge-soon-tag">Soon</span>
-          </span>
-          <span class="store-badge sb-android sb-lg is-soon" aria-label="Coming soon to Google Play">
-            <img src="/GetItOnGooglePlay_Badge_Web_color_English.svg" alt="" width="190" height="56" />
-            <span class="badge-soon-tag">Soon</span>
-          </span>
-        </div>
-
-        <ComingSoonWaitlist client:visible />
-
-        <div class="trial">Not out yet — join the waitlist for launch day</div>
-
-        <div class="recap">
-          <div class="item">
-            <div class="v">Unlimited<br />memories</div>
-          </div>
-          <div class="item">
-            <div class="v">Photos<br />&amp; videos</div>
-          </div>
-          <div class="item">
-            <div class="v">Location<br />tagging</div>
-          </div>
-          <div class="item">
-            <div class="v">Public<br />community</div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section class="page pricing-section" id="pricing" aria-labelledby="pricing-title"><div class="pricing-copy"><h2 id="pricing-title">All your songs.<br />All their stories.</h2><p>One subscription for your growing journal. Unlimited memories, collections, media, and the places that belong to them.</p><p>Start with a 3-day free trial when the app launches. Prices vary by region.</p><div class="pricing-flower" aria-hidden="true">✳</div></div><div class="pricing-widget"><BillingToggle client:visible /></div></section>
+    <section class="page faq-section" id="faq" aria-labelledby="faq-title"><div><h2 id="faq-title">A few things<br />you might wonder.</h2><a class="text-link" href="/faq">Read all FAQs <span aria-hidden="true">↗</span></a></div><FaqList /></section>
+    <section class="closing-section motion-scene" id="waitlist" aria-labelledby="closing-title"><MemoryThread /><div class="page closing-content"><span class="little-spark" aria-hidden="true">✳</span><h2 id="closing-title">Which song would<br />you save first?</h2><p>Your first memory is already out there.<br />We’ll let you know when it has a home.</p><ComingSoonWaitlist client:visible /><p class="availability">Coming soon to iOS &amp; Android</p><noscript><p>Enable JavaScript to join the waitlist.</p></noscript></div></section>
   </main>
-
   <script>
-    // Hero float cards: gentle drift loop, paused while off-screen.
-    const cards = Array.from(document.querySelectorAll<HTMLElement>('.float-card'))
-    if (cards.length) {
-      type Meta = {
-        card: HTMLElement
-        baseRotate: number
-        period: number
-        amp: number
-        start: number
-        visible: boolean
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const scenes = [...document.querySelectorAll<HTMLElement>('.motion-scene')]
+    const active = new Set<HTMLElement>()
+    let frame = 0
+    const update = () => {
+      frame = 0
+      if (reduced.matches) return
+      for (const scene of active) {
+        const rect = scene.getBoundingClientRect()
+        const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / (innerHeight + rect.height)))
+        scene.style.setProperty('--progress', String(progress))
+        scene.style.setProperty('--drift', `${(progress - .5) * 24}px`)
       }
-      const metas: Meta[] = cards.map((c, i) => ({
-        card: c,
-        baseRotate: (Math.random() - 0.5) * 6,
-        period: 9000 + i * 1700,
-        amp: 4 + (i % 3) * 2,
-        start: performance.now() - Math.random() * (9000 + i * 1700),
-        visible: false,
-      }))
-
-      let running = false
-      const tick = (now: number) => {
-        let any = false
-        for (const m of metas) {
-          if (!m.visible) continue
-          any = true
-          const phase = ((now - m.start) % m.period) / m.period
-          const y = Math.sin(phase * Math.PI * 2) * m.amp
-          const x = Math.cos(phase * Math.PI * 2) * (m.amp * 0.4)
-          m.card.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${m.baseRotate.toFixed(2)}deg)`
-        }
-        if (any) {
-          requestAnimationFrame(tick)
-        } else {
-          running = false
-        }
-      }
-
-      const io = new IntersectionObserver((entries) => {
-        for (const e of entries) {
-          const m = metas.find((x) => x.card === e.target)
-          if (m) m.visible = e.isIntersecting
-        }
-        if (!running && metas.some((m) => m.visible)) {
-          running = true
-          requestAnimationFrame(tick)
-        }
-      })
-      metas.forEach((m) => io.observe(m.card))
     }
-
-    // Story progress rail: highlight steps up to the frame currently in view.
-    const progress = document.querySelector('[data-story-progress]')
-    const frames = Array.from(document.querySelectorAll<HTMLElement>('.story-wf .story-frame'))
-    if (progress && frames.length) {
-      const steps = Array.from(progress.querySelectorAll('.step'))
-      const io = new IntersectionObserver(
-        (entries) => {
-          for (const e of entries) {
-            if (!e.isIntersecting) continue
-            const idx = frames.indexOf(e.target as HTMLElement)
-            if (idx < 0) continue
-            steps.forEach((s, i) => s.classList.toggle('on', i <= idx))
-          }
-        },
-        { threshold: 0.5, rootMargin: '-20% 0px -20% 0px' }
-      )
-      frames.forEach((f) => io.observe(f))
+    const schedule = () => { if (!frame && !reduced.matches) frame = requestAnimationFrame(update) }
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          const scene = entry.target as HTMLElement
+          if (entry.isIntersecting) active.add(scene)
+          else active.delete(scene)
+        }
+        schedule()
+      })
+      scenes.forEach(scene => observer.observe(scene))
+      window.addEventListener('scroll', schedule, { passive: true })
+      window.addEventListener('resize', schedule, { passive: true })
+      reduced.addEventListener('change', () => {
+        if (reduced.matches) scenes.forEach(scene => { scene.style.removeProperty('--progress'); scene.style.removeProperty('--drift') })
+        else schedule()
+      })
     }
   </script>
 </BaseLayout>

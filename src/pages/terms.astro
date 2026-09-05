@@ -65,10 +65,13 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         <section>
           <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">5. Subscription and Payment</h2>
           <p class="leading-relaxed mb-4">
-            Access to the Service requires an active paid subscription. All features are available exclusively to subscribers. There is no free tier.
+            An active paid subscription is required for Music Memory&apos;s premium first-party product features, including creating or editing memories and using premium journal and community areas. Legal documents, support, account deletion, purchase restoration, subscription management, billing controls, and supported Apple utility actions remain available according to their authentication, platform, device, store-account, and network requirements; they do not require an active Music Memory entitlement.
           </p>
           <p class="leading-relaxed mb-4">
-            Subscriptions are managed through RevenueCat and processed via the Apple App Store or Google Play Store, as applicable. All billing, renewal, and cancellation are governed by the respective platform&apos;s terms. Upon expiration or cancellation of your subscription, access to the Service will be suspended and all public entries will be automatically reverted to private status.
+            Subscriptions are managed through RevenueCat and processed via the Apple App Store or Google Play Store, as applicable. Billing, renewal, and cancellation are governed by the respective platform&apos;s terms. Cancellation, expiration, or lapse restricts premium functionality when the entitlement ends.
+          </p>
+          <p class="leading-relaxed">
+            Subscription cancellation or lapse does not delete memories or change their selected visibility. It also does not request account deletion. Stored memories remain in the account unless you change them or separately complete the explicit account-deletion process described in Section 11.
           </p>
         </section>
 
@@ -112,19 +115,28 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         <section>
           <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">8. Content Moderation and Enforcement</h2>
           <p class="leading-relaxed mb-4">
-            We employ automated and community-driven moderation systems to maintain the integrity of the Service. Entries that receive reports from the community may be flagged for review. Entries that accumulate a significant number of reports may be permanently restricted from public visibility, and the associated account may receive a strike.
+            Server-owned deterministic prepublication checks apply safety and anti-spam rules to public-facing text before it is published. Content that passes those checks can publish immediately. Content that matches an enforced rule is not published and may be appealed for review.
           </p>
           <p class="leading-relaxed mb-4">
-            Our enforcement actions include, but are not limited to:
+            When reporting content, a comment, or a profile, you will be asked to select a reason from the following categories:
           </p>
-          <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
-            <li>Flagging content for review</li>
-            <li>Forcing content to private status (irreversible)</li>
-            <li>Issuing strikes against user accounts</li>
-            <li>Suspending accounts upon accumulation of three (3) strikes</li>
+          <ul data-report-reasons class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
+            <li data-report-reason="harassment">Harassment or bullying</li>
+            <li data-report-reason="hate_speech">Hate speech</li>
+            <li data-report-reason="sexual_content">Sexual content</li>
+            <li data-report-reason="violence_threats">Violence or threats</li>
+            <li data-report-reason="self_harm">Self-harm</li>
+            <li data-report-reason="spam_scam">Spam or scam</li>
+            <li data-report-reason="impersonation">Impersonation</li>
+            <li data-report-reason="copyright_ip">Copyright/IP</li>
+            <li data-report-reason="personal_information">Personal information</li>
+            <li data-report-reason="other">Other</li>
           </ul>
           <p class="leading-relaxed mt-4">
-            Suspended users are prohibited from making entries public. We reserve the right to remove content and suspend or terminate accounts at our sole discretion, with or without notice, for conduct that we determine violates these Terms or is harmful to other users or the Service.
+            Each user may submit one stored report for the same target. Duplicate attempts do not create additional reports. A successful report immediately hides the reported target from the reporter and places the case into human review; the report by itself does not remove the target for everyone or impose an account action.
+          </p>
+          <p class="leading-relaxed mt-4">
+            Authorized human reviewers may keep or restore content, remove content, issue a warning, suspend access, or terminate an account after reviewing the case. We reserve the right to take proportionate action when reviewed conduct violates these Terms or is harmful to users or the Service.
           </p>
         </section>
 
@@ -154,12 +166,13 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         <section>
           <h2 class="text-2xl font-bold mb-4" style="color: var(--ink)">11. Account Termination and Deletion</h2>
           <p class="leading-relaxed mb-4">
-            You may request deletion of your account at any time through the Settings screen within the application. Upon initiating account deletion:
+            You may request deletion at any time through the in-app <strong>Access &amp; Support</strong> surface. If authentication is required, signing in only verifies your identity. Signing in does not cancel deletion; only the explicit cancellation action can do that. Upon confirming an account-deletion request:
           </p>
           <ul class="list-disc pl-5 space-y-2" style="color: var(--ink-90)">
-            <li>Your account will enter a fourteen (14) day grace period during which deletion may be cancelled by signing back in</li>
-            <li>During the grace period, your profile and content will be hidden from public view</li>
-            <li>After the grace period expires, all associated data will be permanently and irreversibly deleted, including journal entries, media files, reactions, reports, and authentication credentials</li>
+            <li>Your account enters a fourteen (14) day grace period before permanent deletion begins.</li>
+            <li>During the grace period, your profile and shared content are hidden from public view and pending-state restrictions apply.</li>
+            <li>Before permanent deletion begins, you may keep the account only by explicitly choosing <strong>Cancel deletion and restore account</strong> on the pending-deletion screen.</li>
+            <li>After the grace period, permanent deletion proceeds across configured data processors. Temporary provider failures are retried; once completed, the deletion is irreversible.</li>
           </ul>
           <p class="leading-relaxed mt-4">
             We reserve the right to terminate or suspend your account immediately, without prior notice or liability, for any reason, including breach of these Terms.

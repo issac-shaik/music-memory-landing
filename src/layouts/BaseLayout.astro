@@ -70,7 +70,7 @@ const jsonLdBlocks = [orgJsonLd, websiteJsonLd, ...structuredData]
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {preloadImage && <link rel="preload" href={preloadImage} as="image" type="image/webp" />}
 
-    <meta name="theme-color" content="#F4EDE0" />
+    <meta name="theme-color" content="#EDF2F5" />
     <meta name="application-name" content="Music Memory" />
     <meta name="author" content="Music Memory" />
     <meta name="publisher" content="Music Memory" />
@@ -110,7 +110,8 @@ const jsonLdBlocks = [orgJsonLd, websiteJsonLd, ...structuredData]
       </style>
     </noscript>
   </head>
-  <body class="v2 prod liner">
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="nav-shell">
       <div class="page">
         <nav class="nav-floating" aria-label="Main navigation">
@@ -135,6 +136,7 @@ const jsonLdBlocks = [orgJsonLd, websiteJsonLd, ...structuredData]
       </div>
     </div>
 
+    <div id="main-content" tabindex="-1" class="content-start"></div>
     <slot />
 
     <footer class="reveal" data-screen-label="10 Footer">
@@ -142,7 +144,7 @@ const jsonLdBlocks = [orgJsonLd, websiteJsonLd, ...structuredData]
         <div class="foot-wf foot-slim">
           <div class="top">
             <div class="brand">
-              Music <em style="font-style: italic; color: var(--ink-50)">Memory.</em>
+              Music Memory
             </div>
             <ul class="legal-links">
               <li><a href="/faq">FAQ</a></li>
@@ -156,75 +158,11 @@ const jsonLdBlocks = [orgJsonLd, websiteJsonLd, ...structuredData]
           <div class="bottom">
             <span>© 2026 Music Memory</span>
             <span class="center">Made with care for the songs you can't forget.</span>
-            <span class="right">v1.0</span>
+
           </div>
         </div>
       </div>
     </footer>
 
-    <script>
-      // Nav: translucent paper-glass once scrolled (CSS keys off .is-scrolled),
-      // and night-glass while it floats over a dark section (.nav-dark keys
-      // off the navbar band overlapping #community — homepage only).
-      const shell = document.querySelector('.nav-shell')
-      if (shell) {
-        const navEl = shell.querySelector('.nav-floating')
-        const darkSection = document.getElementById('community')
-        let last: boolean | null = null
-        let lastDark: boolean | null = null
-        let ticking = false
-        const update = () => {
-          const next = window.scrollY > 40
-          if (next !== last) {
-            last = next
-            shell.classList.toggle('is-scrolled', next)
-          }
-          if (navEl && darkSection) {
-            const navBottom = navEl.getBoundingClientRect().bottom
-            const r = darkSection.getBoundingClientRect()
-            const dark = r.top < navBottom && r.bottom > 0
-            if (dark !== lastDark) {
-              lastDark = dark
-              shell.classList.toggle('nav-dark', dark)
-            }
-          }
-          ticking = false
-        }
-        update()
-        window.addEventListener(
-          'scroll',
-          () => {
-            if (!ticking) {
-              ticking = true
-              requestAnimationFrame(update)
-            }
-          },
-          { passive: true }
-        )
-      }
-
-      // Reveal-on-scroll: add .in as elements enter the viewport.
-      const revealEls = document.querySelectorAll('.reveal')
-      if (typeof IntersectionObserver === 'undefined') {
-        revealEls.forEach((el) => el.classList.add('in'))
-      } else {
-        const io = new IntersectionObserver(
-          (entries) => {
-            for (const e of entries) {
-              if (e.isIntersecting) {
-                e.target.classList.add('in')
-                io.unobserve(e.target)
-              }
-            }
-          },
-          { threshold: 0.05, rootMargin: '0px 0px -2% 0px' }
-        )
-        const schedule =
-          typeof requestIdleCallback !== 'undefined'
-            ? requestIdleCallback
-            : (cb: () => void) => setTimeout(cb, 1)
-        schedule(() => revealEls.forEach((el) => io.observe(el)))
-      }
-    </script>
   </body>
 </html>

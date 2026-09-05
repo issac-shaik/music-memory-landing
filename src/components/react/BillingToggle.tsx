@@ -4,7 +4,7 @@ import { getUiCopy } from '../../data/uiTranslations'
 
 function scrollToSelector(sel: string) {
   const el = document.querySelector(sel)
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  if (el) el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })
 }
 
 export function BillingToggle() {
